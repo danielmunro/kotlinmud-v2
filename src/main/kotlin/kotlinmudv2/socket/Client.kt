@@ -1,13 +1,21 @@
 package kotlinmudv2.socket
 
 import kotlinmudv2.mob.Mob
+import org.jetbrains.exposed.sql.transactions.transaction
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.channels.ClosedChannelException
 import java.nio.channels.SocketChannel
 
 class Client(private val socket: SocketChannel) {
-    var mob: Mob? = Mob()
+    var mob: Mob? = transaction {
+        Mob.new {
+            name = "foo"
+            brief = "bar"
+            description = "hello world"
+            roomId = 1
+        }
+    }
     var delay = 0
     private var connected = true
     private val buffers = mutableListOf<String>()

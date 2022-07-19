@@ -1,5 +1,6 @@
 package kotlinmudv2.game
 
+import kotlinmudv2.database.createConnection
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
 import kotlinmudv2.event.observer.Observer
