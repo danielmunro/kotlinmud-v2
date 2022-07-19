@@ -2,7 +2,7 @@ package kotlinmudv2
 
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
-import kotlinmudv2.event.Observer
+import kotlinmudv2.event.observer.Observer
 import kotlinmudv2.game.GameService
 import kotlinmudv2.game.createContainer
 import org.kodein.di.instance

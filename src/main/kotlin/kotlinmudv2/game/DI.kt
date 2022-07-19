@@ -2,7 +2,7 @@ package kotlinmudv2.game
 
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
-import kotlinmudv2.event.Observer
+import kotlinmudv2.event.observer.Observer
 import kotlinmudv2.event.observer.ClientConnectedObserver
 import kotlinmudv2.event.observer.ReadClientsObserver
 import kotlinmudv2.socket.ClientService

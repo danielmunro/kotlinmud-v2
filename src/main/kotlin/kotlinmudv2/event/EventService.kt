@@ -1,5 +1,7 @@
 package kotlinmudv2.event
 
+import kotlinmudv2.event.observer.Observer
+
 class EventService {
     lateinit var observers: Map<EventType, List<Observer>>
 
