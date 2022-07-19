@@ -54,6 +54,12 @@ class SocketService(
         selectedKeys.clear()
     }
 
+    fun getClientsWithBuffers(): List<Client> {
+        return clients.values.stream()
+            .filter { it.hasInput() }
+            .collect(Collectors.toList())
+    }
+
     private suspend fun handleAccept(newSocket: ServerSocketChannel) {
         configureAndAcceptSocket(newSocket)?.also {
             val client = Client(it)

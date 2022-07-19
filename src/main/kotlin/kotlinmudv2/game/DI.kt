@@ -4,6 +4,7 @@ import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
 import kotlinmudv2.event.observer.Observer
 import kotlinmudv2.event.observer.ClientConnectedObserver
+import kotlinmudv2.event.observer.ProcessClientBufferObserver
 import kotlinmudv2.event.observer.ReadClientsObserver
 import kotlinmudv2.socket.ClientService
 import kotlinmudv2.socket.SocketService
@@ -23,6 +24,7 @@ fun createContainer(): DI {
         // observers
         bindProvider(tag = "clientConnected") { ClientConnectedObserver() }
         bindProvider(tag = "readClients") { ReadClientsObserver(instance()) }
+        bindProvider(tag = "processClientBuffer") { ProcessClientBufferObserver(instance()) }
 
         // list of observers
         bindSingleton<Map<EventType, List<Observer>>>(tag = "observers") {
@@ -37,6 +39,7 @@ fun createContainer(): DI {
                     EventType.GameLoop,
                     listOf(
                         instance(tag = "readClients"),
+                        instance(tag = "processClientBuffer")
                     ),
                 ),
             )
