@@ -1,4 +1,4 @@
-package kotlinmudv2.event.observer
+package kotlinmudv2.observer
 
 import kotlinmudv2.event.Event
 
