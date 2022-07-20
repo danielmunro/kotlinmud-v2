@@ -9,7 +9,6 @@ import kotlinmudv2.game.createContainer
 import org.kodein.di.instance
 
 fun main() {
-    println("hello")
     val container = createContainer()
     val gameService by container.instance<GameService>()
     val eventService by container.instance<EventService>()
@@ -17,5 +16,4 @@ fun main() {
     createConnection()
     eventService.observers = observers
     gameService.start()
-    println("world")
 }

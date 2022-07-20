@@ -1,8 +1,6 @@
 package kotlinmudv2.observer
 
-import kotlinmudv2.action.Action
-import kotlinmudv2.action.ActionService
-import kotlinmudv2.action.Syntax
+import kotlinmudv2.action.*
 import kotlinmudv2.event.Event
 import kotlinmudv2.socket.Client
 import kotlinmudv2.socket.SocketService
@@ -17,24 +15,29 @@ class ProcessClientBufferObserver(
             processRequest(it)
         }
     }
+
+    fun handleRequest(client: Client, input: String): Response {
+        val response = findActionForInput(input)?.let {
+            it.execute(
+                ActionService(),
+                client.mob!!,
+                input,
+            )
+        } ?: Response(
+            client.mob!!,
+            ActionStatus.Error,
+            "What was that?",
+        )
+        client.writePrompt(response.toActionCreator)
+        return response
+    }
+
     private fun processRequest(client: Client) {
         if (client.isDelayed()) {
             return
         }
 
         client.shiftInput().also { handleRequest(client, it) }
-    }
-
-    private fun handleRequest(client: Client, input: String) {
-        client.writePrompt(
-            findActionForInput(input)?.let {
-                it.execute(
-                    ActionService(),
-                    client.mob!!,
-                    input,
-                ).toActionCreator
-            } ?: "What was that?"
-        )
     }
 
     private fun findActionForInput(input: String): Action? {

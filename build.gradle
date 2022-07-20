@@ -24,6 +24,12 @@ dependencies {
 
     // h2
     implementation "com.h2database:h2:2.1.214"
+
+    // use the Kotlin test library
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+
+    // assert library
+    testImplementation 'com.willowtreeapps.assertk:assertk-jvm:0.25'
 }
 
 test {

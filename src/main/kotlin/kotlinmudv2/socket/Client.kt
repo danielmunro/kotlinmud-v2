@@ -6,6 +6,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.channels.ClosedChannelException
+import java.nio.channels.NotYetConnectedException
 import java.nio.channels.SocketChannel
 
 class Client(private val socket: SocketChannel) {
@@ -38,6 +39,8 @@ class Client(private val socket: SocketChannel) {
         } catch (e: ClosedChannelException) {
             connected = false
         } catch (e: IOException) {
+            connected = false
+        } catch (e: NotYetConnectedException) {
             connected = false
         }
     }
