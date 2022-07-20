@@ -6,6 +6,8 @@ import kotlinmudv2.event.EventType
 import kotlinmudv2.observer.Observer
 import kotlinmudv2.game.GameService
 import kotlinmudv2.game.createContainer
+import kotlinmudv2.room.RoomEntity
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.instance
 
 fun main() {
@@ -15,5 +17,19 @@ fun main() {
     val observers by container.instance<Map<EventType, List<Observer>>>(tag = "observers")
     createConnection()
     eventService.observers = observers
+
+    transaction {
+        RoomEntity.new {
+            name = "a fountain at the center of town"
+            description = "bar"
+            northId = 2
+        }
+        RoomEntity.new {
+            name = "market avenue"
+            description = "bar"
+            southId = 1
+        }
+    }
+
     gameService.start()
 }

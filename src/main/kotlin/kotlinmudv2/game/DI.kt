@@ -1,6 +1,7 @@
 package kotlinmudv2.game
 
 import kotlinmudv2.action.actions.createLookAction
+import kotlinmudv2.action.actions.createNorthAction
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
 import kotlinmudv2.observer.Observer
@@ -26,6 +27,7 @@ fun createContainer(): DI {
         bindSingleton {
             listOf(
                 createLookAction(),
+                createNorthAction(),
             )
         }
 

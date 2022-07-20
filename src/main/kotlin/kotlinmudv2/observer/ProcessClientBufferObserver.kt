@@ -45,7 +45,7 @@ class ProcessClientBufferObserver(
         return actions.find { action ->
             action.syntax.find { syntax ->
                 when (syntax) {
-                    Syntax.Command -> parts[0] == action.command.value
+                    Syntax.Command -> action.command.value.startsWith(parts[0])
                 }
             } != null
         }
