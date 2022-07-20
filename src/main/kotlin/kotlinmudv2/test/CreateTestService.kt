@@ -5,8 +5,6 @@ import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
 import kotlinmudv2.game.createContainer
 import kotlinmudv2.observer.Observer
-import kotlinmudv2.room.RoomEntity
-import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.instance
 
 fun createTestService(): TestService {

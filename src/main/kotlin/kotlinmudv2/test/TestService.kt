@@ -18,16 +18,16 @@ class TestService(private val container: DI) {
             description = "bar"
         }
     }
-    val client = Client(SocketChannel.open())
-
-    fun getProcessClientBufferObserver(): ProcessClientBufferObserver {
-        return container.direct.instance(tag = "processClientBuffer")
-    }
+    private val client = Client(SocketChannel.open())
 
     fun handleRequest(input: String): Response {
         return getProcessClientBufferObserver().handleRequest(
             client,
             input,
         )
+    }
+
+    private fun getProcessClientBufferObserver(): ProcessClientBufferObserver {
+        return container.direct.instance(tag = "processClientBuffer")
     }
 }
