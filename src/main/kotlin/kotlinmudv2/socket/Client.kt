@@ -31,7 +31,7 @@ class Client(private val socket: SocketChannel) {
 
     fun writePrompt(message: String) {
         val buffer = ByteBuffer.allocate(1024)
-        buffer.put(message.toByteArray())
+        buffer.put("$message\n".toByteArray())
         buffer.flip()
         try {
             socket.write(buffer)

@@ -2,6 +2,7 @@ package kotlinmudv2.event.observer
 
 import kotlinmudv2.action.Action
 import kotlinmudv2.action.ActionService
+import kotlinmudv2.action.Syntax
 import kotlinmudv2.event.Event
 import kotlinmudv2.socket.Client
 import kotlinmudv2.socket.SocketService
@@ -26,9 +27,7 @@ class ProcessClientBufferObserver(
 
     private fun handleRequest(client: Client, input: String) {
         client.writePrompt(
-            actions.find {
-                it.command.value == input
-            }?.let {
+            findActionForInput(input)?.let {
                 it.execute(
                     ActionService(),
                     client.mob!!,
@@ -36,5 +35,16 @@ class ProcessClientBufferObserver(
                 ).toActionCreator
             } ?: "What was that?"
         )
+    }
+
+    private fun findActionForInput(input: String): Action? {
+        val parts = input.split(" ")
+        return actions.find { action ->
+            action.syntax.find { syntax ->
+                when (syntax) {
+                    Syntax.Command -> parts[0] == action.command.value
+                }
+            } != null
+        }
     }
 }
