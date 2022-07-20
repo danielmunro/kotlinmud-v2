@@ -4,8 +4,8 @@ import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 
-class Room(id: EntityID<Int>) : IntEntity(id) {
-    companion object : IntEntityClass<Room>(RoomTable)
+class RoomEntity(id: EntityID<Int>) : IntEntity(id) {
+    companion object : IntEntityClass<RoomEntity>(RoomTable)
     var name by RoomTable.name
     var description by RoomTable.description
     var northId by RoomTable.northId

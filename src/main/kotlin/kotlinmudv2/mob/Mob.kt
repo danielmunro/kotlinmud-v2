@@ -1,13 +1,10 @@
 package kotlinmudv2.mob
 
-import org.jetbrains.exposed.dao.IntEntity
-import org.jetbrains.exposed.dao.IntEntityClass
-import org.jetbrains.exposed.dao.id.EntityID
-
-class Mob(id: EntityID<Int>) : IntEntity(id) {
-    companion object : IntEntityClass<Mob>(MobTable)
-    var name by MobTable.name
-    var brief by MobTable.brief
-    var description by MobTable.description
-    var roomId by MobTable.roomId
+class Mob(
+    private val entity: MobEntity,
+) {
+    val hp = entity.hp
+    val mana = entity.mana
+    val moves = entity.moves
+    val roomId = entity.roomId
 }

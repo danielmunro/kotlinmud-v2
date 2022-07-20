@@ -2,7 +2,6 @@ package kotlinmudv2.socket
 
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.createClientConnectedEvent
-import kotlinmudv2.mob.Mob
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException

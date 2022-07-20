@@ -1,5 +1,6 @@
 package kotlinmudv2.game
 
+import kotlinmudv2.action.actions.createLookAction
 import kotlinmudv2.database.createConnection
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
@@ -22,10 +23,17 @@ fun createContainer(): DI {
         bindSingleton { SocketService(instance(), instance(), 9999) }
         bindSingleton { GameService(instance()) }
 
+        // actions
+        bindSingleton {
+            listOf(
+                createLookAction(),
+            )
+        }
+
         // observers
         bindProvider(tag = "clientConnected") { ClientConnectedObserver() }
         bindProvider(tag = "readClients") { ReadClientsObserver(instance()) }
-        bindProvider(tag = "processClientBuffer") { ProcessClientBufferObserver(instance()) }
+        bindProvider(tag = "processClientBuffer") { ProcessClientBufferObserver(instance(), instance()) }
 
         // list of observers
         bindSingleton<Map<EventType, List<Observer>>>(tag = "observers") {

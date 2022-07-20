@@ -6,5 +6,11 @@ object MobTable : IntIdTable() {
     val name = varchar("name", 50)
     val brief = varchar("brief", 50)
     val description = varchar("description", 255)
+    val hp = integer("hp")
+    val mana = integer("mana")
+    val moves = integer("moves")
+    val maxHp = integer("maxHp")
+    val maxMana = integer("maxMana")
+    val maxMoves = integer("maxMoves")
     val roomId = integer("roomId")
 }
