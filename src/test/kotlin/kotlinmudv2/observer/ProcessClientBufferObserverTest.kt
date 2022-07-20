@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 
 class ProcessClientBufferObserverTest {
     @Test
-    fun testCanLook() {
+    fun testCanLookAndDescribeRoom() {
         // given
         val testService = createTestService()
         val room = testService.startRoom
