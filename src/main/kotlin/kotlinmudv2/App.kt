@@ -11,7 +11,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.instance
 
 fun main() {
-    val container = createContainer()
+    val container = createContainer(9999)
     val gameService by container.instance<GameService>()
     val eventService by container.instance<EventService>()
     val observers by container.instance<Map<EventType, List<Observer>>>(tag = "observers")

@@ -8,7 +8,7 @@ import kotlinmudv2.observer.Observer
 import org.kodein.di.instance
 
 fun createTestService(): TestService {
-    val container = createContainer()
+    val container = createContainer(0)
     val eventService by container.instance<EventService>()
     val observers by container.instance<Map<EventType, List<Observer>>>(tag = "observers")
     createConnection()

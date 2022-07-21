@@ -18,10 +18,10 @@ class TestService(private val container: DI) {
             description = "bar"
         }
     }
-    private val client = Client(SocketChannel.open())
-
-    fun getRoom(id: Int): RoomEntity? {
-        return transaction { RoomEntity.findById(id) }
+    private val client = Client(SocketChannel.open()).also {
+        transaction {
+            it.mob!!.roomId = startRoom.id.value
+        }
     }
 
     fun handleRequest(input: String): Response {

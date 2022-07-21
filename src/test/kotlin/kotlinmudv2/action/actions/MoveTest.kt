@@ -30,4 +30,27 @@ class MoveTest {
         // then
         assertThat(response.toActionCreator).isEqualTo("${destinationRoom.name}\n${destinationRoom.description}\n")
     }
+
+    @Test
+    fun testCanMoveSouth() {
+        // setup
+        val testService = createTestService()
+
+        // given
+        val startRoom = testService.startRoom
+        val destinationRoom = transaction {
+            RoomEntity.new {
+                name = "test destination"
+                description = "a description"
+                northId = 1
+            }
+        }
+        transaction { startRoom.southId = destinationRoom.id.value }
+
+        // when
+        val response = testService.handleRequest("south")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("${destinationRoom.name}\n${destinationRoom.description}\n")
+    }
 }

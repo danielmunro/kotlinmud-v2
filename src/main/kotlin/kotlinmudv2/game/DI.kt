@@ -1,7 +1,12 @@
 package kotlinmudv2.game
 
+import kotlinmudv2.action.actions.createDownAction
+import kotlinmudv2.action.actions.createEastAction
 import kotlinmudv2.action.actions.createLookAction
 import kotlinmudv2.action.actions.createNorthAction
+import kotlinmudv2.action.actions.createSouthAction
+import kotlinmudv2.action.actions.createUpAction
+import kotlinmudv2.action.actions.createWestAction
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
 import kotlinmudv2.observer.Observer
@@ -15,12 +20,12 @@ import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 
-fun createContainer(): DI {
+fun createContainer(port: Int): DI {
     return DI {
         // services
         bindSingleton { EventService() }
         bindSingleton { ClientService() }
-        bindSingleton { SocketService(instance(), instance(), 9999) }
+        bindSingleton { SocketService(instance(), instance(), port) }
         bindSingleton { GameService(instance()) }
 
         // actions
@@ -28,6 +33,11 @@ fun createContainer(): DI {
             listOf(
                 createLookAction(),
                 createNorthAction(),
+                createSouthAction(),
+                createEastAction(),
+                createWestAction(),
+                createUpAction(),
+                createDownAction(),
             )
         }
 

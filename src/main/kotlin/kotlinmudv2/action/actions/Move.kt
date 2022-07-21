@@ -7,13 +7,37 @@ import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.room.Direction
 
-fun createNorthAction(): Action {
+private fun createMoveAction(command: Command, direction: Direction): Action {
     return Action(
-        Command.North,
+        command,
         listOf(Syntax.Command)
     ) { actionService, mob, _ ->
-        actionService.moveMob(mob, Direction.North)?.let {
+        actionService.moveMob(mob, direction)?.let {
             createLookAction().execute(actionService, mob, "look")
         } ?: Response(mob, ActionStatus.Error, "Alas, that direction does not exist.")
     }
+}
+
+fun createNorthAction(): Action {
+    return createMoveAction(Command.North, Direction.North)
+}
+
+fun createSouthAction(): Action {
+    return createMoveAction(Command.South, Direction.South)
+}
+
+fun createEastAction(): Action {
+    return createMoveAction(Command.East, Direction.East)
+}
+
+fun createWestAction(): Action {
+    return createMoveAction(Command.West, Direction.West)
+}
+
+fun createUpAction(): Action {
+    return createMoveAction(Command.Up, Direction.Up)
+}
+
+fun createDownAction(): Action {
+    return createMoveAction(Command.Down, Direction.Down)
 }
