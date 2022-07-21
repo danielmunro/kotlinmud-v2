@@ -20,6 +20,10 @@ class TestService(private val container: DI) {
     }
     private val client = Client(SocketChannel.open())
 
+    fun getRoom(id: Int): RoomEntity? {
+        return transaction { RoomEntity.findById(id) }
+    }
+
     fun handleRequest(input: String): Response {
         return getProcessClientBufferObserver().handleRequest(
             client,

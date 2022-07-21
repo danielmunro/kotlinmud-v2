@@ -1,11 +1,11 @@
-package kotlinmudv2.observer
+package kotlinmudv2.action.actions
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import kotlinmudv2.test.createTestService
-import org.junit.jupiter.api.Test
+import kotlin.test.Test
 
-class ProcessClientBufferObserverTest {
+class LookTest {
     @Test
     fun testCanLookAndDescribeRoom() {
         // given
