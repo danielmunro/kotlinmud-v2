@@ -2,7 +2,9 @@ package kotlinmudv2.test
 
 import kotlinmudv2.action.Response
 import kotlinmudv2.observer.ProcessClientBufferObserver
+import kotlinmudv2.room.Room
 import kotlinmudv2.room.RoomEntity
+import kotlinmudv2.room.RoomService
 import kotlinmudv2.socket.Client
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.DI
@@ -12,12 +14,18 @@ import java.nio.channels.SocketChannel
 
 
 class TestService(private val container: DI) {
-    val startRoom = transaction {
-        RoomEntity.new {
-            name = "foo"
-            description = "bar"
+    private val roomService = container.direct.instance<RoomService>()
+    var startRoom: Room
+    init {
+        val roomEntity = transaction {
+            RoomEntity.new {
+                name = "foo"
+                description = "bar"
+            }
         }
+        startRoom = roomService.getRoom(roomEntity.id.value)!!
     }
+
     private val client = Client(SocketChannel.open()).also {
         transaction {
             it.mob!!.roomId = startRoom.id.value

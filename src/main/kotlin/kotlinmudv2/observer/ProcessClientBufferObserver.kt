@@ -2,12 +2,14 @@ package kotlinmudv2.observer
 
 import kotlinmudv2.action.*
 import kotlinmudv2.event.Event
+import kotlinmudv2.room.RoomService
 import kotlinmudv2.socket.Client
 import kotlinmudv2.socket.SocketService
 import kotlinx.coroutines.flow.asFlow
 
 class ProcessClientBufferObserver(
     private val socketService: SocketService,
+    private val actionService: ActionService,
     private val actions: List<Action>,
 ) : Observer {
     override suspend fun <T> invokeAsync(event: Event<T>) {
@@ -19,7 +21,7 @@ class ProcessClientBufferObserver(
     fun handleRequest(client: Client, input: String): Response {
         val response = findActionForInput(input)?.let {
             it.execute(
-                ActionService(),
+                actionService,
                 client.mob!!,
                 input,
             )

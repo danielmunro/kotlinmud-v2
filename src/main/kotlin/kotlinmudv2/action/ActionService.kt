@@ -2,12 +2,12 @@ package kotlinmudv2.action
 
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.room.Direction
-import kotlinmudv2.room.RoomEntity
-import org.jetbrains.exposed.sql.transactions.transaction
+import kotlinmudv2.room.Room
+import kotlinmudv2.room.RoomService
 
-class ActionService {
-    fun getRoom(id: Int): RoomEntity? {
-        return transaction { RoomEntity.findById(id) }
+class ActionService(private val roomService: RoomService) {
+    fun getRoom(id: Int): Room? {
+        return roomService.getRoom(id)
     }
 
     fun moveMob(mob: Mob, direction: Direction): Int? {
