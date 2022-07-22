@@ -60,8 +60,4 @@ class Client(private val socket: SocketChannel) {
     fun shiftInput(): String {
         return buffers.removeAt(0)
     }
-
-    fun isConnected(): Boolean {
-        return connected
-    }
 }
