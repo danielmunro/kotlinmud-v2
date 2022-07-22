@@ -1,7 +1,5 @@
 package kotlinmudv2.mob
 
-import kotlinmudv2.room.RoomEntity
-import kotlinmudv2.room.RoomService
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class MobService {
