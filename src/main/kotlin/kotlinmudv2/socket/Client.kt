@@ -9,23 +9,7 @@ import java.nio.channels.ClosedChannelException
 import java.nio.channels.NotYetConnectedException
 import java.nio.channels.SocketChannel
 
-class Client(private val socket: SocketChannel) {
-    var mob: Mob? = Mob(
-        transaction {
-            MobEntity.new {
-                name = "foo"
-                brief = "bar"
-                description = "hello world"
-                roomId = 1
-                hp = 0
-                mana = 0
-                moves = 0
-                maxHp = 0
-                maxMana = 0
-                maxMoves = 0
-            }
-        }
-    )
+class Client(private val socket: SocketChannel, val mob: Mob) {
     var delay = 0
     private var connected = true
     private val buffers = mutableListOf<String>()

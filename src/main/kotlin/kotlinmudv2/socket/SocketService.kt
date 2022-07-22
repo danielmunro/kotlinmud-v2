@@ -2,6 +2,7 @@ package kotlinmudv2.socket
 
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.createClientConnectedEvent
+import kotlinmudv2.mob.MobService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -19,6 +20,7 @@ const val READ_BUFFER_SIZE_IN_BYTES = 1024
 class SocketService(
     private val clientService: ClientService,
     private val eventService: EventService,
+    private val mobService: MobService,
     private val port: Int = 0,
 ) {
     companion object {
@@ -61,7 +63,7 @@ class SocketService(
 
     private suspend fun handleAccept(newSocket: ServerSocketChannel) {
         configureAndAcceptSocket(newSocket)?.also {
-            val client = Client(it)
+            val client = Client(it, mobService.createMobEntity("foo", "bar"))
             eventService.publish(createClientConnectedEvent(client))
             clients[it] = client
             clientService.addClient(client)
