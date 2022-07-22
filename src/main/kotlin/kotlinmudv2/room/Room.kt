@@ -1,8 +1,6 @@
 package kotlinmudv2.room
 
-class Room (
-    private val roomEntity: RoomEntity
-) {
+class Room (roomEntity: RoomEntity) {
     val id = roomEntity.id
     var name = roomEntity.name
     var description = roomEntity.description

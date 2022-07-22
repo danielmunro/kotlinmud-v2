@@ -1,8 +1,6 @@
 package kotlinmudv2.mob
 
-class Mob(
-    private val entity: MobEntity,
-) {
+class Mob(entity: MobEntity) {
     var hp = entity.hp
     var mana = entity.mana
     var moves = entity.moves
