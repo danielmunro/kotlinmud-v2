@@ -24,17 +24,17 @@ class MobService(private val itemService: ItemService) {
         return createMobInstance(entity.id.value)!!
     }
 
-    fun createMobInstance(id: Int): Mob? {
-        return transaction { MobEntity.findById(id) }?.let {
-            mapMob(it)
-        }
-    }
-
     fun getMob(id: Int): Mob? {
         if (mobs[id] == null) {
             createMobInstance(id)?.let { mobs[id] = it }
         }
         return mobs[id]
+    }
+
+    private fun createMobInstance(id: Int): Mob? {
+        return transaction { MobEntity.findById(id) }?.let {
+            mapMob(it)
+        }
     }
 
     private fun mapMob(entity: MobEntity): Mob {
