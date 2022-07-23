@@ -18,7 +18,7 @@ class ProcessClientBufferObserver(
     }
 
     fun handleRequest(client: Client, input: String): Response {
-        val response = contextService.findActionForInput(client, input)?.let {
+        return (contextService.findActionForInput(client, input)?.let {
             it.execute(
                 actionService,
                 client.mob,
@@ -28,9 +28,9 @@ class ProcessClientBufferObserver(
             client.mob,
             ActionStatus.Error,
             "What was that?",
-        )
-        client.writePrompt(response.toActionCreator)
-        return response
+        )).also {
+            client.writePrompt(it.toActionCreator)
+        }
     }
 
     private fun processRequest(client: Client) {
