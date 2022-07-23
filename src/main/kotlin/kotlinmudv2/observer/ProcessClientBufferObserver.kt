@@ -2,7 +2,6 @@ package kotlinmudv2.observer
 
 import kotlinmudv2.action.*
 import kotlinmudv2.event.Event
-import kotlinmudv2.room.RoomService
 import kotlinmudv2.socket.Client
 import kotlinmudv2.socket.SocketService
 import kotlinx.coroutines.flow.asFlow

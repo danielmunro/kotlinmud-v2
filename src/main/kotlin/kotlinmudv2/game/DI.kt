@@ -12,8 +12,8 @@ import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
 import kotlinmudv2.item.ItemService
 import kotlinmudv2.mob.MobService
-import kotlinmudv2.observer.Observer
 import kotlinmudv2.observer.ClientConnectedObserver
+import kotlinmudv2.observer.Observer
 import kotlinmudv2.observer.ProcessClientBufferObserver
 import kotlinmudv2.observer.ReadClientsObserver
 import kotlinmudv2.room.RoomService

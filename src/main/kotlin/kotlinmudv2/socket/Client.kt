@@ -1,8 +1,6 @@
 package kotlinmudv2.socket
 
 import kotlinmudv2.mob.Mob
-import kotlinmudv2.mob.MobEntity
-import org.jetbrains.exposed.sql.transactions.transaction
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.channels.ClosedChannelException

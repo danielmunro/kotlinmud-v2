@@ -15,7 +15,6 @@ import org.kodein.di.direct
 import org.kodein.di.instance
 import java.nio.channels.SocketChannel
 
-
 class TestService(private val container: DI) {
     private val roomService = container.direct.instance<RoomService>()
     private val mobService = container.direct.instance<MobService>()
