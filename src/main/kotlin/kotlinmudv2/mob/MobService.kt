@@ -7,19 +7,19 @@ class MobService(private val itemService: ItemService) {
     private val mobs = mutableMapOf<Int, MutableList<Mob>>()
     private val mobRooms = mutableMapOf<Int, MutableList<Mob>>()
 
-    fun createMobEntity(name: String, description: String): Mob {
+    fun createMobEntity(name: String, description: String, brief: String, roomId: Int): Mob {
         val entity = transaction {
             MobEntity.new {
                 this.name = name
                 this.description = description
-                brief = ""
+                this.brief = brief
                 hp = 0
                 maxHp = 0
                 mana = 0
                 maxMana = 0
                 moves = 0
                 maxMoves = 0
-                roomId = 1
+                this.roomId = roomId
             }
         }
         return createMobInstance(entity.id.value)!!

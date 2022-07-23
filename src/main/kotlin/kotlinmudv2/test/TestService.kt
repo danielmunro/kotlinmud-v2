@@ -1,6 +1,7 @@
 package kotlinmudv2.test
 
 import kotlinmudv2.action.Response
+import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.observer.ProcessClientBufferObserver
 import kotlinmudv2.room.Direction
@@ -31,7 +32,7 @@ class TestService(private val container: DI) {
 
     private val client = Client(
         SocketChannel.open(),
-        mobService.createMobEntity("foo", "bar"),
+        mobService.createMobEntity("foo", "bar", "baz", startRoom.id),
     ).also {
         transaction {
             it.mob.roomId = startRoom.id
@@ -40,6 +41,15 @@ class TestService(private val container: DI) {
 
     fun createRoom(destination: RoomEntity, sourceId: Int, direction: Direction): Room {
         return roomService.createRoom(destination, sourceId, direction)
+    }
+
+    fun createMob(): Mob {
+        return mobService.createMobEntity(
+            "a test mob",
+            "this is a test",
+            "a test mob created by TestService",
+            startRoom.id,
+        )
     }
 
     fun handleRequest(input: String): Response {

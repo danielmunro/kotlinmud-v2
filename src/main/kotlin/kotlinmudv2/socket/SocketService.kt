@@ -63,7 +63,7 @@ class SocketService(
 
     private suspend fun handleAccept(newSocket: ServerSocketChannel) {
         configureAndAcceptSocket(newSocket)?.also {
-            val client = Client(it, mobService.createMobEntity("foo", "bar"))
+            val client = Client(it, mobService.createMobEntity("foo", "bar", "baz", 1))
             eventService.publish(createClientConnectedEvent(client))
             clients[it] = client
             clientService.addClient(client)
