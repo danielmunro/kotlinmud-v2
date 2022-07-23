@@ -16,6 +16,6 @@ class LookTest {
         val response = testService.handleRequest("look")
 
         // then
-        assertThat(response.toActionCreator).isEqualTo("${room.name}\n${room.description}\n")
+        assertThat(response.toActionCreator).isEqualTo("${room.name}\n${room.description}\n[Exits: ]\n")
     }
 }

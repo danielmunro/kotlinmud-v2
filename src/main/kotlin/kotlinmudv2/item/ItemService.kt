@@ -7,6 +7,7 @@ class ItemService {
         return Item(
             entity.id.value,
             entity.name,
+            entity.brief,
             entity.description,
             ItemType.valueOf(entity.itemType),
         )
