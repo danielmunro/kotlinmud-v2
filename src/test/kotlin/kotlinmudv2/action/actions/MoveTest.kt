@@ -15,7 +15,6 @@ class MoveTest {
         val testService = createTestService()
 
         // given
-        val startRoom = testService.startRoom
         val destinationRoom = testService.createRoom(
             transaction {
                 RoomEntity.new {
@@ -23,7 +22,7 @@ class MoveTest {
                     description = "a description"
                 }
             },
-            startRoom.id,
+            testService.startRoom.id,
             Direction.North,
         )
 
@@ -40,7 +39,6 @@ class MoveTest {
         val testService = createTestService()
 
         // given
-        val startRoom = testService.startRoom
         val destinationRoom = testService.createRoom(
             transaction {
                 RoomEntity.new {
@@ -48,7 +46,7 @@ class MoveTest {
                     description = "a description"
                 }
             },
-            startRoom.id,
+            testService.startRoom.id,
             Direction.South,
         )
 
@@ -57,5 +55,101 @@ class MoveTest {
 
         // then
         assertThat(response.toActionCreator).isEqualTo("${destinationRoom.name}\n${destinationRoom.description}\n[Exits: N]\n")
+    }
+
+    @Test
+    fun testCanMoveEast() {
+        // setup
+        val testService = createTestService()
+
+        // given
+        val destinationRoom = testService.createRoom(
+            transaction {
+                RoomEntity.new {
+                    name = "test destination"
+                    description = "a description"
+                }
+            },
+            testService.startRoom.id,
+            Direction.East,
+        )
+
+        // when
+        val response = testService.handleRequest("east")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("${destinationRoom.name}\n${destinationRoom.description}\n[Exits: W]\n")
+    }
+
+    @Test
+    fun testCanMoveWest() {
+        // setup
+        val testService = createTestService()
+
+        // given
+        val destinationRoom = testService.createRoom(
+            transaction {
+                RoomEntity.new {
+                    name = "test destination"
+                    description = "a description"
+                }
+            },
+            testService.startRoom.id,
+            Direction.West,
+        )
+
+        // when
+        val response = testService.handleRequest("west")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("${destinationRoom.name}\n${destinationRoom.description}\n[Exits: E]\n")
+    }
+
+    @Test
+    fun testCanMoveUp() {
+        // setup
+        val testService = createTestService()
+
+        // given
+        val destinationRoom = testService.createRoom(
+            transaction {
+                RoomEntity.new {
+                    name = "test destination"
+                    description = "a description"
+                }
+            },
+            testService.startRoom.id,
+            Direction.Up,
+        )
+
+        // when
+        val response = testService.handleRequest("up")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("${destinationRoom.name}\n${destinationRoom.description}\n[Exits: D]\n")
+    }
+
+    @Test
+    fun testCanMoveDown() {
+        // setup
+        val testService = createTestService()
+
+        // given
+        val destinationRoom = testService.createRoom(
+            transaction {
+                RoomEntity.new {
+                    name = "test destination"
+                    description = "a description"
+                }
+            },
+            testService.startRoom.id,
+            Direction.Down,
+        )
+
+        // when
+        val response = testService.handleRequest("down")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("${destinationRoom.name}\n${destinationRoom.description}\n[Exits: U]\n")
     }
 }
