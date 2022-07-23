@@ -10,6 +10,7 @@ import kotlinmudv2.action.actions.createUpAction
 import kotlinmudv2.action.actions.createWestAction
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
+import kotlinmudv2.item.ItemService
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.observer.Observer
 import kotlinmudv2.observer.ClientConnectedObserver
@@ -28,8 +29,9 @@ fun createContainer(port: Int): DI {
         // services
         bindSingleton { EventService() }
         bindSingleton { ClientService() }
-        bindSingleton { RoomService() }
-        bindSingleton { MobService() }
+        bindSingleton { ItemService() }
+        bindSingleton { RoomService(instance()) }
+        bindSingleton { MobService(instance()) }
         bindSingleton { ActionService(instance()) }
         bindSingleton { SocketService(instance(), instance(), instance(), port) }
         bindSingleton { GameService(instance()) }

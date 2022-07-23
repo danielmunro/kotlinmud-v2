@@ -1,8 +1,9 @@
 package kotlinmudv2.mob
 
+import kotlinmudv2.item.ItemService
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class MobService {
+class MobService(private val itemService: ItemService) {
     private val mobs = mutableMapOf<Int, Mob>()
 
     fun createMobEntity(name: String, description: String): Mob {
@@ -34,5 +35,21 @@ class MobService {
             createMobInstance(id)?.let { mobs[id] = it }
         }
         return mobs[id]
+    }
+
+    private fun mapMob(entity: MobEntity): Mob {
+        return Mob(
+            entity.id.value,
+            entity.name,
+            entity.description,
+            transaction { entity.items.map { itemService.createFromEntity(it) } },
+            entity.hp,
+            entity.maxHp,
+            entity.mana,
+            entity.maxMana,
+            entity.moves,
+            entity.maxMoves,
+            entity.roomId,
+        )
     }
 }
