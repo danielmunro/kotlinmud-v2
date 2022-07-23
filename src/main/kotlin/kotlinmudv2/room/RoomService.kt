@@ -15,6 +15,40 @@ class RoomService(private val itemService: ItemService) {
         return rooms[id]
     }
 
+    fun createRoom(toEntity: RoomEntity, fromRoomId: Int, direction: Direction): Room {
+        val fromEntity = transaction { RoomEntity.findById(fromRoomId)!! }
+        transaction {
+            when (direction) {
+                Direction.North -> {
+                    fromEntity.northId = toEntity.id.value
+                    toEntity.southId = fromEntity.id.value
+                }
+                Direction.South -> {
+                    fromEntity.southId = toEntity.id.value
+                    toEntity.northId = fromEntity.id.value
+                }
+                Direction.East -> {
+                    fromEntity.eastId = toEntity.id.value
+                    toEntity.westId = fromEntity.id.value
+                }
+                Direction.West -> {
+                    fromEntity.westId = toEntity.id.value
+                    toEntity.eastId = fromEntity.id.value
+                }
+                Direction.Up -> {
+                    fromEntity.upId = toEntity.id.value
+                    toEntity.downId = fromEntity.id.value
+                }
+                Direction.Down -> {
+                    fromEntity.downId = toEntity.id.value
+                    toEntity.upId = fromEntity.id.value
+                }
+            }
+        }
+        rooms.remove(fromRoomId)
+        return getRoom(toEntity.id.value)!!
+    }
+
     private fun mapRoom(entity: RoomEntity): Room {
         return Room(
             entity.id.value,

@@ -3,6 +3,7 @@ package kotlinmudv2.test
 import kotlinmudv2.action.Response
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.observer.ProcessClientBufferObserver
+import kotlinmudv2.room.Direction
 import kotlinmudv2.room.Room
 import kotlinmudv2.room.RoomEntity
 import kotlinmudv2.room.RoomService
@@ -35,6 +36,10 @@ class TestService(private val container: DI) {
         transaction {
             it.mob.roomId = startRoom.id
         }
+    }
+
+    fun createRoom(destination: RoomEntity, sourceId: Int, direction: Direction): Room {
+        return roomService.createRoom(destination, sourceId, direction)
     }
 
     fun handleRequest(input: String): Response {

@@ -2,6 +2,7 @@ package kotlinmudv2.action.actions
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import kotlinmudv2.room.Direction
 import kotlinmudv2.room.RoomEntity
 import kotlinmudv2.test.createTestService
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -15,20 +16,22 @@ class MoveTest {
 
         // given
         val startRoom = testService.startRoom
-        val destinationRoom = transaction {
-            RoomEntity.new {
-                name = "test destination"
-                description = "a description"
-                southId = 1
-            }
-        }
-        startRoom.northId = destinationRoom.id.value
+        val destinationRoom = testService.createRoom(
+            transaction {
+                RoomEntity.new {
+                    name = "test destination"
+                    description = "a description"
+                }
+            },
+            startRoom.id,
+            Direction.North,
+        )
 
         // when
         val response = testService.handleRequest("north")
 
         // then
-        assertThat(response.toActionCreator).isEqualTo("${destinationRoom.name}\n${destinationRoom.description}\n")
+        assertThat(response.toActionCreator).isEqualTo("${destinationRoom.name}\n${destinationRoom.description}\n[Exits: S]\n")
     }
 
     @Test
@@ -38,19 +41,21 @@ class MoveTest {
 
         // given
         val startRoom = testService.startRoom
-        val destinationRoom = transaction {
-            RoomEntity.new {
-                name = "test destination"
-                description = "a description"
-                northId = 1
-            }
-        }
-        startRoom.southId = destinationRoom.id.value
+        val destinationRoom = testService.createRoom(
+            transaction {
+                RoomEntity.new {
+                    name = "test destination"
+                    description = "a description"
+                }
+            },
+            startRoom.id,
+            Direction.South,
+        )
 
         // when
         val response = testService.handleRequest("south")
 
         // then
-        assertThat(response.toActionCreator).isEqualTo("${destinationRoom.name}\n${destinationRoom.description}\n")
+        assertThat(response.toActionCreator).isEqualTo("${destinationRoom.name}\n${destinationRoom.description}\n[Exits: N]\n")
     }
 }
