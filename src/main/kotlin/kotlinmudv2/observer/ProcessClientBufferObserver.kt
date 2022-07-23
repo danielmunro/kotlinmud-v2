@@ -22,11 +22,11 @@ class ProcessClientBufferObserver(
         val response = findActionForInput(input)?.let {
             it.execute(
                 actionService,
-                client.mob!!,
+                client.mob,
                 input,
             )
         } ?: Response(
-            client.mob!!,
+            client.mob,
             ActionStatus.Error,
             "What was that?",
         )

@@ -8,7 +8,7 @@ class RoomService {
     fun getRoom(id: Int): Room? {
         if (rooms[id] == null) {
             transaction { RoomEntity.findById(id) }?.let {
-                rooms[id] = Room(it)
+                rooms[id] = mapRoom(it)
             }
         }
         return rooms[id]

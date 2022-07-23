@@ -33,7 +33,7 @@ class TestService(private val container: DI) {
         mobService.createMobEntity("foo", "bar"),
     ).also {
         transaction {
-            it.mob.roomId = startRoom.id.value
+            it.mob.roomId = startRoom.id
         }
     }
 

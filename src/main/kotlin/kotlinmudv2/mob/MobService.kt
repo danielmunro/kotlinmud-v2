@@ -25,7 +25,7 @@ class MobService {
 
     fun createMobInstance(id: Int): Mob? {
         return transaction { MobEntity.findById(id) }?.let {
-            Mob(it)
+            mapMob(it)
         }
     }
 

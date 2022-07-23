@@ -22,7 +22,7 @@ class MoveTest {
                 southId = 1
             }
         }
-        transaction { startRoom.northId = destinationRoom.id.value }
+        startRoom.northId = destinationRoom.id.value
 
         // when
         val response = testService.handleRequest("north")
@@ -45,7 +45,7 @@ class MoveTest {
                 northId = 1
             }
         }
-        transaction { startRoom.southId = destinationRoom.id.value }
+        startRoom.southId = destinationRoom.id.value
 
         // when
         val response = testService.handleRequest("south")
