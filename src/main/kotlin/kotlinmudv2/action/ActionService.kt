@@ -14,6 +14,10 @@ class ActionService(
         return roomService.getRoom(id)
     }
 
+    fun getMobsInRoom(id: Int): List<Mob> {
+        return mobService.getMobsForRoom(id)
+    }
+
     fun moveMob(mob: Mob, direction: Direction): Int? {
         return getRoom(mob.roomId)?.let { room ->
             when (direction) {

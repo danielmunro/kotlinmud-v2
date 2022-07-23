@@ -5,6 +5,7 @@ import kotlinmudv2.item.Item
 class Mob(
     val id: Int,
     val name: String,
+    val brief: String,
     val description: String,
     val items: List<Item>,
     var hp: Int,

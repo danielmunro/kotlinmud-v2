@@ -54,7 +54,7 @@ class RoomService(private val itemService: ItemService) {
             entity.id.value,
             entity.name,
             entity.description,
-            transaction { entity.items.map { itemService.createFromEntity(it) } },
+            transaction { entity.items.map { itemService.createFromEntity(it) }.toMutableList() },
             entity.northId,
             entity.southId,
             entity.eastId,

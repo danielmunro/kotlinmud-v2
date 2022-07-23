@@ -1,7 +1,10 @@
 package kotlinmudv2.action.actions
 
 import assertk.assertThat
+import assertk.assertions.contains
 import assertk.assertions.isEqualTo
+import kotlinmudv2.item.Item
+import kotlinmudv2.item.ItemType
 import kotlinmudv2.test.createTestService
 import kotlin.test.Test
 
@@ -17,5 +20,28 @@ class LookTest {
 
         // then
         assertThat(response.toActionCreator).isEqualTo("${room.name}\n${room.description}\n[Exits: ]\n")
+    }
+
+    @Test
+    fun testLookShowsItemsInRoom() {
+        // given
+        val testService = createTestService()
+        val room = testService.startRoom
+
+        room.items.add(
+            Item(
+                0,
+                "a potion",
+                "hello",
+                "a potion is here",
+                ItemType.Consumable,
+            )
+        )
+
+        // when
+        val response = testService.handleRequest("look")
+
+        // then
+        assertThat(response.toActionCreator).contains("a potion is here")
     }
 }
