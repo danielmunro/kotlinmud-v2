@@ -11,9 +11,9 @@ private fun createMoveAction(command: Command, direction: Direction): Action {
     return Action(
         command,
         listOf(Syntax.Command)
-    ) { actionService, mob, _ ->
+    ) { actionService, mob, context, _ ->
         actionService.moveMob(mob, direction)?.let {
-            createLookAction().execute(actionService, mob, "look")
+            createLookAction().execute(actionService, mob, context, "look")
         } ?: Response(mob, ActionStatus.Error, "Alas, that direction does not exist.")
     }
 }

@@ -4,6 +4,7 @@ import kotlinmudv2.action.ActionService
 import kotlinmudv2.action.actions.createDownAction
 import kotlinmudv2.action.actions.createEastAction
 import kotlinmudv2.action.actions.createLookAction
+import kotlinmudv2.action.actions.createLookAtMobInRoomAction
 import kotlinmudv2.action.actions.createNorthAction
 import kotlinmudv2.action.actions.createSouthAction
 import kotlinmudv2.action.actions.createUpAction
@@ -39,20 +40,21 @@ fun createContainer(port: Int): DI {
         // actions
         bindSingleton {
             listOf(
-                createLookAction(),
                 createNorthAction(),
                 createSouthAction(),
                 createEastAction(),
                 createWestAction(),
                 createUpAction(),
                 createDownAction(),
+                createLookAtMobInRoomAction(),
+                createLookAction(),
             )
         }
 
         // observers
         bindProvider(tag = "clientConnected") { ClientConnectedObserver() }
         bindProvider(tag = "readClients") { ReadClientsObserver(instance()) }
-        bindProvider(tag = "processClientBuffer") { ProcessClientBufferObserver(instance(), instance(), instance()) }
+        bindProvider(tag = "processClientBuffer") { ProcessClientBufferObserver(instance(), instance(), instance(), instance()) }
 
         // list of observers
         bindSingleton<Map<EventType, List<Observer>>>(tag = "observers") {
