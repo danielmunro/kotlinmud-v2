@@ -4,7 +4,8 @@ import kotlinmudv2.item.ItemService
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class MobService(private val itemService: ItemService) {
-    private val mobs = mutableMapOf<Int, Mob>()
+    private val mobs = mutableMapOf<Int, MutableList<Mob>>()
+    private val mobRooms = mutableMapOf<Int, MutableList<Mob>>()
 
     fun createMobEntity(name: String, description: String): Mob {
         val entity = transaction {
@@ -24,17 +25,33 @@ class MobService(private val itemService: ItemService) {
         return createMobInstance(entity.id.value)!!
     }
 
-    fun getMob(id: Int): Mob? {
-        if (mobs[id] == null) {
-            createMobInstance(id)?.let { mobs[id] = it }
-        }
-        return mobs[id]
+    fun moveMob(mob: Mob, roomId: Int) {
+        mobRooms[mob.roomId]?.remove(mob)
+        mob.roomId = roomId
+        addToMobRooms(mob)
     }
 
     private fun createMobInstance(id: Int): Mob? {
         return transaction { MobEntity.findById(id) }?.let {
             mapMob(it)
+        }?.also {
+            addToMobs(it)
+            addToMobRooms(it)
         }
+    }
+
+    private fun addToMobs(mob: Mob) {
+        if (mobs[mob.id] == null) {
+            mobs[mob.id] = mutableListOf()
+        }
+        mobs[mob.id]!!.add(mob)
+    }
+
+    private fun addToMobRooms(mob: Mob) {
+        if (mobRooms[mob.roomId] == null) {
+            mobRooms[mob.roomId] = mutableListOf()
+        }
+        mobRooms[mob.roomId]!!.add(mob)
     }
 
     private fun mapMob(entity: MobEntity): Mob {

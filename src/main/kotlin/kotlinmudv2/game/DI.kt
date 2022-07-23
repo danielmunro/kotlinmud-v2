@@ -32,7 +32,7 @@ fun createContainer(port: Int): DI {
         bindSingleton { ItemService() }
         bindSingleton { RoomService(instance()) }
         bindSingleton { MobService(instance()) }
-        bindSingleton { ActionService(instance()) }
+        bindSingleton { ActionService(instance(), instance()) }
         bindSingleton { SocketService(instance(), instance(), instance(), port) }
         bindSingleton { GameService(instance()) }
 
