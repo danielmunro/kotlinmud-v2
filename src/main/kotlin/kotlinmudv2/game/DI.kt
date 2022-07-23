@@ -1,6 +1,7 @@
 package kotlinmudv2.game
 
 import kotlinmudv2.action.ActionService
+import kotlinmudv2.action.ContextService
 import kotlinmudv2.action.actions.createDownAction
 import kotlinmudv2.action.actions.createEastAction
 import kotlinmudv2.action.actions.createLookAction
@@ -33,6 +34,7 @@ fun createContainer(port: Int): DI {
         bindSingleton { ItemService() }
         bindSingleton { RoomService(instance()) }
         bindSingleton { MobService(instance()) }
+        bindSingleton { ContextService(instance(), instance()) }
         bindSingleton { ActionService(instance(), instance()) }
         bindSingleton { SocketService(instance(), instance(), instance(), port) }
         bindSingleton { GameService(instance()) }
@@ -54,7 +56,7 @@ fun createContainer(port: Int): DI {
         // observers
         bindProvider(tag = "clientConnected") { ClientConnectedObserver() }
         bindProvider(tag = "readClients") { ReadClientsObserver(instance()) }
-        bindProvider(tag = "processClientBuffer") { ProcessClientBufferObserver(instance(), instance(), instance(), instance()) }
+        bindProvider(tag = "processClientBuffer") { ProcessClientBufferObserver(instance(), instance(), instance()) }
 
         // list of observers
         bindSingleton<Map<EventType, List<Observer>>>(tag = "observers") {
