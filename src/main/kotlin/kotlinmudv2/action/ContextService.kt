@@ -11,6 +11,14 @@ class ContextService(
     private val roomService: RoomService,
     private val actions: List<Action>,
 ) {
+    companion object {
+        fun matchesInput(body: String, needle: String): Boolean {
+            return body.split(" ").filter { it.length > 1 }.find {
+                it.startsWith(needle)
+            } != null
+        }
+    }
+
     fun findActionForInput(client: Client, input: String): ActionWithContext? {
         val parts = input.split(" ")
         val context = mutableMapOf<Int, Any>()
@@ -46,13 +54,15 @@ class ContextService(
         }
     }
 
-    private fun findItemInRoom(roomId: Int, itemName: String): Item? {
+    private fun findItemInRoom(roomId: Int, input: String): Item? {
         return roomService.getRoom(roomId)?.items?.find {
-            it.brief.startsWith(itemName)
+            matchesInput(it.brief, input)
         }
     }
 
-    private fun findMobInRoom(roomId: Int, mobName: String): Mob? {
-        return mobService.getMobsForRoom(roomId).find { it.name.startsWith(mobName) }
+    private fun findMobInRoom(roomId: Int, input: String): Mob? {
+        return mobService.getMobsForRoom(roomId).find {
+            matchesInput(it.brief, input)
+        }
     }
 }

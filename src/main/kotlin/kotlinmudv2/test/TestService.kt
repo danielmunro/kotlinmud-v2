@@ -56,7 +56,7 @@ class TestService(private val container: DI) {
         )
     }
 
-    fun createItemInRoom(roomId: Int): Item {
+    fun createItemInRoom(): Item {
         return itemService.createFromEntity(
             transaction {
                 ItemEntity.new {
@@ -64,10 +64,12 @@ class TestService(private val container: DI) {
                     brief = "a strange potion is lying here"
                     description = "a strange potion is lying here"
                     itemType = ItemType.Consumable.toString()
-                    this.room = RoomEntity.findById(roomId)?.id
+                    this.room = RoomEntity.findById(startRoom.id)?.id
                 }
             }
-        )
+        ).also {
+            startRoom.items.add(it)
+        }
     }
 
     fun handleRequest(input: String): Response {
