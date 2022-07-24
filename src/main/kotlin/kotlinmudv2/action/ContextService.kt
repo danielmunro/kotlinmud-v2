@@ -23,6 +23,9 @@ class ContextService(
         val parts = input.split(" ")
         val context = mutableMapOf<Int, Any>()
         return actions.find { action ->
+            if (parts.size > action.syntax.size) {
+                return@find false
+            }
             var i = 0
             action.syntax.map SyntaxFind@{ syntax ->
                 if (i >= parts.size) {
