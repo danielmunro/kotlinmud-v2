@@ -120,6 +120,14 @@ class WebServerService(
                     )
                 }
                 get("/item/{itemId}") {
+                    val itemId = call.parameters["itemId"]!!.toInt()
+                    transaction { ItemEntity.findById(itemId) }?.let {
+                        call.respondText(
+                            gson.toJson(
+                                itemService.mapItem(it)
+                            )
+                        )
+                    } ?: call.respond(HttpStatusCode.NotFound)
                 }
                 post("/item") {
                     val model = gson.fromJson(call.receiveText(), NewItem::class.java)
