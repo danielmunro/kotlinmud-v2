@@ -64,7 +64,7 @@ class MobService(private val itemService: ItemService) {
             entity.name,
             entity.brief,
             entity.description,
-            transaction { entity.items.map { itemService.createFromEntity(it) } },
+            transaction { entity.items.map { itemService.createFromEntity(it) } }.toMutableList(),
             entity.hp,
             entity.maxHp,
             entity.mana,

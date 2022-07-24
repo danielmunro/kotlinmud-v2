@@ -7,7 +7,7 @@ class Mob(
     val name: String,
     val brief: String,
     val description: String,
-    val items: List<Item>,
+    val items: MutableList<Item>,
     var hp: Int,
     var maxHp: Int,
     var mana: Int,

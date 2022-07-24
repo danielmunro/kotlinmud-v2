@@ -6,6 +6,7 @@ import kotlinmudv2.item.ItemEntity
 import kotlinmudv2.item.ItemService
 import kotlinmudv2.item.ItemType
 import kotlinmudv2.mob.Mob
+import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.observer.ProcessClientBufferObserver
 import kotlinmudv2.room.Direction
@@ -64,11 +65,27 @@ class TestService(private val container: DI) {
                     brief = "a strange potion is lying here"
                     description = "a strange potion is lying here"
                     itemType = ItemType.Consumable.toString()
-                    this.room = RoomEntity.findById(startRoom.id)?.id
+                    room = RoomEntity.findById(startRoom.id)?.id
                 }
             }
         ).also {
             startRoom.items.add(it)
+        }
+    }
+
+    fun createItemInInventory(): Item {
+        return itemService.createFromEntity(
+            transaction {
+                ItemEntity.new {
+                    name = "a potion"
+                    brief = "a strange potion is lying here"
+                    description = "a strange potion is lying here"
+                    itemType = ItemType.Consumable.toString()
+                    mob = MobEntity.findById(client.mob.id)?.id
+                }
+            }
+        ).also {
+            client.mob.items.add(it)
         }
     }
 

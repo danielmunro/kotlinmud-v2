@@ -39,7 +39,13 @@ class ContextService(
                             true
                         } ?: false
                     }
-                    Syntax.ItemInInventory -> false
+                    Syntax.ItemInInventory -> {
+                        val itemName = parts[index]
+                        findItemInInventory(client.mob.items, itemName)?.let {
+                            context[index] = it
+                            true
+                        } ?: false
+                    }
                     Syntax.ItemInRoom -> {
                         val itemName = parts[index]
                         findItemInRoom(client.mob.roomId, itemName)?.let {
@@ -51,6 +57,12 @@ class ContextService(
             }.filter { it }.size == action.syntax.size
         }?.let {
             ActionWithContext(it, context)
+        }
+    }
+
+    private fun findItemInInventory(items: List<Item>, input: String): Item? {
+        return items.find {
+            matchesInput(it.brief, input)
         }
     }
 

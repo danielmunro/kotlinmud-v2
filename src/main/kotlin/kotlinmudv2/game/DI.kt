@@ -5,6 +5,7 @@ import kotlinmudv2.action.ContextService
 import kotlinmudv2.action.actions.createDownAction
 import kotlinmudv2.action.actions.createEastAction
 import kotlinmudv2.action.actions.createLookAction
+import kotlinmudv2.action.actions.createLookAtItemInInventoryAction
 import kotlinmudv2.action.actions.createLookAtItemInRoomAction
 import kotlinmudv2.action.actions.createLookAtMobInRoomAction
 import kotlinmudv2.action.actions.createNorthAction
@@ -51,6 +52,7 @@ fun createContainer(port: Int): DI {
                 createDownAction(),
                 createLookAtMobInRoomAction(),
                 createLookAtItemInRoomAction(),
+                createLookAtItemInInventoryAction(),
                 createLookAction(),
             )
         }
