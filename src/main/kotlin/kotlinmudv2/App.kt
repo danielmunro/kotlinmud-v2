@@ -1,6 +1,6 @@
 package kotlinmudv2
 
-import kotlinmudv2.database.createConnection
+import kotlinmudv2.database.createTestConnection
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
 import kotlinmudv2.game.GameService
@@ -15,7 +15,7 @@ fun main() {
     val gameService by container.instance<GameService>()
     val eventService by container.instance<EventService>()
     val observers by container.instance<Map<EventType, List<Observer>>>(tag = "observers")
-    createConnection()
+    createTestConnection()
     eventService.observers = observers
 
     transaction {
