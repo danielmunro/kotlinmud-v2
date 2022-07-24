@@ -16,5 +16,5 @@ class RoomEntity(id: EntityID<Int>) : IntEntity(id) {
     var westId by RoomTable.westId
     var upId by RoomTable.upId
     var downId by RoomTable.downId
-    val items by ItemEntity referrersOn ItemTable.room
+    val items by ItemEntity optionalReferrersOn ItemTable.room
 }

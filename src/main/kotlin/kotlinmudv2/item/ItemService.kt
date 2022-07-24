@@ -10,6 +10,8 @@ class ItemService {
             entity.description,
             entity.brief,
             ItemType.valueOf(entity.itemType),
-        )
+        ).also {
+            items.add(it)
+        }
     }
 }

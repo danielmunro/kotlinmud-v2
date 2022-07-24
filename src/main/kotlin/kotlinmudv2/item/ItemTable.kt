@@ -9,6 +9,6 @@ object ItemTable : IntIdTable() {
     val brief = varchar("brief", 50)
     val description = varchar("description", 255)
     val itemType = varchar("itemType", 64)
-    val mob = reference("mobId", MobTable)
-    val room = reference("roomId", RoomTable)
+    val mob = reference("mobId", MobTable).nullable()
+    val room = reference("roomId", RoomTable).nullable()
 }

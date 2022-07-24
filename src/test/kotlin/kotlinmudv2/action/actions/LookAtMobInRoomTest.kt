@@ -14,6 +14,6 @@ class LookAtMobInRoomTest {
 
         val response = test.handleRequest("look ${mob.brief.split(" ")[0]}")
 
-        assertThat(response.toActionCreator).isEqualTo(mob.brief)
+        assertThat(response.toActionCreator).isEqualTo(mob.description)
     }
 }

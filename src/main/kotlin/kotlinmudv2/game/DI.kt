@@ -5,6 +5,7 @@ import kotlinmudv2.action.ContextService
 import kotlinmudv2.action.actions.createDownAction
 import kotlinmudv2.action.actions.createEastAction
 import kotlinmudv2.action.actions.createLookAction
+import kotlinmudv2.action.actions.createLookAtItemInRoomAction
 import kotlinmudv2.action.actions.createLookAtMobInRoomAction
 import kotlinmudv2.action.actions.createNorthAction
 import kotlinmudv2.action.actions.createSouthAction
@@ -34,7 +35,7 @@ fun createContainer(port: Int): DI {
         bindSingleton { ItemService() }
         bindSingleton { RoomService(instance()) }
         bindSingleton { MobService(instance()) }
-        bindSingleton { ContextService(instance(), instance()) }
+        bindSingleton { ContextService(instance(), instance(), instance()) }
         bindSingleton { ActionService(instance(), instance()) }
         bindSingleton { SocketService(instance(), instance(), instance(), port) }
         bindSingleton { GameService(instance()) }
@@ -49,6 +50,7 @@ fun createContainer(port: Int): DI {
                 createUpAction(),
                 createDownAction(),
                 createLookAtMobInRoomAction(),
+                createLookAtItemInRoomAction(),
                 createLookAction(),
             )
         }

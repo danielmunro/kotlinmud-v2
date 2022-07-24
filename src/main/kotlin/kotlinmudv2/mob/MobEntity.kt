@@ -18,5 +18,5 @@ class MobEntity(id: EntityID<Int>) : IntEntity(id) {
     var maxMana by MobTable.maxMana
     var maxMoves by MobTable.maxMoves
     var roomId by MobTable.roomId
-    val items by ItemEntity referrersOn ItemTable.mob
+    val items by ItemEntity optionalReferrersOn ItemTable.mob
 }

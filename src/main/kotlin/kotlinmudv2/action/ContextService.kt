@@ -1,11 +1,14 @@
 package kotlinmudv2.action
 
+import kotlinmudv2.item.Item
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobService
+import kotlinmudv2.room.RoomService
 import kotlinmudv2.socket.Client
 
 class ContextService(
     private val mobService: MobService,
+    private val roomService: RoomService,
     private val actions: List<Action>,
 ) {
     fun findActionForInput(client: Client, input: String): ActionWithContext? {
@@ -29,11 +32,23 @@ class ContextService(
                         } ?: false
                     }
                     Syntax.ItemInInventory -> false
-                    Syntax.ItemInRoom -> false
+                    Syntax.ItemInRoom -> {
+                        val itemName = parts[index]
+                        findItemInRoom(client.mob.roomId, itemName)?.let {
+                            context[index] = it
+                            true
+                        } ?: false
+                    }
                 }
             }.filter { it }.size == action.syntax.size
         }?.let {
             ActionWithContext(it, context)
+        }
+    }
+
+    private fun findItemInRoom(roomId: Int, itemName: String): Item? {
+        return roomService.getRoom(roomId)?.items?.find {
+            it.brief.startsWith(itemName)
         }
     }
 

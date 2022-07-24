@@ -1,6 +1,10 @@
 package kotlinmudv2.test
 
 import kotlinmudv2.action.Response
+import kotlinmudv2.item.Item
+import kotlinmudv2.item.ItemEntity
+import kotlinmudv2.item.ItemService
+import kotlinmudv2.item.ItemType
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.observer.ProcessClientBufferObserver
@@ -18,6 +22,7 @@ import java.nio.channels.SocketChannel
 class TestService(private val container: DI) {
     private val roomService = container.direct.instance<RoomService>()
     private val mobService = container.direct.instance<MobService>()
+    private val itemService = container.direct.instance<ItemService>()
     var startRoom: Room
     init {
         val roomEntity = transaction {
@@ -48,6 +53,20 @@ class TestService(private val container: DI) {
             "this is a test",
             "a test mob created by TestService",
             startRoom.id,
+        )
+    }
+
+    fun createItemInRoom(roomId: Int): Item {
+        return itemService.createFromEntity(
+            transaction {
+                ItemEntity.new {
+                    name = "a potion"
+                    brief = "a strange potion is lying here"
+                    description = "a strange potion is lying here"
+                    itemType = ItemType.Consumable.toString()
+                    this.room = RoomEntity.findById(roomId)?.id
+                }
+            }
         )
     }
 
