@@ -15,7 +15,7 @@ class RoomService(private val itemService: ItemService) {
         return rooms[id]
     }
 
-    fun createRoom(toEntity: RoomEntity, fromRoomId: Int, direction: Direction): Room {
+    fun connectRooms(fromRoomId: Int, toEntity: RoomEntity, direction: Direction): Room {
         val fromEntity = transaction { RoomEntity.findById(fromRoomId)!! }
         transaction {
             when (direction) {
@@ -49,7 +49,7 @@ class RoomService(private val itemService: ItemService) {
         return getRoom(toEntity.id.value)!!
     }
 
-    private fun mapRoom(entity: RoomEntity): Room {
+    fun mapRoom(entity: RoomEntity): Room {
         return Room(
             entity.id.value,
             entity.name,

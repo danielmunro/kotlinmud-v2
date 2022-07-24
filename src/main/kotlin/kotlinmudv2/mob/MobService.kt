@@ -35,6 +35,23 @@ class MobService(private val itemService: ItemService) {
         return mobRooms[roomId] ?: listOf()
     }
 
+    fun mapMob(entity: MobEntity): Mob {
+        return Mob(
+            entity.id.value,
+            entity.name,
+            entity.brief,
+            entity.description,
+            transaction { entity.items.map { itemService.createFromEntity(it) } }.toMutableList(),
+            entity.hp,
+            entity.maxHp,
+            entity.mana,
+            entity.maxMana,
+            entity.moves,
+            entity.maxMoves,
+            entity.roomId,
+        )
+    }
+
     private fun createMobInstance(id: Int): Mob? {
         return transaction { MobEntity.findById(id) }?.let {
             mapMob(it)
@@ -56,22 +73,5 @@ class MobService(private val itemService: ItemService) {
             mobRooms[mob.roomId] = mutableListOf()
         }
         mobRooms[mob.roomId]!!.add(mob)
-    }
-
-    private fun mapMob(entity: MobEntity): Mob {
-        return Mob(
-            entity.id.value,
-            entity.name,
-            entity.brief,
-            entity.description,
-            transaction { entity.items.map { itemService.createFromEntity(it) } }.toMutableList(),
-            entity.hp,
-            entity.maxHp,
-            entity.mana,
-            entity.maxMana,
-            entity.moves,
-            entity.maxMoves,
-            entity.roomId,
-        )
     }
 }

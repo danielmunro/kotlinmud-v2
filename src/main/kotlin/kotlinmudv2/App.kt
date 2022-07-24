@@ -4,6 +4,7 @@ import kotlinmudv2.database.createTestConnection
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
 import kotlinmudv2.game.GameService
+import kotlinmudv2.game.WebServerService
 import kotlinmudv2.game.createContainer
 import kotlinmudv2.observer.Observer
 import kotlinmudv2.room.RoomEntity
@@ -14,6 +15,7 @@ fun main() {
     val container = createContainer(9999)
     val gameService by container.instance<GameService>()
     val eventService by container.instance<EventService>()
+    val webServer by container.instance<WebServerService>()
     val observers by container.instance<Map<EventType, List<Observer>>>(tag = "observers")
     createTestConnection()
     eventService.observers = observers
@@ -31,5 +33,6 @@ fun main() {
         }
     }
 
+    webServer.start()
     gameService.start()
 }

@@ -45,7 +45,7 @@ class TestService(private val container: DI) {
     }
 
     fun createRoom(destination: RoomEntity, sourceId: Int, direction: Direction): Room {
-        return roomService.createRoom(destination, sourceId, direction)
+        return roomService.connectRooms(sourceId, destination, direction)
     }
 
     fun createMob(): Mob {

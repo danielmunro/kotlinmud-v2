@@ -34,6 +34,7 @@ fun createContainer(port: Int): DI {
         bindSingleton { EventService() }
         bindSingleton { ClientService() }
         bindSingleton { ItemService() }
+        bindSingleton { WebServerService(instance(), instance(), instance()) }
         bindSingleton { RoomService(instance()) }
         bindSingleton { MobService(instance()) }
         bindSingleton { ContextService(instance(), instance(), instance()) }
