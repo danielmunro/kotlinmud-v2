@@ -6,6 +6,8 @@ import kotlinmudv2.event.createTickEvent
 import kotlinx.coroutines.runBlocking
 import java.lang.System.currentTimeMillis
 
+val tickLengthInMillis = 25000
+
 class GameService(private val eventService: EventService) {
     fun start() {
         var lastTick = currentTimeMillis()
@@ -14,7 +16,7 @@ class GameService(private val eventService: EventService) {
                 eventService.publish(createGameLoopEvent())
             }
             currentTimeMillis().let {
-                if (it - lastTick > 25000) {
+                if (it - lastTick > tickLengthInMillis) {
                     lastTick = it
                     runBlocking {
                         eventService.publish(createTickEvent())
