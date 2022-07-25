@@ -6,7 +6,7 @@ import kotlinmudv2.event.createTickEvent
 import kotlinx.coroutines.runBlocking
 import java.lang.System.currentTimeMillis
 
-val tickLengthInMillis = 25000
+const val tickLengthInMillis = 25000
 
 class GameService(private val eventService: EventService) {
     fun start() {
