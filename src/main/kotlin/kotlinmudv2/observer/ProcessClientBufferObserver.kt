@@ -1,6 +1,9 @@
 package kotlinmudv2.observer
 
-import kotlinmudv2.action.*
+import kotlinmudv2.action.ActionService
+import kotlinmudv2.action.ActionStatus
+import kotlinmudv2.action.ContextService
+import kotlinmudv2.action.Response
 import kotlinmudv2.event.Event
 import kotlinmudv2.socket.Client
 import kotlinmudv2.socket.SocketService
@@ -12,8 +15,8 @@ class ProcessClientBufferObserver(
     private val contextService: ContextService,
 ) : Observer {
     override suspend fun <T> invokeAsync(event: Event<T>) {
-        socketService.getClientsWithBuffers().asFlow().collect {
-            processRequest(it)
+        socketService.getClientsWithBuffers().asFlow().collect { client ->
+            client.mob?.let { processRequest(client) }
         }
     }
 
@@ -22,11 +25,11 @@ class ProcessClientBufferObserver(
             contextService.findActionForInput(client, input)?.let {
                 it.execute(
                     actionService,
-                    client.mob,
+                    client.mob!!,
                     input,
                 )
             } ?: Response(
-                client.mob,
+                client.mob!!,
                 ActionStatus.Error,
                 "What was that?",
             )

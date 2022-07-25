@@ -2,7 +2,7 @@ package kotlinmudv2.mob
 
 import kotlinmudv2.item.Item
 
-class NewMob (
+class NewMob(
     val name: String,
     val brief: String,
     val description: String,

@@ -7,7 +7,7 @@ import java.nio.channels.ClosedChannelException
 import java.nio.channels.NotYetConnectedException
 import java.nio.channels.SocketChannel
 
-class Client(private val socket: SocketChannel, val mob: Mob) {
+class Client(private val socket: SocketChannel, var mob: Mob? = null) {
     var delay = 0
     private var connected = true
     private val buffers = mutableListOf<String>()

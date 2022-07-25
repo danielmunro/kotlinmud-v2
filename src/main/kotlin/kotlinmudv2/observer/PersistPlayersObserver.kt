@@ -9,9 +9,8 @@ class PersistPlayersObserver(private val clientService: ClientService) : Observe
     private val gson = GsonBuilder().setPrettyPrinting().create()
 
     override suspend fun <T> invokeAsync(event: Event<T>) {
-        println("persist players")
-        clientService.getClients().forEach {
-            File("./players/${it.mob.name}.json").writeText(
+        clientService.getClients().filter { it.mob != null }.forEach {
+            File("./players/${it.mob!!.name}.json").writeText(
                 gson.toJson(it.mob)
             )
         }

@@ -40,7 +40,7 @@ class TestService(private val container: DI) {
         mobService.createMobEntity("foo", "bar", "baz", startRoom.id),
     ).also {
         transaction {
-            it.mob.roomId = startRoom.id
+            it.mob!!.roomId = startRoom.id
         }
     }
 
@@ -81,11 +81,11 @@ class TestService(private val container: DI) {
                     brief = "a strange potion is lying here"
                     description = "a strange potion is lying here"
                     itemType = ItemType.Consumable.toString()
-                    mob = MobEntity.findById(client.mob.id)?.id
+                    mob = MobEntity.findById(client.mob!!.id)?.id
                 }
             }
         ).also {
-            client.mob.items.add(it)
+            client.mob!!.items.add(it)
         }
     }
 

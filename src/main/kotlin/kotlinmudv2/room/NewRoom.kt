@@ -2,7 +2,7 @@ package kotlinmudv2.room
 
 import kotlinmudv2.item.Item
 
-class NewRoom (
+class NewRoom(
     val name: String,
     val description: String,
     val items: MutableList<Item>,

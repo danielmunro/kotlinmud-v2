@@ -37,21 +37,21 @@ class ContextService(
                     Syntax.Command -> action.command.value.startsWith(parts[0])
                     Syntax.MobInRoom -> {
                         val mobName = parts[index]
-                        findMobInRoom(client.mob.roomId, mobName)?.let {
+                        findMobInRoom(client.mob!!.roomId, mobName)?.let {
                             context[index] = it
                             true
                         } ?: false
                     }
                     Syntax.ItemInInventory -> {
                         val itemName = parts[index]
-                        findItemInInventory(client.mob.items, itemName)?.let {
+                        findItemInInventory(client.mob!!.items, itemName)?.let {
                             context[index] = it
                             true
                         } ?: false
                     }
                     Syntax.ItemInRoom -> {
                         val itemName = parts[index]
-                        findItemInRoom(client.mob.roomId, itemName)?.let {
+                        findItemInRoom(client.mob!!.roomId, itemName)?.let {
                             context[index] = it
                             true
                         } ?: false
