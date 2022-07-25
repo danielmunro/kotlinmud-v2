@@ -21,21 +21,9 @@ class ProcessClientBufferObserver(
     }
 
     fun handleRequest(client: Client, input: String): Response {
-        return (
-            contextService.findActionForInput(client, input)?.let {
-                it.execute(
-                    actionService,
-                    client.mob!!,
-                    input,
-                )
-            } ?: Response(
-                client.mob!!,
-                ActionStatus.Error,
-                "What was that?",
-            )
-            ).also {
-            client.writePrompt(it.toActionCreator)
-        }
+        return contextService.findActionForInput(client, input)
+            ?.execute(actionService, client.mob!!, input)
+            ?: Response(client.mob!!, ActionStatus.Error, "What was that?")
     }
 
     private fun processRequest(client: Client) {
@@ -43,6 +31,11 @@ class ProcessClientBufferObserver(
             return
         }
 
-        client.shiftInput().also { handleRequest(client, it) }
+        client.shiftInput().also {
+            handleRequest(client, it).also {
+                response ->
+                client.writePrompt(response.toActionCreator)
+            }
+        }
     }
 }
