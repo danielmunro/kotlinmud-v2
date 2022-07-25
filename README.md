@@ -4,8 +4,8 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 
 ## Todo - M1
 
-* Ticks
-* Player persistence
+* Ticks - done
+* Player persistence - done
 * Web server - done
 * Social
 
