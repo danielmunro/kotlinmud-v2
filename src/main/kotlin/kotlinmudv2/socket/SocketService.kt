@@ -2,6 +2,7 @@ package kotlinmudv2.socket
 
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.createClientConnectedEvent
+import kotlinmudv2.log.logger
 import kotlinmudv2.mob.MobService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -32,7 +33,7 @@ class SocketService(
     private val selector: Selector = Selector.open()
     private val clients = mutableMapOf<SocketChannel, Client>()
     private val socket = ServerSocketChannel.open()
-//    private val logger = logger(this)
+    private val logger = logger(this)
 
     init {
         val serverSocket = socket.socket()
@@ -72,7 +73,7 @@ class SocketService(
             eventService.publish(createClientConnectedEvent(client))
             clients[it] = client
             clientService.addClient(client)
-//        logger.debug("connection accepted :: {}", socket.remoteAddress)
+            logger.info("connection accepted :: {}", it.remoteAddress)
         }
     }
 
@@ -88,14 +89,13 @@ class SocketService(
         try {
             readSocketIntoClient(socket)
         } catch (e: IOException) {
-//            logger.debug("socket io exception, closing :: {}", socket.remoteAddress)
+            logger.info("socket io exception, closing :: {}", socket.remoteAddress)
             socket.close()
         }
     }
 
     private fun readSocketIntoClient(socket: SocketChannel) {
         readSocket(socket).let {
-            println("received: $it")
             clients[socket]?.addInput(it)
             checkSocketForQuit(socket, it)
         }
@@ -103,7 +103,7 @@ class SocketService(
 
     private fun checkSocketForQuit(socket: SocketChannel, data: String) {
         if (data.equals("quit", ignoreCase = true)) {
-//            logger.debug("connection closed :: ${socket.remoteAddress}")
+            logger.info("connection closed :: ${socket.remoteAddress}")
             socket.close()
         }
     }
