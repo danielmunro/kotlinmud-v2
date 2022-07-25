@@ -30,3 +30,5 @@ build
 
 # Intellij
 .idea
+
+players/*
