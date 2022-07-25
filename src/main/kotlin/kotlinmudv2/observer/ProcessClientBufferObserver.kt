@@ -5,6 +5,7 @@ import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.ContextService
 import kotlinmudv2.action.Response
 import kotlinmudv2.event.Event
+import kotlinmudv2.socket.AuthService
 import kotlinmudv2.socket.Client
 import kotlinmudv2.socket.SocketService
 import kotlinx.coroutines.flow.asFlow
@@ -13,10 +14,11 @@ class ProcessClientBufferObserver(
     private val socketService: SocketService,
     private val actionService: ActionService,
     private val contextService: ContextService,
+    private val authService: AuthService,
 ) : Observer {
     override suspend fun <T> invokeAsync(event: Event<T>) {
         socketService.getClientsWithBuffers().asFlow().collect { client ->
-            client.mob?.let { processRequest(client) }
+            client.mob?.let { processRequest(client) } ?: authService.handleInput(client)
         }
     }
 

@@ -22,6 +22,7 @@ import kotlinmudv2.observer.PersistPlayersObserver
 import kotlinmudv2.observer.ProcessClientBufferObserver
 import kotlinmudv2.observer.ReadClientsObserver
 import kotlinmudv2.room.RoomService
+import kotlinmudv2.socket.AuthService
 import kotlinmudv2.socket.ClientService
 import kotlinmudv2.socket.SocketService
 import org.kodein.di.DI
@@ -35,9 +36,10 @@ fun createContainer(port: Int): DI {
         bindSingleton { EventService() }
         bindSingleton { ClientService() }
         bindSingleton { ItemService() }
-        bindSingleton { WebServerService(instance(), instance(), instance()) }
         bindSingleton { RoomService(instance()) }
         bindSingleton { MobService(instance()) }
+        bindSingleton { AuthService(instance()) }
+        bindSingleton { WebServerService(instance(), instance(), instance()) }
         bindSingleton { ContextService(instance(), instance(), instance()) }
         bindSingleton { ActionService(instance(), instance()) }
         bindSingleton { SocketService(instance(), instance(), instance(), port) }
@@ -63,7 +65,14 @@ fun createContainer(port: Int): DI {
         bindProvider(tag = "persistPlayers") { PersistPlayersObserver(instance()) }
         bindProvider(tag = "clientConnected") { ClientConnectedObserver() }
         bindProvider(tag = "readClients") { ReadClientsObserver(instance()) }
-        bindProvider(tag = "processClientBuffer") { ProcessClientBufferObserver(instance(), instance(), instance()) }
+        bindProvider(tag = "processClientBuffer") {
+            ProcessClientBufferObserver(
+                instance(),
+                instance(),
+                instance(),
+                instance(),
+            )
+        }
 
         // list of observers
         bindSingleton<Map<EventType, List<Observer>>>(tag = "observers") {

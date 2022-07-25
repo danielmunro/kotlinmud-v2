@@ -64,12 +64,14 @@ class SocketService(
 
     private suspend fun handleAccept(newSocket: ServerSocketChannel) {
         configureAndAcceptSocket(newSocket)?.also {
-            val testName = "foo"
-            val client = if (mobService.isPlayerMob(testName)) {
-                Client(it, mobService.hydratePlayerMob(testName))
-            } else {
-                Client(it, mobService.createMobEntity(testName, "bar", "baz", 1))
-            }
+//            val testName = "foo"
+//            val client = if (mobService.isPlayerMob(testName)) {
+//                Client(it, mobService.hydratePlayerMob(testName))
+//            } else {
+//                Client(it, mobService.createMobEntity(testName, "bar", "baz", 1))
+//            }
+            val client = Client(it)
+            client.writePrompt("By what name do you wish to be known? ")
             eventService.publish(createClientConnectedEvent(client))
             clients[it] = client
             clientService.addClient(client)
