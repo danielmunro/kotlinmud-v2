@@ -2,7 +2,7 @@ package kotlinmudv2.mob
 
 import kotlinmudv2.item.Item
 
-class Mob(
+open class Mob(
     val id: Int,
     val name: String,
     val brief: String,

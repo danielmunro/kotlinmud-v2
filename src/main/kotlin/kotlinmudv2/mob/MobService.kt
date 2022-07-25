@@ -13,9 +13,27 @@ class MobService(private val itemService: ItemService) {
         return File("./players/$name.json").isFile
     }
 
-    fun hydratePlayerMob(name: String): Mob {
+    fun hydratePlayerMob(name: String): PlayerMob {
         val data = File("./players/$name.json")
-        return Gson().fromJson(data.readText(), Mob::class.java)
+        return Gson().fromJson(data.readText(), PlayerMob::class.java)
+    }
+
+    fun createPlayerMob(name: String, password: String): PlayerMob {
+        return PlayerMob(
+            password,
+            0,
+            name,
+            "$name is here",
+            "",
+            mutableListOf(),
+            20,
+            20,
+            100,
+            100,
+            100,
+            100,
+            1,
+        )
     }
 
     fun createMobEntity(name: String, description: String, brief: String, roomId: Int): Mob {
