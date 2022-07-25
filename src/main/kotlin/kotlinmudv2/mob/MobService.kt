@@ -1,11 +1,22 @@
 package kotlinmudv2.mob
 
+import com.google.gson.Gson
 import kotlinmudv2.item.ItemService
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.io.File
 
 class MobService(private val itemService: ItemService) {
     private val mobs = mutableMapOf<Int, MutableList<Mob>>()
     private val mobRooms = mutableMapOf<Int, MutableList<Mob>>()
+
+    fun isPlayerMob(name: String): Boolean {
+        return File("./players/$name.json").isFile
+    }
+
+    fun hydratePlayerMob(name: String): Mob {
+        val data = File("./players/$name.json")
+        return Gson().fromJson(data.readText(), Mob::class.java)
+    }
 
     fun createMobEntity(name: String, description: String, brief: String, roomId: Int): Mob {
         val entity = transaction {
