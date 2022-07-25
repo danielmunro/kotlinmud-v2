@@ -7,11 +7,11 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * Ticks - done
 * Player persistence - done
 * Web server - done
-* Social
 * Auth
 
 ## Todo - M2
 
+* Social
 * Equipment
 * Consumables
 * Fighting
