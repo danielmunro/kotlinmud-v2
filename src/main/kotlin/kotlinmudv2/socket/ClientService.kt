@@ -6,4 +6,8 @@ class ClientService {
     fun addClient(client: Client) {
         clients.add(client)
     }
+
+    fun getClients(): List<Client> {
+        return clients
+    }
 }

@@ -6,6 +6,10 @@ fun createGameLoopEvent(): Event<Any?> {
     return Event(EventType.GameLoop, null)
 }
 
+fun createTickEvent(): Event<Any?> {
+    return Event(EventType.Tick, null)
+}
+
 fun createClientConnectedEvent(client: Client): Event<Client> {
-    return Event(EventType.GameLoop, client)
+    return Event(EventType.ClientConnected, client)
 }

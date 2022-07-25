@@ -18,6 +18,7 @@ import kotlinmudv2.item.ItemService
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.observer.ClientConnectedObserver
 import kotlinmudv2.observer.Observer
+import kotlinmudv2.observer.PersistPlayersObserver
 import kotlinmudv2.observer.ProcessClientBufferObserver
 import kotlinmudv2.observer.ReadClientsObserver
 import kotlinmudv2.room.RoomService
@@ -59,6 +60,7 @@ fun createContainer(port: Int): DI {
         }
 
         // observers
+        bindProvider(tag = "persistPlayers") { PersistPlayersObserver(instance()) }
         bindProvider(tag = "clientConnected") { ClientConnectedObserver() }
         bindProvider(tag = "readClients") { ReadClientsObserver(instance()) }
         bindProvider(tag = "processClientBuffer") { ProcessClientBufferObserver(instance(), instance(), instance()) }
@@ -76,7 +78,13 @@ fun createContainer(port: Int): DI {
                     EventType.GameLoop,
                     listOf(
                         instance(tag = "readClients"),
-                        instance(tag = "processClientBuffer")
+                        instance(tag = "processClientBuffer"),
+                    ),
+                ),
+                Pair(
+                    EventType.Tick,
+                    listOf(
+                        instance(tag = "persistPlayers"),
                     ),
                 ),
             )
