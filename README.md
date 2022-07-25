@@ -8,6 +8,7 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * Player persistence - done
 * Web server - done
 * Social
+* Auth
 
 ## Todo - M2
 
