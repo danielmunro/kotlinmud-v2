@@ -21,6 +21,8 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * Potions
   * action: quaff
 * Fighting
+  * actions: kill, flee
+  * battle rounds
 
 ## Todo - M3
 

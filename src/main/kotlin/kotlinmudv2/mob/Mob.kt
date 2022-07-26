@@ -15,4 +15,6 @@ open class Mob(
     var moves: Int,
     var maxMoves: Int,
     var roomId: Int,
-)
+) {
+    var target: Mob? = null
+}

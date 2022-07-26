@@ -12,6 +12,13 @@ private fun createMoveAction(command: Command, direction: Direction): Action {
         command,
         listOf(Syntax.Command)
     ) { actionService, mob, context, _ ->
+        if (mob.target != null) {
+            return@Action Response(
+                mob,
+                ActionStatus.Error,
+                "you are fighting and can't do that!",
+            )
+        }
         actionService.moveMob(mob, direction)?.let {
             createLookAction().execute(actionService, mob, context, "look")
         } ?: Response(mob, ActionStatus.Error, "Alas, that direction does not exist.")

@@ -11,6 +11,10 @@ enum class Command(val value: String) {
     Say("say"),
     Gossip("gossip"),
 
+    // fighting
+    Kill("kill"),
+    Flee("flee"),
+
     // movement
     North("north"),
     South("south"),
