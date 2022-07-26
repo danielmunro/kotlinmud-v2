@@ -25,6 +25,7 @@ class TestService(private val container: DI) {
     private val mobService = container.direct.instance<MobService>()
     private val itemService = container.direct.instance<ItemService>()
     var startRoom: Room
+    var potentialTarget: Mob? = null
     init {
         val roomEntity = transaction {
             RoomEntity.new {
@@ -44,6 +45,10 @@ class TestService(private val container: DI) {
         }
     }
 
+    fun getPlayerMob(): Mob {
+        return client.mob!!
+    }
+
     fun createRoom(destination: RoomEntity, sourceId: Int, direction: Direction): Room {
         return roomService.connectRooms(sourceId, destination, direction)
     }
@@ -54,7 +59,14 @@ class TestService(private val container: DI) {
             "this is a test",
             "a test mob created by TestService",
             startRoom.id,
-        )
+        ).also {
+            potentialTarget = it
+        }
+    }
+
+    fun fight() {
+        client.mob!!.target = potentialTarget
+        potentialTarget!!.target = client.mob
     }
 
     fun createItemInRoom(): Item {
