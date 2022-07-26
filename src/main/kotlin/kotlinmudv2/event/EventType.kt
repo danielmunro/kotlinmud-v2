@@ -4,4 +4,5 @@ enum class EventType {
     GameLoop,
     ClientConnected,
     Tick,
+    Pulse,
 }

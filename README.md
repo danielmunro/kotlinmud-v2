@@ -18,11 +18,9 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
   * actions: say, gossip
 * Equipment
   * actions: wear, remove
-* Potions
+* Potions - done
   * action: quaff
-* Fighting
-  * actions: kill, flee
-  * battle rounds
+* Fight actions: kill, flee - done
 
 ## Todo - M3
 
@@ -35,6 +33,7 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * Skills
 * Spells
 * Races/classes
+* Fighting
 
 ## Todo - M5
 
