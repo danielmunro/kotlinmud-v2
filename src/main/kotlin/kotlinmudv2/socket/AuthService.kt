@@ -1,11 +1,10 @@
 package kotlinmudv2.socket
 
 import kotlinmudv2.crypto.isExpectedPassword
-import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.mob.PlayerMob
 
-class AuthService (
+class AuthService(
     private val mobService: MobService,
 ) {
     private val auth = mutableMapOf<Client, Auth>()
