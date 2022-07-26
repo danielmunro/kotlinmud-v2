@@ -17,13 +17,12 @@ fun createLookAction(): Action {
             val mobs = actionService.getMobsInRoom(it.id).filter { m -> m != mob }.joinToString("\n") { mob -> mob.brief }
             Response(
                 mob,
-                ActionStatus.Success,
-                "${it.name}\n${it.description}\n$exits\n$items$mobs"
+                "${it.name}\n${it.description}\n$exits\n$items$mobs",
             )
         } ?: Response(
             mob,
-            ActionStatus.Error,
             "Room was not found",
+            ActionStatus.Error,
         )
     }
 }

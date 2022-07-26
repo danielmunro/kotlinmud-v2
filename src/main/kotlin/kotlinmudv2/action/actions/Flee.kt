@@ -1,7 +1,6 @@
 package kotlinmudv2.action.actions
 
 import kotlinmudv2.action.Action
-import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
@@ -23,10 +22,6 @@ fun createFleeAction(): Action {
         ).random().also {
             actionService.moveMob(mob, it)
         }
-        Response(
-            mob,
-            ActionStatus.Success,
-            "you flee running scared!",
-        )
+        Response(mob, "you flee running scared!")
     }
 }

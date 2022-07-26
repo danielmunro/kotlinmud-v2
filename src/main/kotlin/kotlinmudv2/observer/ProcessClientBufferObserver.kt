@@ -25,7 +25,7 @@ class ProcessClientBufferObserver(
     fun handleRequest(client: Client, input: String): Response {
         return contextService.findActionForInput(client, input)
             ?.execute(actionService, client.mob!!, input)
-            ?: Response(client.mob!!, ActionStatus.Error, "What was that?")
+            ?: Response(client.mob!!, "What was that?", ActionStatus.Error)
     }
 
     private fun processRequest(client: Client) {

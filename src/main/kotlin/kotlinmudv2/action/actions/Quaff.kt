@@ -17,18 +17,12 @@ fun createQuaffAction(): Action {
             return@Action if (it.itemType != ItemType.Potion) {
                 Response(
                     mob,
-                    ActionStatus.Error,
                     "that's not a potion",
+                    ActionStatus.Error,
                 )
             } else {
-
                 mob.items.remove(it)
-
-                Response(
-                    mob,
-                    ActionStatus.Success,
-                    "you quaff ${it.name}"
-                )
+                Response(mob, "you quaff ${it.name}")
             }
         }
     }
