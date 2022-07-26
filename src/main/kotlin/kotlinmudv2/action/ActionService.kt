@@ -5,11 +5,18 @@ import kotlinmudv2.mob.MobService
 import kotlinmudv2.room.Direction
 import kotlinmudv2.room.Room
 import kotlinmudv2.room.RoomService
+import kotlinmudv2.socket.Client
+import kotlinmudv2.socket.ClientService
 
 class ActionService(
     private val roomService: RoomService,
     private val mobService: MobService,
+    private val clientService: ClientService,
 ) {
+    fun getClients(): List<Client> {
+        return clientService.getClients()
+    }
+
     fun getRoom(id: Int): Room? {
         return roomService.getRoom(id)
     }

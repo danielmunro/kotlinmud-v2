@@ -15,7 +15,7 @@ class Client(private val socket: SocketChannel, var mob: Mob? = null) {
     private val buffers = mutableListOf<String>()
     private val gson = GsonBuilder().setPrettyPrinting().create()
 
-    fun writePrompt(message: String) {
+    fun write(message: String) {
         val buffer = ByteBuffer.allocate(1024)
         buffer.put("$message\n".toByteArray())
         buffer.flip()

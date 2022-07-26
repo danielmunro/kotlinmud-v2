@@ -71,7 +71,7 @@ class SocketService(
 //                Client(it, mobService.createMobEntity(testName, "bar", "baz", 1))
 //            }
             val client = Client(it)
-            client.writePrompt("By what name do you wish to be known? ")
+            client.write("By what name do you wish to be known? ")
             eventService.publish(createClientConnectedEvent(client))
             clients[it] = client
             clientService.addClient(client)

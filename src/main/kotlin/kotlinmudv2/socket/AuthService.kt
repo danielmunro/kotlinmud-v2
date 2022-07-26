@@ -28,7 +28,7 @@ class AuthService(
             context[client] = mutableMapOf(
                 Pair("mob", mobService.hydratePlayerMob(input))
             )
-            client.writePrompt("Password: ")
+            client.write("Password: ")
             auth[client] = Auth.Password
             return
         }
@@ -36,36 +36,36 @@ class AuthService(
             Pair("mob", input)
         )
         auth[client] = Auth.NewPassword
-        client.writePrompt("new mob. What's your password? ")
+        client.write("new mob. What's your password? ")
     }
 
     private fun handlePassword(client: Client, input: String) {
         val mob = context[client]!!["mob"]!! as PlayerMob
         if (!isExpectedPassword(input, mob.salt, mob.password)) {
-            client.writePrompt("wrong password")
+            client.write("wrong password")
             return
         }
         client.mob = mob
-        client.writePrompt("login successful, welcome back!")
+        client.write("login successful, welcome back!")
     }
 
     private fun handleNewPassword(client: Client, input: String) {
         context[client]!!["newPassword"] = input
         auth[client] = Auth.NewPasswordConfirm
-        client.writePrompt("Again: ")
+        client.write("Again: ")
     }
 
     private fun handleNewPasswordConfirm(client: Client, input: String) {
         val pw = context[client]!!["newPassword"]
         if (pw != input) {
-            client.writePrompt("passwords do not match")
+            client.write("passwords do not match")
             return
         }
         client.mob = mobService.createPlayerMob(
             context[client]!!["mob"]!! as String,
             input,
         )
-        client.writePrompt("new character creation success!")
+        client.write("new character creation success!")
         client.persistPlayerMob()
     }
 

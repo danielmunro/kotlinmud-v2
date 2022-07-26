@@ -10,6 +10,7 @@ import kotlinmudv2.action.actions.createLookAtItemInRoomAction
 import kotlinmudv2.action.actions.createLookAtMobInRoomAction
 import kotlinmudv2.action.actions.createNorthAction
 import kotlinmudv2.action.actions.createQuaffAction
+import kotlinmudv2.action.actions.createSayAction
 import kotlinmudv2.action.actions.createSouthAction
 import kotlinmudv2.action.actions.createUpAction
 import kotlinmudv2.action.actions.createWestAction
@@ -42,7 +43,7 @@ fun createContainer(port: Int): DI {
         bindSingleton { AuthService(instance()) }
         bindSingleton { WebServerService(instance(), instance(), instance()) }
         bindSingleton { ContextService(instance(), instance(), instance()) }
-        bindSingleton { ActionService(instance(), instance()) }
+        bindSingleton { ActionService(instance(), instance(), instance()) }
         bindSingleton { SocketService(instance(), instance(), instance(), port) }
         bindSingleton { GameService(instance()) }
 
@@ -60,6 +61,7 @@ fun createContainer(port: Int): DI {
                 createLookAtItemInInventoryAction(),
                 createLookAction(),
                 createQuaffAction(),
+                createSayAction(),
             )
         }
 

@@ -7,6 +7,8 @@ enum class Command(val value: String) {
     // potions
     Quaff("quaff"),
 
+    Say("say"),
+
     // movement
     North("north"),
     South("south"),

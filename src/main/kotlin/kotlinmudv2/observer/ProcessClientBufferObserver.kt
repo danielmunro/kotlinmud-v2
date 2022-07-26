@@ -36,7 +36,7 @@ class ProcessClientBufferObserver(
         client.shiftInput().also {
             handleRequest(client, it).also {
                 response ->
-                client.writePrompt(response.toActionCreator)
+                client.write(response.toActionCreator)
             }
         }
     }
