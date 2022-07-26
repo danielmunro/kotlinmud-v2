@@ -13,7 +13,7 @@ class AuthService (
     fun handleInput(client: Client) {
         ensureClientAddedToAuth(client)
         val input = client.shiftInput()
-        auth[client]!!.let {
+        auth[client]?.let {
             when (it) {
                 Auth.Name -> handleName(client, input)
                 Auth.Password -> handlePassword(client, input)
