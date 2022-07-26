@@ -7,7 +7,7 @@ class ClientService {
         clients.add(client)
     }
 
-    fun getClients(): List<Client> {
-        return clients
+    fun persistPlayerMobs() {
+        clients.forEach { it.persistPlayerMob() }
     }
 }

@@ -1,6 +1,8 @@
 package kotlinmudv2.socket
 
+import com.google.gson.GsonBuilder
 import kotlinmudv2.mob.Mob
+import java.io.File
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.channels.ClosedChannelException
@@ -11,6 +13,7 @@ class Client(private val socket: SocketChannel, var mob: Mob? = null) {
     var delay = 0
     private var connected = true
     private val buffers = mutableListOf<String>()
+    private val gson = GsonBuilder().setPrettyPrinting().create()
 
     fun writePrompt(message: String) {
         val buffer = ByteBuffer.allocate(1024)
@@ -41,5 +44,11 @@ class Client(private val socket: SocketChannel, var mob: Mob? = null) {
 
     fun shiftInput(): String {
         return buffers.removeAt(0)
+    }
+
+    fun persistPlayerMob() {
+        mob?.let {
+            File("./players/${it.name}.json").writeText(gson.toJson(it))
+        }
     }
 }

@@ -67,6 +67,7 @@ class AuthService (
             input,
         )
         client.writePrompt("new character creation success!")
+        client.persistPlayerMob()
     }
 
     private fun ensureClientAddedToAuth(client: Client) {
