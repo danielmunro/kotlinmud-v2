@@ -6,6 +6,7 @@ class NewMob(
     val name: String,
     val brief: String,
     val description: String,
+    val race: Race,
     val items: MutableList<Item>,
     var hp: Int,
     var mana: Int,

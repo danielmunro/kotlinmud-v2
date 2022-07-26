@@ -8,6 +8,7 @@ import kotlinmudv2.item.ItemType
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobService
+import kotlinmudv2.mob.Race
 import kotlinmudv2.observer.ProcessClientBufferObserver
 import kotlinmudv2.room.Direction
 import kotlinmudv2.room.Room
@@ -38,7 +39,7 @@ class TestService(private val container: DI) {
 
     private val client = Client(
         SocketChannel.open(),
-        mobService.createMobEntity("foo", "bar", "baz", startRoom.id),
+        mobService.createMobEntity("foo", "bar", "baz", Race.Human, startRoom.id),
     ).also {
         transaction {
             it.mob!!.roomId = startRoom.id
@@ -58,6 +59,7 @@ class TestService(private val container: DI) {
             "a test mob",
             "this is a test",
             "a test mob created by TestService",
+            Race.Human,
             startRoom.id,
         ).also {
             potentialTarget = it

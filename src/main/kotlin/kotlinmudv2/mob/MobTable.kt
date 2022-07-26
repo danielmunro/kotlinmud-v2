@@ -13,4 +13,5 @@ object MobTable : IntIdTable() {
     val maxMana = integer("maxMana")
     val maxMoves = integer("maxMoves")
     val roomId = integer("roomId")
+    val race = varchar("race", 50)
 }

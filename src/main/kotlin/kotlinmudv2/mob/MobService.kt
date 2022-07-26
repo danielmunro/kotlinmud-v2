@@ -20,7 +20,7 @@ class MobService(private val itemService: ItemService) {
         return Gson().fromJson(data.readText(), PlayerMob::class.java)
     }
 
-    fun createPlayerMob(name: String, password: String): PlayerMob {
+    fun createPlayerMob(name: String, password: String, race: Race): PlayerMob {
         val salt = generateSalt()
 
         return PlayerMob(
@@ -30,6 +30,7 @@ class MobService(private val itemService: ItemService) {
             name,
             "$name is here",
             "",
+            race,
             mutableListOf(),
             20,
             20,
@@ -41,12 +42,13 @@ class MobService(private val itemService: ItemService) {
         )
     }
 
-    fun createMobEntity(name: String, description: String, brief: String, roomId: Int): Mob {
+    fun createMobEntity(name: String, description: String, brief: String, race: Race, roomId: Int): Mob {
         val entity = transaction {
             MobEntity.new {
                 this.name = name
                 this.description = description
                 this.brief = brief
+                this.race = race.toString()
                 hp = 0
                 maxHp = 0
                 mana = 0
@@ -75,6 +77,7 @@ class MobService(private val itemService: ItemService) {
             entity.name,
             entity.brief,
             entity.description,
+            Race.valueOf(entity.race),
             transaction { entity.items.map { itemService.createFromEntity(it) } }.toMutableList(),
             entity.hp,
             entity.maxHp,
