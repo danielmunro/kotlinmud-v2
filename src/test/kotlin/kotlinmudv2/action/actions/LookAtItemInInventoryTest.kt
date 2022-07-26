@@ -13,7 +13,7 @@ class LookAtItemInInventoryTest {
         val test = createTestService()
 
         // given
-        val item = test.createItemInInventory()
+        val item = test.createPotionInInventory()
 
         // when
         val response = test.handleRequest("look ${getIdentifyingWord(item.brief)}")

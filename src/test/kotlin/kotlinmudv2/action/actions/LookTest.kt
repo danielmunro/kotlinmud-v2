@@ -32,7 +32,7 @@ class LookTest {
             "a potion",
             "hello",
             "a potion is here",
-            ItemType.Consumable,
+            ItemType.Potion,
         )
 
         testService.startRoom.items.add(

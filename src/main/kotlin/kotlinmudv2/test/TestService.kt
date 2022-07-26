@@ -64,7 +64,7 @@ class TestService(private val container: DI) {
                     name = "a potion"
                     brief = "a strange potion is lying here"
                     description = "a strange potion is lying here"
-                    itemType = ItemType.Consumable.toString()
+                    itemType = ItemType.Potion.toString()
                     room = RoomEntity.findById(startRoom.id)?.id
                 }
             }
@@ -73,14 +73,30 @@ class TestService(private val container: DI) {
         }
     }
 
-    fun createItemInInventory(): Item {
+    fun createPotionInInventory(): Item {
         return itemService.createFromEntity(
             transaction {
                 ItemEntity.new {
                     name = "a potion"
                     brief = "a strange potion is lying here"
                     description = "a strange potion is lying here"
-                    itemType = ItemType.Consumable.toString()
+                    itemType = ItemType.Potion.toString()
+                    mob = MobEntity.findById(client.mob!!.id)?.id
+                }
+            }
+        ).also {
+            client.mob!!.items.add(it)
+        }
+    }
+
+    fun createSwordInInventory(): Item {
+        return itemService.createFromEntity(
+            transaction {
+                ItemEntity.new {
+                    name = "a sword"
+                    brief = "a sword is lying here"
+                    description = "a practice sword is lying here"
+                    itemType = ItemType.Equipment.toString()
                     mob = MobEntity.findById(client.mob!!.id)?.id
                 }
             }

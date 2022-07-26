@@ -13,7 +13,7 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 
 * Social
 * Equipment
-* Consumables
+* Potions
 * Fighting
 
 ## Todo - M3

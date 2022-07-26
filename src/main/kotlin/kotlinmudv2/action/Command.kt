@@ -4,6 +4,9 @@ enum class Command(val value: String) {
     // information
     Look("look"),
 
+    // potions
+    Quaff("quaff"),
+
     // movement
     North("north"),
     South("south"),

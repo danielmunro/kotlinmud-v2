@@ -9,6 +9,7 @@ import kotlinmudv2.action.actions.createLookAtItemInInventoryAction
 import kotlinmudv2.action.actions.createLookAtItemInRoomAction
 import kotlinmudv2.action.actions.createLookAtMobInRoomAction
 import kotlinmudv2.action.actions.createNorthAction
+import kotlinmudv2.action.actions.createQuaffAction
 import kotlinmudv2.action.actions.createSouthAction
 import kotlinmudv2.action.actions.createUpAction
 import kotlinmudv2.action.actions.createWestAction
@@ -58,6 +59,7 @@ fun createContainer(port: Int): DI {
                 createLookAtItemInRoomAction(),
                 createLookAtItemInInventoryAction(),
                 createLookAction(),
+                createQuaffAction(),
             )
         }
 
