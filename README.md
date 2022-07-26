@@ -7,7 +7,7 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * Ticks - done
 * Player persistence - done
 * Web server - done
-* Auth
+* Auth - done
 
 ## Todo - M2
 

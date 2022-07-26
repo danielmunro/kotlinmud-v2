@@ -1,5 +1,6 @@
 package kotlinmudv2.socket
 
+import kotlinmudv2.crypto.isExpectedPassword
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.mob.PlayerMob
@@ -41,7 +42,7 @@ class AuthService (
 
     private fun handlePassword(client: Client, input: String) {
         val mob = context[client]!!["mob"]!! as PlayerMob
-        if (input != mob.password) {
+        if (!isExpectedPassword(input, mob.salt, mob.password)) {
             client.writePrompt("wrong password")
             return
         }

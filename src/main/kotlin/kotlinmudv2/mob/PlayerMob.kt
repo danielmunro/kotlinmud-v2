@@ -3,7 +3,8 @@ package kotlinmudv2.mob
 import kotlinmudv2.item.Item
 
 class PlayerMob (
-    val password: String,
+    val password: ByteArray,
+    val salt: ByteArray,
     id: Int,
     name: String,
     brief: String,

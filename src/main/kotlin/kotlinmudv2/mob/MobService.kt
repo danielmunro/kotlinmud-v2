@@ -1,6 +1,8 @@
 package kotlinmudv2.mob
 
 import com.google.gson.Gson
+import kotlinmudv2.crypto.generateSalt
+import kotlinmudv2.crypto.hash
 import kotlinmudv2.item.ItemService
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.io.File
@@ -19,8 +21,11 @@ class MobService(private val itemService: ItemService) {
     }
 
     fun createPlayerMob(name: String, password: String): PlayerMob {
+        val salt = generateSalt()
+
         return PlayerMob(
-            password,
+            hash(password, salt),
+            salt,
             0,
             name,
             "$name is here",
