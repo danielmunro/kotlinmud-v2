@@ -7,13 +7,19 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * Ticks - done
 * Player persistence - done
 * Web server - done
+  * mob, item, rooms
 * Auth - done
+  * login
+  * create mob
 
 ## Todo - M2
 
-* Social
+* Social - done
+  * actions: say, gossip
 * Equipment
+  * actions: wear, remove
 * Potions
+  * action: quaff
 * Fighting
 
 ## Todo - M3
@@ -27,3 +33,7 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * Skills
 * Spells
 * Races/classes
+
+## Todo - M5
+
+* Shops
