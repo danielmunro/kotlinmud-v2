@@ -33,9 +33,6 @@ class MobService(private val itemService: ItemService) {
             race,
             mutableListOf(),
             20,
-            20,
-            100,
-            100,
             100,
             100,
             1,
@@ -80,11 +77,8 @@ class MobService(private val itemService: ItemService) {
             Race.valueOf(entity.race),
             transaction { entity.items.map { itemService.createFromEntity(it) } }.toMutableList(),
             entity.hp,
-            entity.maxHp,
             entity.mana,
-            entity.maxMana,
             entity.moves,
-            entity.maxMoves,
             entity.roomId,
         )
     }
