@@ -22,6 +22,7 @@ import kotlinmudv2.event.EventType
 import kotlinmudv2.item.ItemService
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.observer.ClientConnectedObserver
+import kotlinmudv2.observer.FightObserver
 import kotlinmudv2.observer.Observer
 import kotlinmudv2.observer.PersistPlayersObserver
 import kotlinmudv2.observer.ProcessClientBufferObserver
@@ -39,7 +40,7 @@ fun createContainer(port: Int): DI {
     return DI {
         // services
         bindSingleton { EventService() }
-        bindSingleton { ClientService() }
+        bindSingleton { ClientService(instance()) }
         bindSingleton { ItemService() }
         bindSingleton { RoomService(instance()) }
         bindSingleton { MobService(instance()) }
@@ -83,6 +84,7 @@ fun createContainer(port: Int): DI {
                 instance(),
             )
         }
+        bindProvider(tag = "fight") { FightObserver(instance(), instance()) }
 
         // list of observers
         bindSingleton<Map<EventType, List<Observer>>>(tag = "observers") {
@@ -104,6 +106,12 @@ fun createContainer(port: Int): DI {
                     EventType.Tick,
                     listOf(
                         instance(tag = "persistPlayers"),
+                    ),
+                ),
+                Pair(
+                    EventType.Pulse,
+                    listOf(
+                        instance(tag = "fight"),
                     ),
                 ),
             )

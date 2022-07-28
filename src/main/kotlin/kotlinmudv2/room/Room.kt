@@ -2,6 +2,8 @@ package kotlinmudv2.room
 
 import kotlinmudv2.item.Item
 
+const val startRoomId = 1
+
 class Room(
     val id: Int,
     val name: String,

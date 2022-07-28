@@ -39,7 +39,7 @@ class TestService(private val container: DI) {
 
     private val client = Client(
         SocketChannel.open(),
-        mobService.createMobEntity("foo", "bar", "baz", Race.Human, startRoom.id),
+        mobService.createPlayerMob("foo", "bar", Race.Human),
     ).also {
         transaction {
             it.mob!!.roomId = startRoom.id

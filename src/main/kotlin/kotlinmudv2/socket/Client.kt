@@ -1,7 +1,7 @@
 package kotlinmudv2.socket
 
 import com.google.gson.GsonBuilder
-import kotlinmudv2.mob.Mob
+import kotlinmudv2.mob.PlayerMob
 import java.io.File
 import java.io.IOException
 import java.nio.ByteBuffer
@@ -9,7 +9,7 @@ import java.nio.channels.ClosedChannelException
 import java.nio.channels.NotYetConnectedException
 import java.nio.channels.SocketChannel
 
-class Client(private val socket: SocketChannel, var mob: Mob? = null) {
+class Client(private val socket: SocketChannel, var mob: PlayerMob? = null) {
     var delay = 0
     private var connected = true
     private val buffers = mutableListOf<String>()

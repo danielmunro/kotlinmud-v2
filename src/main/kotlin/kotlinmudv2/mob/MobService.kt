@@ -8,7 +8,8 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import java.io.File
 
 class MobService(private val itemService: ItemService) {
-    private val mobs = mutableMapOf<Int, MutableList<Mob>>()
+    private val mobsById = mutableMapOf<Int, MutableList<Mob>>()
+    private val mobs = mutableListOf<Mob>()
     private val mobRooms = mutableMapOf<Int, MutableList<Mob>>()
 
     fun isPlayerMob(name: String): Boolean {
@@ -83,6 +84,19 @@ class MobService(private val itemService: ItemService) {
         )
     }
 
+    fun getFightingMobs(): List<Mob> {
+        return mobs.filter {
+            it.target != null
+        }
+    }
+
+    fun removeMob(mob: Mob) {
+        mobs.remove(mob)
+        mobsById[mob.id]?.remove(mob)
+        mobRooms[mob.roomId]?.remove(mob)
+        mob.roomId = 0
+    }
+
     private fun createMobInstance(id: Int): Mob? {
         return transaction { MobEntity.findById(id) }?.let {
             mapMob(it)
@@ -93,10 +107,11 @@ class MobService(private val itemService: ItemService) {
     }
 
     private fun addToMobs(mob: Mob) {
-        if (mobs[mob.id] == null) {
-            mobs[mob.id] = mutableListOf()
+        if (mobsById[mob.id] == null) {
+            mobsById[mob.id] = mutableListOf()
         }
-        mobs[mob.id]!!.add(mob)
+        mobsById[mob.id]!!.add(mob)
+        mobs.add(mob)
     }
 
     private fun addToMobRooms(mob: Mob) {
