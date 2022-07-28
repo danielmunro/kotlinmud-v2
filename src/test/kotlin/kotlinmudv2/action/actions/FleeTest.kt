@@ -26,7 +26,7 @@ class FleeTest {
         test.createMob()
 
         // given
-        test.fight()
+        test.setupFight()
 
         // when
         val response = test.handleRequest("flee")
@@ -43,7 +43,7 @@ class FleeTest {
         test.createMob()
 
         // given
-        test.fight()
+        test.setupFight()
 
         // when
         val response = test.handleRequest("flee")

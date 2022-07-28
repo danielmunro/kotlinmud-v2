@@ -1,6 +1,7 @@
 package kotlinmudv2.test
 
 import kotlinmudv2.action.Response
+import kotlinmudv2.fight.FightService
 import kotlinmudv2.item.Item
 import kotlinmudv2.item.ItemEntity
 import kotlinmudv2.item.ItemService
@@ -66,7 +67,7 @@ class TestService(private val container: DI) {
         }
     }
 
-    fun fight() {
+    fun setupFight() {
         client.mob!!.target = potentialTarget
         potentialTarget!!.target = client.mob
     }
@@ -124,6 +125,10 @@ class TestService(private val container: DI) {
             client,
             input,
         )
+    }
+
+    fun executeFight() {
+        container.direct.instance<FightService>().execute()
     }
 
     private fun getProcessClientBufferObserver(): ProcessClientBufferObserver {

@@ -16,7 +16,11 @@ open class Mob(
     var roomId: Int,
 ) {
     var target: Mob? = null
-    private val attributes = mutableMapOf<Attribute, Int>()
+    val attributes = mutableMapOf(
+        Pair(Attribute.Hp, 20),
+        Pair(Attribute.Mana, 100),
+        Pair(Attribute.Moves, 100),
+    )
 
     fun calc(attribute: Attribute): Int {
         return (attributes[attribute] ?: 0) + (raceAttributes[race]?.get(attribute) ?: 0)
