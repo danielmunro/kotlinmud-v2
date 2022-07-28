@@ -47,6 +47,7 @@ class FightService(
                 )
 
                 if (target.hp < 0) {
+                    attacker.target = null
                     handleDeath(target)
                 }
             }
@@ -69,6 +70,7 @@ class FightService(
             )
             mob.hp = 0
             mob.roomId = startRoomId
+            mob.target = null
             return
         }
         mobService.removeMob(mob)
