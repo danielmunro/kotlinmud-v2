@@ -5,6 +5,7 @@ import kotlinmudv2.action.ContextService
 import kotlinmudv2.action.actions.createDownAction
 import kotlinmudv2.action.actions.createEastAction
 import kotlinmudv2.action.actions.createFleeAction
+import kotlinmudv2.action.actions.createGetAction
 import kotlinmudv2.action.actions.createGossipAction
 import kotlinmudv2.action.actions.createKillAction
 import kotlinmudv2.action.actions.createLookAction
@@ -71,6 +72,7 @@ fun createContainer(port: Int): DI {
                 createGossipAction(),
                 createKillAction(),
                 createFleeAction(),
+                createGetAction(),
             )
         }
 

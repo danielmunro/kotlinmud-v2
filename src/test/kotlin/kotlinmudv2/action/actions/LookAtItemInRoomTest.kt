@@ -13,7 +13,7 @@ class LookAtItemInRoomTest {
         val test = createTestService()
 
         // given
-        val item = test.createItemInRoom()
+        val item = test.createPotionInRoom()
 
         // when
         val response = test.handleRequest("look ${getIdentifyingWord(item.brief)}")

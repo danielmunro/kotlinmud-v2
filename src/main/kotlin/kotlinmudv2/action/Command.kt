@@ -7,6 +7,9 @@ enum class Command(val value: String) {
     // potions
     Quaff("quaff"),
 
+    // items
+    Get("get"),
+
     // social
     Say("say"),
     Gossip("gossip"),

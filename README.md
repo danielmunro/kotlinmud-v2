@@ -20,16 +20,21 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
   * actions: wear, remove
 * Potions - done
   * action: quaff
-* Fight actions: kill, flee - done
+* Fight - done
+  * actions: kill, flee
+  * service
 
 ## Todo - M3
 
 * Furniture
-* Doors
-* Leveling
+* Better action error handling
+  * get - item not found
+  * kill - mob not found
 
 ## Todo - M4
 
+* Doors
+* Leveling
 * Skills
 * Spells
 * Races/classes

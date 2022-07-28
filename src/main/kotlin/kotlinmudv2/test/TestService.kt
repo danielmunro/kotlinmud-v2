@@ -72,7 +72,7 @@ class TestService(private val container: DI) {
         potentialTarget!!.target = client.mob
     }
 
-    fun createItemInRoom(): Item {
+    fun createPotionInRoom(): Item {
         return itemService.createFromEntity(
             transaction {
                 ItemEntity.new {
