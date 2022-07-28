@@ -1,9 +1,8 @@
 package kotlinmudv2.socket
 
-import kotlinmudv2.mob.MobService
 import kotlinmudv2.mob.PlayerMob
 
-class ClientService(private val mobService: MobService) {
+class ClientService {
     private val clients = mutableListOf<Client>()
 
     fun addClient(client: Client) {

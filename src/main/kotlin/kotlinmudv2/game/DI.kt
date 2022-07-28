@@ -40,7 +40,7 @@ fun createContainer(port: Int): DI {
     return DI {
         // services
         bindSingleton { EventService() }
-        bindSingleton { ClientService(instance()) }
+        bindSingleton { ClientService() }
         bindSingleton { ItemService() }
         bindSingleton { RoomService(instance()) }
         bindSingleton { MobService(instance()) }
