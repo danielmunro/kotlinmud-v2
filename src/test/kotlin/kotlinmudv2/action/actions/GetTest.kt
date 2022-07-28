@@ -23,4 +23,16 @@ class GetTest {
         assertThat(test.getPlayerMob().items).hasSize(1)
         assertThat(test.startRoom.items).hasSize(0)
     }
+
+    @Test
+    fun testCannotGetItemsThatDoNotExist() {
+        // setup
+        val test = createTestService()
+
+        // when
+        val response = test.handleRequest("get potion")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("you don't see that anywhere.")
+    }
 }

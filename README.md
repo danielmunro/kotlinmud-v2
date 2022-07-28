@@ -26,20 +26,21 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 
 ## Todo - M3
 
-* Furniture
+* Furniture -- done
 * Better action error handling
   * get - item not found
   * kill - mob not found
+* Races - done
 
 ## Todo - M4
 
+* Dispositions
 * Doors
 * Leveling
-* Skills
-* Spells
-* Races/classes
-* Fighting
+* Classes
 
 ## Todo - M5
 
 * Shops
+* Skills
+* Spells

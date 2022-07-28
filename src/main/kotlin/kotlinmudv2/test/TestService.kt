@@ -67,6 +67,10 @@ class TestService(private val container: DI) {
         }
     }
 
+    fun moveMob(mob: Mob, roomId: Int) {
+        mobService.moveMob(mob, roomId)
+    }
+
     fun setupFight() {
         client.mob!!.target = potentialTarget
         potentialTarget!!.target = client.mob

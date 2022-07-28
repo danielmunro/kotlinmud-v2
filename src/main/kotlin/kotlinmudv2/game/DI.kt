@@ -6,8 +6,10 @@ import kotlinmudv2.action.actions.createDownAction
 import kotlinmudv2.action.actions.createEastAction
 import kotlinmudv2.action.actions.createFleeAction
 import kotlinmudv2.action.actions.createGetAction
+import kotlinmudv2.action.actions.createGetErrorAction
 import kotlinmudv2.action.actions.createGossipAction
 import kotlinmudv2.action.actions.createKillAction
+import kotlinmudv2.action.actions.createKillErrorAction
 import kotlinmudv2.action.actions.createLookAction
 import kotlinmudv2.action.actions.createLookAtItemInInventoryAction
 import kotlinmudv2.action.actions.createLookAtItemInRoomAction
@@ -71,8 +73,10 @@ fun createContainer(port: Int): DI {
                 createSayAction(),
                 createGossipAction(),
                 createKillAction(),
+                createKillErrorAction(),
                 createFleeAction(),
                 createGetAction(),
+                createGetErrorAction(),
             )
         }
 
