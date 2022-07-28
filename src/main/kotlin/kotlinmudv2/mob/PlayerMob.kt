@@ -11,8 +11,9 @@ class PlayerMob(
     description: String,
     race: Race,
     items: MutableList<Item>,
+    equipped: MutableList<Item>,
     hp: Int,
     mana: Int,
     moves: Int,
     roomId: Int,
-) : Mob(id, name, brief, description, race, items, hp, mana, moves, roomId)
+) : Mob(id, name, brief, description, race, items, equipped, hp, mana, moves, roomId)

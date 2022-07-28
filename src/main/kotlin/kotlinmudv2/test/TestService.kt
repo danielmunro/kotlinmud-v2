@@ -100,7 +100,7 @@ class TestService(private val container: DI) {
                     brief = "a strange potion is lying here"
                     description = "a strange potion is lying here"
                     itemType = ItemType.Potion.toString()
-                    mob = MobEntity.findById(client.mob!!.id)?.id
+                    mobInventory = MobEntity.findById(client.mob!!.id)?.id
                 }
             }
         ).also {
@@ -116,7 +116,7 @@ class TestService(private val container: DI) {
                     brief = "a sword is lying here"
                     description = "a practice sword is lying here"
                     itemType = ItemType.Equipment.toString()
-                    mob = MobEntity.findById(client.mob!!.id)?.id
+                    mobInventory = MobEntity.findById(client.mob!!.id)?.id
                 }
             }
         ).also {

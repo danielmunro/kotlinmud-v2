@@ -138,7 +138,7 @@ class WebServerService(
                         }
                     }
                     model.mobId?.let {
-                        transaction { entity.mob = MobEntity.findById(it)!!.id }
+                        transaction { entity.mobInventory = MobEntity.findById(it)!!.id }
                     }
                     model.roomId?.let {
                         transaction { entity.room = RoomEntity.findById(it)!!.id }
