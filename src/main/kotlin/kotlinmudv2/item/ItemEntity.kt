@@ -10,6 +10,7 @@ class ItemEntity(id: EntityID<Int>) : IntEntity(id) {
     var brief by ItemTable.brief
     var description by ItemTable.description
     var itemType by ItemTable.itemType
+    var position by ItemTable.position
     var mobInventory by ItemTable.mobInventory
     var mobEquipped by ItemTable.mobEquipped
     var room by ItemTable.room

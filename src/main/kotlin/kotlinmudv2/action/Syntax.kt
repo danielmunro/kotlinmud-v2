@@ -5,5 +5,6 @@ enum class Syntax {
     MobInRoom,
     ItemInRoom,
     ItemInInventory,
+    EquippedItem,
     FreeForm,
 }

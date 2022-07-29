@@ -6,4 +6,5 @@ class Item(
     val description: String,
     val brief: String,
     val itemType: ItemType,
+    val position: Position? = null,
 )

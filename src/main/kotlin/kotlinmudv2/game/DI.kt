@@ -16,9 +16,11 @@ import kotlinmudv2.action.actions.createLookAtItemInRoomAction
 import kotlinmudv2.action.actions.createLookAtMobInRoomAction
 import kotlinmudv2.action.actions.createNorthAction
 import kotlinmudv2.action.actions.createQuaffAction
+import kotlinmudv2.action.actions.createRemoveAction
 import kotlinmudv2.action.actions.createSayAction
 import kotlinmudv2.action.actions.createSouthAction
 import kotlinmudv2.action.actions.createUpAction
+import kotlinmudv2.action.actions.createWearAction
 import kotlinmudv2.action.actions.createWestAction
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
@@ -77,6 +79,8 @@ fun createContainer(port: Int): DI {
                 createFleeAction(),
                 createGetAction(),
                 createGetErrorAction(),
+                createWearAction(),
+                createRemoveAction(),
             )
         }
 

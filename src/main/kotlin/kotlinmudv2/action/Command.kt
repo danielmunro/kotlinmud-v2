@@ -10,6 +10,10 @@ enum class Command(val value: String) {
     // items
     Get("get"),
 
+    // equipment
+    Wear("wear"),
+    Remove("remove"),
+
     // social
     Say("say"),
     Gossip("gossip"),

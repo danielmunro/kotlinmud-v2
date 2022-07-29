@@ -5,6 +5,7 @@ class NewItem(
     val description: String,
     val brief: String,
     val itemType: ItemType,
+    val position: Position?,
     val mobId: Int?,
     val roomId: Int?,
 )

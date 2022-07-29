@@ -135,6 +135,7 @@ class WebServerService(
                             description = model.description
                             brief = model.brief
                             itemType = model.itemType.toString()
+                            position = model.position?.toString()
                         }
                     }
                     model.mobId?.let {
