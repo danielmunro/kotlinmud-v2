@@ -22,6 +22,7 @@ import kotlinmudv2.action.actions.createSayAction
 import kotlinmudv2.action.actions.createSouthAction
 import kotlinmudv2.action.actions.createUpAction
 import kotlinmudv2.action.actions.createWearAction
+import kotlinmudv2.action.actions.createWearErrorAction
 import kotlinmudv2.action.actions.createWestAction
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
@@ -81,6 +82,7 @@ fun createContainer(port: Int): DI {
                 createGetAction(),
                 createGetErrorAction(),
                 createWearAction(),
+                createWearErrorAction(),
                 createRemoveAction(),
                 createRemoveErrorAction(),
             )

@@ -51,4 +51,16 @@ class WearTest {
         // then
         assertThat(response.toActionCreator).isEqualTo("that is not equipment.")
     }
+
+    @Test
+    fun testCannotWearItemsThatDontExist() {
+        // setup
+        val test = createTestService()
+
+        // when
+        val response = test.handleRequest("wear sword")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("you don't have anything like that to wear.")
+    }
 }
