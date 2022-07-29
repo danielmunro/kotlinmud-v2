@@ -22,27 +22,31 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
   * actions: kill, flee
   * service
 
-## Todo - M3
+## Todo - M3 - done
 
 * Furniture -- done
 * Better action error handling - done
   * get - item not found
   * kill - mob not found
 * Races - done
-* Equipment
+* Equipment - done
   * actions: wear, remove
-* Movement cost
+  * attributes
+* Movement cost - done
 
 ## Todo - M4
 
+* Affects
 * Regen
 * Dispositions
-* Doors
-* Classes
 
 ## Todo - M5
 
+* Doors
+* Classes
 * Leveling
+
+## Todo - M6
 * Shops
 * Skills
 * Spells
