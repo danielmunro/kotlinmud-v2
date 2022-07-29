@@ -91,6 +91,7 @@ class TestService(private val container: DI) {
                     description = "a strange potion is lying here"
                     itemType = ItemType.Potion.toString()
                     room = RoomEntity.findById(startRoom.id)?.id
+                    attributes = mutableMapOf()
                 }
             }
         ).also {
@@ -107,6 +108,7 @@ class TestService(private val container: DI) {
                     description = "a strange potion is lying here"
                     itemType = ItemType.Potion.toString()
                     mobInventory = MobEntity.findById(client.mob!!.id)?.id
+                    attributes = mutableMapOf()
                 }
             }
         ).also {
@@ -150,6 +152,7 @@ class TestService(private val container: DI) {
                     description = "a practice sword is lying here"
                     itemType = ItemType.Equipment.toString()
                     mobInventory = MobEntity.findById(client.mob!!.id)?.id
+                    attributes = mutableMapOf()
                 }
             }
         )

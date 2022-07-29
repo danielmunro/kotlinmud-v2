@@ -9,7 +9,7 @@ fun createGossipAction(): Action {
     return Action(
         Command.Gossip,
         listOf(Syntax.Command, Syntax.FreeForm),
-    ) { actionService, mob, context, input ->
+    ) { actionService, mob, context, _ ->
         val gossip = context[1] as String
         actionService.getClients().filter {
             it.mob != mob

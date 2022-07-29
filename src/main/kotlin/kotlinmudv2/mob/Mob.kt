@@ -20,7 +20,9 @@ open class Mob(
     var target: Mob? = null
 
     fun calc(attribute: Attribute): Int {
-        return (attributes[attribute] ?: 0) + (raceAttributes[race]?.get(attribute) ?: 0)
+        return (attributes[attribute] ?: 0) +
+            (raceAttributes[race]?.get(attribute) ?: 0) +
+            (equipped.fold(0) { _, item -> item.attributes[attribute] ?: 0 })
     }
 
     fun getHealthIndication(): String {
