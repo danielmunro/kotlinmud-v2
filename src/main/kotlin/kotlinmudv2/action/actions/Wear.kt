@@ -19,11 +19,19 @@ fun createWearAction(): Action {
                 "that is not equipment."
             )
         }
+        var removed = ""
+        mob.equipped.find {
+            it.position == item.position
+        }?.also {
+            mob.equipped.remove(it)
+            mob.items.add(it)
+            removed = " remove ${it.name} and"
+        }
         mob.items.remove(item)
         mob.equipped.add(item)
         Response(
             mob,
-            "you wear ${item.name}."
+            "you$removed wear ${item.name}."
         )
     }
 }

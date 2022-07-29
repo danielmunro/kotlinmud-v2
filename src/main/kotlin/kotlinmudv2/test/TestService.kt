@@ -109,18 +109,14 @@ class TestService(private val container: DI) {
     }
 
     fun createSwordInInventory(): Item {
-        return itemService.createFromEntity(
-            transaction {
-                ItemEntity.new {
-                    name = "a sword"
-                    brief = "a sword is lying here"
-                    description = "a practice sword is lying here"
-                    itemType = ItemType.Equipment.toString()
-                    mobInventory = MobEntity.findById(client.mob!!.id)?.id
-                }
-            }
-        ).also {
+        return createSword().also {
             client.mob!!.items.add(it)
+        }
+    }
+
+    fun createEquippedSword(): Item {
+        return createSword().also {
+            client.mob!!.equipped.add(it)
         }
     }
 
@@ -137,5 +133,19 @@ class TestService(private val container: DI) {
 
     private fun getProcessClientBufferObserver(): ProcessClientBufferObserver {
         return container.direct.instance(tag = "processClientBuffer")
+    }
+
+    private fun createSword(): Item {
+        return itemService.createFromEntity(
+            transaction {
+                ItemEntity.new {
+                    name = "a sword"
+                    brief = "a sword is lying here"
+                    description = "a practice sword is lying here"
+                    itemType = ItemType.Equipment.toString()
+                    mobInventory = MobEntity.findById(client.mob!!.id)?.id
+                }
+            }
+        )
     }
 }
