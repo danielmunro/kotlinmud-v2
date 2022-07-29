@@ -11,17 +11,13 @@ open class Mob(
     val race: Race,
     val items: MutableList<Item>,
     val equipped: MutableList<Item>,
+    val attributes: MutableMap<Attribute, Int>,
     var hp: Int,
     var mana: Int,
     var moves: Int,
     var roomId: Int,
 ) {
     var target: Mob? = null
-    val attributes = mutableMapOf(
-        Pair(Attribute.Hp, 20),
-        Pair(Attribute.Mana, 100),
-        Pair(Attribute.Moves, 100),
-    )
 
     fun calc(attribute: Attribute): Int {
         return (attributes[attribute] ?: 0) + (raceAttributes[race]?.get(attribute) ?: 0)

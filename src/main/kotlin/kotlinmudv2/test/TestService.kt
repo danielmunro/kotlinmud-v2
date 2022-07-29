@@ -2,6 +2,7 @@ package kotlinmudv2.test
 
 import kotlinmudv2.action.Response
 import kotlinmudv2.fight.FightService
+import kotlinmudv2.game.Attribute
 import kotlinmudv2.item.Item
 import kotlinmudv2.item.ItemEntity
 import kotlinmudv2.item.ItemService
@@ -62,6 +63,11 @@ class TestService(private val container: DI) {
             "a test mob created by TestService",
             Race.Human,
             startRoom.id,
+            mutableMapOf(
+                Pair(Attribute.Hp, 20),
+                Pair(Attribute.Mana, 100),
+                Pair(Attribute.Moves, 100),
+            ),
         ).also {
             potentialTarget = it
         }
