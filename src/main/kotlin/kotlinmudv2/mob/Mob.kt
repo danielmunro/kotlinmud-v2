@@ -37,4 +37,16 @@ open class Mob(
             else -> "$name is in awful condition."
         }
     }
+
+    fun regen() {
+        val maxHp = calc(Attribute.Hp)
+        val hpGain = maxHp / 3
+        hp = (hp + hpGain).coerceAtMost(maxHp)
+        val maxMana = calc(Attribute.Mana)
+        val manaGain = maxMana / 3
+        mana = (mana + manaGain).coerceAtMost(maxMana)
+        val maxMoves = calc(Attribute.Moves)
+        val movesGain = maxMoves / 3
+        moves = (moves + movesGain).coerceAtMost(maxMoves)
+    }
 }

@@ -35,6 +35,7 @@ import kotlinmudv2.observer.Observer
 import kotlinmudv2.observer.PersistPlayersObserver
 import kotlinmudv2.observer.ProcessClientBufferObserver
 import kotlinmudv2.observer.ReadClientsObserver
+import kotlinmudv2.observer.RegenObserver
 import kotlinmudv2.room.RoomService
 import kotlinmudv2.socket.AuthService
 import kotlinmudv2.socket.ClientService
@@ -101,6 +102,7 @@ fun createContainer(port: Int): DI {
             )
         }
         bindProvider(tag = "fight") { FightObserver(instance()) }
+        bindProvider(tag = "regen") { RegenObserver(instance()) }
 
         // list of observers
         bindSingleton<Map<EventType, List<Observer>>>(tag = "observers") {
@@ -122,6 +124,7 @@ fun createContainer(port: Int): DI {
                     EventType.Tick,
                     listOf(
                         instance(tag = "persistPlayers"),
+                        instance(tag = "regen"),
                     ),
                 ),
                 Pair(

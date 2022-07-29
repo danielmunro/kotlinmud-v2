@@ -114,6 +114,12 @@ class MobService(private val itemService: ItemService) {
         mob.roomId = 0
     }
 
+    fun regen() {
+        mobs.forEach {
+            it.regen()
+        }
+    }
+
     private fun createMobInstance(id: Int): Mob? {
         return transaction { MobEntity.findById(id) }?.let {
             mapMob(it)
