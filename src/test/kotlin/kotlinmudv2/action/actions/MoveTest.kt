@@ -10,6 +10,31 @@ import kotlin.test.Test
 
 class MoveTest {
     @Test
+    fun testCannotMoveIfOutOfMoves() {
+        // setup
+        val test = createTestService()
+        val destinationRoom = test.createRoom(
+            transaction {
+                RoomEntity.new {
+                    name = "test destination"
+                    description = "a description"
+                }
+            },
+            test.startRoom.id,
+            Direction.North,
+        )
+
+        // given
+        test.getPlayerMob().moves = 0
+
+        // when
+        val response = test.handleRequest("north")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("you are too tired to move.")
+    }
+
+    @Test
     fun testCanMoveNorth() {
         // setup
         val testService = createTestService()

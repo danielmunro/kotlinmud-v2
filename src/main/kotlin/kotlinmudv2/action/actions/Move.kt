@@ -19,6 +19,14 @@ private fun createMoveAction(command: Command, direction: Direction): Action {
                 ActionStatus.Error,
             )
         }
+        if (mob.moves < 1) {
+            return@Action Response(
+                mob,
+                "you are too tired to move.",
+                ActionStatus.Error,
+            )
+        }
+        mob.moves -= 1
         actionService.moveMob(mob, direction)?.let {
             createLookAction().execute(actionService, mob, context, "look")
         } ?: Response(mob, "Alas, that direction does not exist.", ActionStatus.Error)
