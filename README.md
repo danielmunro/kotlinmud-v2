@@ -37,7 +37,7 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 ## Todo - M4
 
 * Affects
-* Regen
+* Regen - done
 * Dispositions
 
 ## Todo - M5
