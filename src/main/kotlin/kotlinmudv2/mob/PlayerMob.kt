@@ -1,5 +1,6 @@
 package kotlinmudv2.mob
 
+import kotlinmudv2.game.Affect
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.item.Item
 
@@ -14,8 +15,23 @@ class PlayerMob(
     items: MutableList<Item>,
     equipped: MutableList<Item>,
     attributes: MutableMap<Attribute, Int>,
+    affects: MutableMap<Affect, Int>,
     hp: Int,
     mana: Int,
     moves: Int,
     roomId: Int,
-) : Mob(id, name, brief, description, race, items, equipped, attributes, hp, mana, moves, roomId)
+) : Mob(
+    id,
+    name,
+    brief,
+    description,
+    race,
+    items,
+    equipped,
+    attributes,
+    affects,
+    hp,
+    mana,
+    moves,
+    roomId
+)

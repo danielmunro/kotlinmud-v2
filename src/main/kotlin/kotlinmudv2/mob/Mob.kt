@@ -1,5 +1,6 @@
 package kotlinmudv2.mob
 
+import kotlinmudv2.game.Affect
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.item.Item
 
@@ -12,6 +13,7 @@ open class Mob(
     val items: MutableList<Item>,
     val equipped: MutableList<Item>,
     val attributes: MutableMap<Attribute, Int>,
+    val affects: MutableMap<Affect, Int>,
     var hp: Int,
     var mana: Int,
     var moves: Int,

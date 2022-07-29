@@ -3,6 +3,7 @@ package kotlinmudv2.mob
 import com.google.gson.Gson
 import kotlinmudv2.crypto.generateSalt
 import kotlinmudv2.crypto.hash
+import kotlinmudv2.game.Affect
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.item.ItemService
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -40,6 +41,7 @@ class MobService(private val itemService: ItemService) {
                 Pair(Attribute.Mana, 100),
                 Pair(Attribute.Moves, 100),
             ),
+            mutableMapOf(),
             20,
             100,
             100,
@@ -54,6 +56,7 @@ class MobService(private val itemService: ItemService) {
         race: Race,
         roomId: Int,
         attributes: MutableMap<Attribute, Int>,
+        affects: MutableMap<Affect, Int>,
     ): Mob {
         val entity = transaction {
             MobEntity.new {
@@ -62,6 +65,7 @@ class MobService(private val itemService: ItemService) {
                 this.brief = brief
                 this.race = race.toString()
                 this.attributes = attributes
+                this.affects = affects
                 hp = 0
                 maxHp = 0
                 mana = 0
@@ -94,6 +98,7 @@ class MobService(private val itemService: ItemService) {
             transaction { entity.items.map { itemService.createFromEntity(it) } }.toMutableList(),
             transaction { entity.equipped.map { itemService.createFromEntity(it) } }.toMutableList(),
             entity.attributes,
+            entity.affects,
             entity.hp,
             entity.mana,
             entity.moves,
