@@ -13,4 +13,5 @@ object MobTable : IntIdTable() {
     val race = varchar("race", 50)
     val attributes = text("attributes")
     val affects = text("affects")
+    val disposition = varchar("disposition", 50)
 }

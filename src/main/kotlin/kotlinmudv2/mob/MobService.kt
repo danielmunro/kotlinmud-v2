@@ -46,6 +46,7 @@ class MobService(private val itemService: ItemService) {
             100,
             100,
             1,
+            Disposition.Standing,
         )
     }
 
@@ -66,10 +67,11 @@ class MobService(private val itemService: ItemService) {
                 this.race = race.toString()
                 this.attributes = attributes
                 this.affects = affects
+                this.roomId = roomId
                 hp = 0
                 mana = 0
                 moves = 0
-                this.roomId = roomId
+                disposition = Disposition.Standing.toString()
             }
         }
         return createMobInstance(entity.id.value)!!
@@ -100,6 +102,7 @@ class MobService(private val itemService: ItemService) {
             entity.mana,
             entity.moves,
             entity.roomId,
+            Disposition.valueOf(entity.disposition),
         )
     }
 

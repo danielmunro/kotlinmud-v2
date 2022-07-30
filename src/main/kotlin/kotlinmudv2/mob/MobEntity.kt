@@ -24,6 +24,7 @@ class MobEntity(id: EntityID<Int>) : IntEntity(id) {
     var moves by MobTable.moves
     var roomId by MobTable.roomId
     var race by MobTable.race
+    var disposition by MobTable.disposition
     val items by ItemEntity optionalReferrersOn ItemTable.mobInventory
     val equipped by ItemEntity optionalReferrersOn ItemTable.mobEquipped
     var attributes: MutableMap<Attribute, Int> by MobTable.attributes.transform(

@@ -18,6 +18,7 @@ open class Mob(
     var mana: Int,
     var moves: Int,
     var roomId: Int,
+    var disposition: Disposition,
 ) {
     var target: Mob? = null
 

@@ -20,6 +20,7 @@ class PlayerMob(
     mana: Int,
     moves: Int,
     roomId: Int,
+    disposition: Disposition,
 ) : Mob(
     id,
     name,
@@ -33,5 +34,6 @@ class PlayerMob(
     hp,
     mana,
     moves,
-    roomId
+    roomId,
+    disposition,
 )
