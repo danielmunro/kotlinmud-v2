@@ -5,12 +5,14 @@ import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
+import kotlinmudv2.mob.Disposition
 import kotlinmudv2.room.Direction
 
 private fun createMoveAction(command: Command, direction: Direction): Action {
     return Action(
         command,
-        listOf(Syntax.Command)
+        listOf(Syntax.Command),
+        listOf(Disposition.Standing),
     ) { actionService, mob, context, _ ->
         if (mob.target != null) {
             return@Action Response(

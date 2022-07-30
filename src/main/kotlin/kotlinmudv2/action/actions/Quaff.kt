@@ -7,11 +7,13 @@ import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.item.Item
 import kotlinmudv2.item.ItemType
+import kotlinmudv2.mob.alertDisposition
 
 fun createQuaffAction(): Action {
     return Action(
         Command.Quaff,
         listOf(Syntax.Command, Syntax.ItemInInventory),
+        alertDisposition(),
     ) { _, mob, context, _ ->
         (context[1] as Item).let {
             return@Action if (it.itemType != ItemType.Potion) {

@@ -5,11 +5,13 @@ import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.mob.Mob
+import kotlinmudv2.mob.alertDisposition
 
 fun createKillAction(): Action {
     return Action(
         Command.Kill,
         listOf(Syntax.Command, Syntax.MobInRoom),
+        alertDisposition(),
     ) { _, mob, context, _ ->
         (context[1] as Mob).let {
             mob.target = it

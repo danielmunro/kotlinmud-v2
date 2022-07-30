@@ -7,11 +7,13 @@ import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.item.Item
 import kotlinmudv2.item.ItemType
+import kotlinmudv2.mob.alertDisposition
 
 fun createGetAction(): Action {
     return Action(
         Command.Get,
         listOf(Syntax.Command, Syntax.ItemInRoom),
+        alertDisposition(),
     ) { actionService, mob, context, _ ->
         val item = context[1] as Item
         if (item.itemType == ItemType.Furniture) {

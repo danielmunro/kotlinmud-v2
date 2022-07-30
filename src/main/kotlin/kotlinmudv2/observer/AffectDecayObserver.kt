@@ -4,7 +4,7 @@ import kotlinmudv2.event.Event
 import kotlinmudv2.item.ItemService
 import kotlinmudv2.mob.MobService
 
-class AffectDecayObserver (
+class AffectDecayObserver(
     private val mobService: MobService,
     private val itemService: ItemService,
 ) : Observer {

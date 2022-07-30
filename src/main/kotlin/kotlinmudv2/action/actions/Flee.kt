@@ -5,12 +5,14 @@ import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
+import kotlinmudv2.mob.Disposition
 import kotlinmudv2.room.Direction
 
 fun createFleeAction(): Action {
     return Action(
         Command.Flee,
         listOf(Syntax.Command),
+        listOf(Disposition.Fighting),
     ) { actionService, mob, _, _ ->
         if (mob.target == null) {
             return@Action Response(mob, "you aren't fighting anyone.", ActionStatus.Error)

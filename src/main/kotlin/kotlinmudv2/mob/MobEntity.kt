@@ -33,6 +33,6 @@ class MobEntity(id: EntityID<Int>) : IntEntity(id) {
     )
     var affects: MutableMap<Affect, Int> by MobTable.affects.transform(
         { gson.toJson(it) },
-        { gson.fromJson(it, AffectToken().type)}
+        { gson.fromJson(it, AffectToken().type) }
     )
 }

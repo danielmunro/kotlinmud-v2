@@ -28,6 +28,6 @@ class ItemEntity(id: EntityID<Int>) : IntEntity(id) {
     )
     var affects: MutableMap<Affect, Int> by ItemTable.affects.transform(
         { gson.toJson(it) },
-        { gson.fromJson(it, AffectToken().type)}
+        { gson.fromJson(it, AffectToken().type) }
     )
 }

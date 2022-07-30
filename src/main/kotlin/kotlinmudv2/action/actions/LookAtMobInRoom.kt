@@ -5,11 +5,13 @@ import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.mob.Mob
+import kotlinmudv2.mob.alertDisposition
 
 fun createLookAtMobInRoomAction(): Action {
     return Action(
         Command.Look,
-        listOf(Syntax.Command, Syntax.MobInRoom)
+        listOf(Syntax.Command, Syntax.MobInRoom),
+        alertDisposition(),
     ) { _, mob, context, _ ->
         val target = context[1] as Mob
         Response(mob, target.description)

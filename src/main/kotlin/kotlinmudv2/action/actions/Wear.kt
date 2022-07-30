@@ -6,11 +6,13 @@ import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.item.Item
 import kotlinmudv2.item.ItemType
+import kotlinmudv2.mob.alertDisposition
 
 fun createWearAction(): Action {
     return Action(
         Command.Wear,
         listOf(Syntax.Command, Syntax.ItemInInventory),
+        alertDisposition(),
     ) { _, mob, context, _ ->
         val item = context[1] as Item
         if (item.itemType != ItemType.Equipment) {
