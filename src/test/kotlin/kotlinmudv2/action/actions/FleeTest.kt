@@ -2,6 +2,7 @@ package kotlinmudv2.action.actions
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import kotlinmudv2.log.logger
 import kotlinmudv2.room.Direction
 import kotlinmudv2.room.RoomEntity
 import kotlinmudv2.test.createTestService
@@ -33,6 +34,7 @@ class FleeTest {
 
         // then
         println(response.toActionCreator)
+        logger(this).error(response.toActionCreator)
         assertThat(response.toActionCreator).isEqualTo("you flee running scared!")
         assertThat(test.getPlayerMob().roomId).isEqualTo(destinationRoom.id)
     }
