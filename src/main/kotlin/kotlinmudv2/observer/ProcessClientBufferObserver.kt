@@ -1,10 +1,12 @@
 package kotlinmudv2.observer
 
+import kotlinmudv2.action.Action
 import kotlinmudv2.action.ActionService
 import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.ContextService
 import kotlinmudv2.action.Response
 import kotlinmudv2.event.Event
+import kotlinmudv2.mob.Disposition
 import kotlinmudv2.socket.AuthService
 import kotlinmudv2.socket.Client
 import kotlinmudv2.socket.SocketService
@@ -23,9 +25,17 @@ class ProcessClientBufferObserver(
     }
 
     fun handleRequest(client: Client, input: String): Response {
-        return contextService.findActionForInput(client, input)
-            ?.execute(actionService, client.mob!!, input)
-            ?: Response(client.mob!!, "What was that?", ActionStatus.Error)
+        val ctx = contextService.findActionForInput(client, input)
+
+        if (ctx != null && !ctx.action.dispositions.contains(client.mob!!.disposition)) {
+            return Response(
+                client.mob!!,
+                "you are ${client.mob!!.disposition.toString().lowercase()} and cannot do that.",
+            )
+        }
+
+        return ctx?.execute(actionService, client.mob!!, input)
+            ?: Response(client.mob!!, "what was that?", ActionStatus.Error)
     }
 
     private fun processRequest(client: Client) {

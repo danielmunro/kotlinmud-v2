@@ -61,6 +61,6 @@ class FleeTest {
         val response = test.handleRequest("flee")
 
         // then
-        assertThat(response.toActionCreator).isEqualTo("you aren't fighting anyone.")
+        assertThat(response.toActionCreator).isEqualTo("you are standing and cannot do that.")
     }
 }

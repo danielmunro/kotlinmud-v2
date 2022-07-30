@@ -14,9 +14,6 @@ fun createFleeAction(): Action {
         listOf(Syntax.Command),
         listOf(Disposition.Fighting),
     ) { actionService, mob, _, _ ->
-        if (mob.target == null) {
-            return@Action Response(mob, "you aren't fighting anyone.", ActionStatus.Error)
-        }
         val room = actionService.getRoom(mob.roomId)!!
         listOfNotNull(
             room.northId?.let { Direction.North },

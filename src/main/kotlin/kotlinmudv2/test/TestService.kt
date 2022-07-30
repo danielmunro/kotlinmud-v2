@@ -7,6 +7,7 @@ import kotlinmudv2.item.Item
 import kotlinmudv2.item.ItemEntity
 import kotlinmudv2.item.ItemService
 import kotlinmudv2.item.ItemType
+import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobService
@@ -79,8 +80,14 @@ class TestService(private val container: DI) {
     }
 
     fun setupFight() {
-        client.mob!!.target = potentialTarget
-        potentialTarget!!.target = client.mob
+        client.mob?.let {
+            it.target = potentialTarget
+            it.disposition = Disposition.Fighting
+        }
+        potentialTarget?.let {
+            it.target = client.mob
+            it.disposition = Disposition.Fighting
+        }
     }
 
     fun createPotionInRoom(): Item {
