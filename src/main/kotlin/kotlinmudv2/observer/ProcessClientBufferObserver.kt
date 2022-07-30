@@ -1,12 +1,10 @@
 package kotlinmudv2.observer
 
-import kotlinmudv2.action.Action
 import kotlinmudv2.action.ActionService
 import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.ContextService
 import kotlinmudv2.action.Response
 import kotlinmudv2.event.Event
-import kotlinmudv2.mob.Disposition
 import kotlinmudv2.socket.AuthService
 import kotlinmudv2.socket.Client
 import kotlinmudv2.socket.SocketService

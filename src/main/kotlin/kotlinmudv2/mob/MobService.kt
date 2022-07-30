@@ -45,7 +45,7 @@ class MobService(private val itemService: ItemService) {
             20,
             100,
             100,
-            1,
+            3001,
             Disposition.Standing,
         )
     }

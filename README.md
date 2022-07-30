@@ -45,11 +45,15 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 
 ## Todo - M5
 
+* Moosehead
+
+## Todo - M6
+
 * Respawns
 * Doors
 * Classes
 
-## Todo - M6
+## Todo - M7
 * Leveling
 * Shops
 * Skills
