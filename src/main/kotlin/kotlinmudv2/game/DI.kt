@@ -29,6 +29,7 @@ import kotlinmudv2.event.EventType
 import kotlinmudv2.fight.FightService
 import kotlinmudv2.item.ItemService
 import kotlinmudv2.mob.MobService
+import kotlinmudv2.observer.AffectDecayObserver
 import kotlinmudv2.observer.ClientConnectedObserver
 import kotlinmudv2.observer.FightObserver
 import kotlinmudv2.observer.Observer
@@ -103,6 +104,7 @@ fun createContainer(port: Int): DI {
         }
         bindProvider(tag = "fight") { FightObserver(instance()) }
         bindProvider(tag = "regen") { RegenObserver(instance()) }
+        bindProvider(tag = "affectDecay") { AffectDecayObserver(instance(), instance()) }
 
         // list of observers
         bindSingleton<Map<EventType, List<Observer>>>(tag = "observers") {
@@ -125,6 +127,7 @@ fun createContainer(port: Int): DI {
                     listOf(
                         instance(tag = "persistPlayers"),
                         instance(tag = "regen"),
+                        instance(tag = "affectDecay"),
                     ),
                 ),
                 Pair(
