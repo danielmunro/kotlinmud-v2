@@ -36,7 +36,10 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 
 ## Todo - M4
 
-* Affects
+* Affects - done
+  * mobs
+  * items
+  * observer to count down timeout, remove affect
 * Regen - done
 * Dispositions
 

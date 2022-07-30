@@ -21,4 +21,18 @@ class ItemService {
             entity.position?.let { Position.valueOf(it) }
         )
     }
+
+    fun affectDecay() {
+        items.forEach { item ->
+            item.affects.entries.removeIf {
+                if (it.value == 0) {
+                    return@removeIf true
+                }
+                if (it.value > 0) {
+                    it.setValue(it.value - 1)
+                }
+                false
+            }
+        }
+    }
 }

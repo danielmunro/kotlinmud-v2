@@ -125,6 +125,20 @@ class MobService(private val itemService: ItemService) {
         }
     }
 
+    fun affectDecay() {
+        mobs.forEach { mob ->
+            mob.affects.entries.removeIf {
+                if (it.value == 0) {
+                    return@removeIf true
+                }
+                if (it.value > 0) {
+                    it.setValue(it.value - 1)
+                }
+                false
+            }
+        }
+    }
+
     private fun createMobInstance(id: Int): Mob? {
         return transaction { MobEntity.findById(id) }?.let {
             mapMob(it)
