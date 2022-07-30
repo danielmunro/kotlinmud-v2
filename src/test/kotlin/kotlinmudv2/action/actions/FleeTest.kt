@@ -33,8 +33,6 @@ class FleeTest {
         val response = test.handleRequest("flee")
 
         // then
-        println(response.toActionCreator)
-        logger(this).error(response.toActionCreator)
         assertThat(response.toActionCreator).isEqualTo("you flee running scared!")
         assertThat(test.getPlayerMob().roomId).isEqualTo(destinationRoom.id)
     }
