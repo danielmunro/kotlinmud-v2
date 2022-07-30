@@ -13,7 +13,7 @@ class MoveTest {
     fun testCannotMoveIfOutOfMoves() {
         // setup
         val test = createTestService()
-        val destinationRoom = test.createRoom(
+        test.createRoom(
             transaction {
                 RoomEntity.new {
                     name = "test destination"
