@@ -93,6 +93,7 @@ class TestService(private val container: DI) {
                     itemType = ItemType.Potion.toString()
                     room = RoomEntity.findById(startRoom.id)?.id
                     attributes = mutableMapOf()
+                    affects = mutableMapOf()
                 }
             }
         ).also {
@@ -110,6 +111,7 @@ class TestService(private val container: DI) {
                     itemType = ItemType.Potion.toString()
                     mobInventory = MobEntity.findById(client.mob!!.id)?.id
                     attributes = mutableMapOf()
+                    affects = mutableMapOf()
                 }
             }
         ).also {
@@ -154,6 +156,7 @@ class TestService(private val container: DI) {
                     itemType = ItemType.Equipment.toString()
                     mobInventory = MobEntity.findById(client.mob!!.id)?.id
                     attributes = mutableMapOf()
+                    affects = mutableMapOf()
                 }
             }
         )

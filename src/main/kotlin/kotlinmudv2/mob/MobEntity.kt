@@ -12,6 +12,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class AttributeToken : TypeToken<Map<Attribute, Int>>()
 class AffectToken : TypeToken<Map<Affect, Int>>()
+val gson = Gson()
 
 class MobEntity(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<MobEntity>(MobTable)
@@ -29,11 +30,11 @@ class MobEntity(id: EntityID<Int>) : IntEntity(id) {
     val items by ItemEntity optionalReferrersOn ItemTable.mobInventory
     val equipped by ItemEntity optionalReferrersOn ItemTable.mobEquipped
     var attributes: MutableMap<Attribute, Int> by MobTable.attributes.transform(
-        { Gson().toJson(it) },
-        { Gson().fromJson(it, AttributeToken().type) },
+        { gson.toJson(it) },
+        { gson.fromJson(it, AttributeToken().type) },
     )
     var affects: MutableMap<Affect, Int> by MobTable.affects.transform(
-        { Gson().toJson(it) },
-        { Gson().fromJson(it, AffectToken().type)}
+        { gson.toJson(it) },
+        { gson.fromJson(it, AffectToken().type)}
     )
 }

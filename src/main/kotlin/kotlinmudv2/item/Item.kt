@@ -1,5 +1,6 @@
 package kotlinmudv2.item
 
+import kotlinmudv2.game.Affect
 import kotlinmudv2.game.Attribute
 
 class Item(
@@ -9,5 +10,6 @@ class Item(
     val brief: String,
     val itemType: ItemType,
     val attributes: MutableMap<Attribute, Int>,
+    val affects: MutableMap<Affect, Int>,
     val position: Position? = null,
 )

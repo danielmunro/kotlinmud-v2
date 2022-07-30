@@ -34,6 +34,7 @@ class LookTest {
             "a potion is here",
             ItemType.Potion,
             mutableMapOf(),
+            mutableMapOf(),
         )
 
         testService.startRoom.items.add(

@@ -17,6 +17,7 @@ class ItemService {
             entity.brief,
             ItemType.valueOf(entity.itemType),
             entity.attributes,
+            entity.affects,
             entity.position?.let { Position.valueOf(it) }
         )
     }
