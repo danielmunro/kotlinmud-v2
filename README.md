@@ -41,15 +41,16 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
   * items
   * observer to count down timeout, remove affect
 * Regen - done
-* Dispositions
+* Dispositions - done
 
 ## Todo - M5
 
+* Respawns
 * Doors
 * Classes
-* Leveling
 
 ## Todo - M6
+* Leveling
 * Shops
 * Skills
 * Spells
