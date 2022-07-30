@@ -31,4 +31,6 @@ build
 # Intellij
 .idea
 
-players/*
+players/
+
+data.db
