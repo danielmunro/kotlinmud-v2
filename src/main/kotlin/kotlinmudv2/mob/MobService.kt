@@ -67,11 +67,8 @@ class MobService(private val itemService: ItemService) {
                 this.attributes = attributes
                 this.affects = affects
                 hp = 0
-                maxHp = 0
                 mana = 0
-                maxMana = 0
                 moves = 0
-                maxMoves = 0
                 this.roomId = roomId
             }
         }

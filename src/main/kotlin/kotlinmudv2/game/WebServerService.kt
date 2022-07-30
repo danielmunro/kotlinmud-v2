@@ -104,11 +104,8 @@ class WebServerService(
                             brief = model.brief
                             roomId = model.roomId
                             hp = model.hp
-                            maxHp = model.hp
                             mana = model.mana
-                            maxMana = model.mana
                             moves = model.moves
-                            maxMoves = model.moves
                         }
                     }
                     call.respondText(

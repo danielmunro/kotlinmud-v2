@@ -22,9 +22,6 @@ class MobEntity(id: EntityID<Int>) : IntEntity(id) {
     var hp by MobTable.hp
     var mana by MobTable.mana
     var moves by MobTable.moves
-    var maxHp by MobTable.maxHp
-    var maxMana by MobTable.maxMana
-    var maxMoves by MobTable.maxMoves
     var roomId by MobTable.roomId
     var race by MobTable.race
     val items by ItemEntity optionalReferrersOn ItemTable.mobInventory
