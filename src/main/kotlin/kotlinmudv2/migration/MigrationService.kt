@@ -1,6 +1,7 @@
 package kotlinmudv2.migration
 
 import kotlinmudv2.room.RoomEntity
+import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.lang.NumberFormatException
 
@@ -25,6 +26,10 @@ class MigrationService(private val data: String) {
             try {
                 parseRooms()
             } catch (e: NumberFormatException) {
+                println("last buffer: '$buffer'")
+                println("last room ID: ${lastRoom?.id}")
+                throw e
+            } catch (e: ExposedSQLException) {
                 println("last buffer: '$buffer'")
                 println("last room ID: ${lastRoom?.id}")
                 throw e
