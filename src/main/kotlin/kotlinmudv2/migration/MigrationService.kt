@@ -2,10 +2,12 @@ package kotlinmudv2.migration
 
 import kotlinmudv2.room.RoomEntity
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.lang.NumberFormatException
 
 class MigrationService(private val data: String) {
     private var cursor = 0
     private var buffer = ""
+    private var lastRoom: RoomEntity? = null
 
     fun read() {
         while (cursor < data.length) {
@@ -20,7 +22,13 @@ class MigrationService(private val data: String) {
         val line = buffer
         buffer = ""
         if (line == "#ROOMS\n") {
-            parseRooms()
+            try {
+                parseRooms()
+            } catch (e: NumberFormatException) {
+                println("last buffer: '$buffer'")
+                println("last room ID: ${lastRoom?.id}")
+                throw e
+            }
         }
     }
 
@@ -82,7 +90,7 @@ class MigrationService(private val data: String) {
                         "D5" -> downId = exit
                     }
                 }
-                transaction {
+                lastRoom = transaction {
                     RoomEntity.new(roomId) {
                         this.name = name
                         this.description = description
