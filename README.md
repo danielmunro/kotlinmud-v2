@@ -46,6 +46,9 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 ## Todo - M5
 
 * Moosehead
+  * rooms - done
+  * mobs
+  * items
 
 ## Todo - M6
 
