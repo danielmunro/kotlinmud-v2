@@ -1,5 +1,6 @@
 package kotlinmudv2.migration
 
+import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.room.RoomEntity
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -9,6 +10,7 @@ class MigrationService(private val data: String) {
     private var cursor = 0
     private var buffer = ""
     private var lastRoom: RoomEntity? = null
+    private val mobs = mutableMapOf<Int, Map<String, String>>()
 
     fun read() {
         while (cursor < data.length) {
@@ -33,6 +35,79 @@ class MigrationService(private val data: String) {
                 println("last buffer: '$buffer'")
                 println("last room ID: ${lastRoom?.id}")
                 throw e
+            }
+        } else if (line == "#MOBILES\n") {
+            parseMobs()
+        }
+    }
+
+    private fun parseMobs() {
+        while (true) {
+            val addition = readIntoBuffer()
+            if (addition == "#") {
+                readUntil("\n")
+                val mobId = buffer.dropLast(1).toInt()
+                if (mobId == 0) {
+                    return
+                }
+                readUntil("~")
+                readUntil("~")
+                val name = buffer.dropLast(1)
+                readUntil("~")
+                val brief = buffer.dropLast(1)
+                readUntil("~")
+                val description = buffer.dropLast(1)
+                readUntil("~")
+                val race = buffer.dropLast(1)
+
+                // null
+                readUntil("\n")
+                readUntil("\n")
+                readUntil("\n")
+
+                readUntil("\n")
+                val flags1 = buffer
+
+                readUntil("\n")
+                val flags2 = buffer
+
+                readUntil("\n")
+                val flags3 = buffer
+
+                readUntil("\n")
+                val flags4 = buffer
+
+                readUntil("\n")
+                val flags5 = buffer
+
+                readUntil("\n")
+                val flags6 = buffer
+                mobs[mobId] = mapOf(
+                    Pair("name", name),
+                    Pair("brief", brief),
+                    Pair("description", description),
+                    Pair("race", race),
+                    Pair("flags1", flags1),
+                    Pair("flags2", flags2),
+                    Pair("flags3", flags3),
+                    Pair("flags4", flags4),
+                    Pair("flags5", flags5),
+                    Pair("flags6", flags6),
+                )
+
+//                transaction {
+//                    MobEntity.new {
+//                        this.name = name
+//                        this.brief = brief
+//                        this.description = description
+//                        this.race = race
+//                        hp = 20
+//                        mana = 100
+//                        moves = 100
+//                        maxInGame = 1
+//                        maxInRoom = 1
+//                    }
+//                }
             }
         }
     }

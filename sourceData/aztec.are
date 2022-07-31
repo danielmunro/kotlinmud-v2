@@ -35,6 +35,9 @@ villagers value the head of this snake for its healing
 properties. 
 ~
 dragon~
+(null)~
+(null)~
+(null)~
 G CDEFNUZc 1000 S
 48 20 2d100+600 2d50+200 4d4+20 10
 -25 -25 -25 -20
@@ -51,6 +54,9 @@ with pure silver feathers. The sunlight glints off of its
 outspread wings as if off a mirror.
 ~
 human~
+(null)~
+(null)~
+(null)~
 FHSQ CFHT 0 S
 32 +16 2d25+500 2d50+600 4d3+20 5
 -13 -13 -13 -10
@@ -67,6 +73,9 @@ reflection of the sun off of the bird's gold wings bathes the
 entire room in a golden glow. 
 ~
 human~
+(null)~
+(null)~
+(null)~
 FHSQ CFHT 0 S
 37 +20 2d25+500 2d50+600 4d4+22 5
 -15 -15 -15 -10
@@ -84,6 +93,9 @@ single red eye towards you, you feel that it knows everything
 about you. 
 ~
 fish~
+(null)~
+(null)~
+(null)~
 FGHT DFZbb -500 S
 53 +25 2d50+900 1d1+99 2d30+0 4
 -22 -22 -22 -15
@@ -99,6 +111,9 @@ The huallapen is a pathetic attempt by the villagers to
 crossbreed sheep and cattle. It seems to be very sick.
 ~
 human~
+(null)~
+(null)~
+(null)~
 CHS AKYXZ 0 S
 43 +25 2d50+600 1d1+99 2d20+10 24
 -18 -18 -18 -14
@@ -115,6 +130,9 @@ your face. He would talk to you, but he knows that if he did,
 he could never get you to shut up. He is very lazy.
 ~
 human~
+(null)~
+(null)~
+(null)~
 BCOQRST HTVZ 1000 S
 57 +35 2d100+3000 1d1+999 8d10+20 7
 -30 -30 -30 -25
@@ -131,6 +149,9 @@ She looks very strong. In fact, she is dragging several
 broken chains behind her. 
 ~
 dwarf~
+(null)~
+(null)~
+(null)~
 CQ FHNZ 300 S
 30 +15 2d100+400 1d1+399 5d10+1 15
 -16 -16 -16 -13
@@ -147,6 +168,9 @@ eyes. You can see fur sprouting all over his body and his
 teeth lengtheninginto deadly fangs.
 ~
 fido~
+(null)~
+(null)~
+(null)~
 CFGZ BDbbZ 0 S
 38 +20 2d100+850 1d1+99 2d23+1 18
 -18 -18 -18 -13
@@ -163,6 +187,9 @@ eyes. You can see his face lengthening into a snout and tusks
 growing out of his mouth.
 ~
 dwarf~
+(null)~
+(null)~
+(null)~
 CFGZ BDbbZ 0 S
 38 +20 2d100+850 1d1+99 2d23+1 18
 -19 -19 -19 -14
@@ -181,6 +208,9 @@ for the welfare of his people and all the visitors to his
 land.
 ~
 human~
+(null)~
+(null)~
+(null)~
 BRT CDEFHTVZ 800 S
 52 +30 2d100+1600 2d100+200 2d30+10 1
 -28 -28 -28 -21
@@ -196,6 +226,9 @@ She has led a full and happy life helping her husband rule
 the kingdom and raising their children.
 ~
 human~
+(null)~
+(null)~
+(null)~
 BQ CDEFHTVZ 800 S
 50 +30 2d100+1400 2d100+200 2d25+15 2
 -24 -24 -24 -19
@@ -211,6 +244,9 @@ He pauses for a second, then invites you to join the circle
 of students sitting around him.
 ~
 human~
+(null)~
+(null)~
+(null)~
 BQ CDEFINVZ 1000 S
 52 +21 2d100+1500 2d100+800 2d25+15 13
 -25 -25 -25 -20
@@ -228,6 +264,9 @@ though she look like a beautiful young woman, she is actually
 many eons old. She uses her powerful magics to assume 
 whatever shape she chooses. ~
 human~
+(null)~
+(null)~
+(null)~
 BFOGR DFHNTVZ -1000 S
 60 +30 2d125+2000 2d100+800 5d10+25 20
 -25 -25 -25 -10
@@ -243,6 +282,9 @@ He is wearing a safari outfit, and nonchalantly asks you if
 you would care to join him for some tea.
 ~
 human~
+(null)~
+(null)~
+(null)~
 BC H 0 S
 60 +45 3d100+2000 3d100+300 4d10+20 12
 -30 -30 -30 -30
@@ -258,6 +300,9 @@ He is very drunk and he cannot find his burro. He seems to
 have spent all of his money on tequila.
 ~
 human~
+(null)~
+(null)~
+(null)~
 BCRS H 500 S
 60 +40 2d100+2000 3d100+400 1d10+5 17
 -32 -32 -32 -28
