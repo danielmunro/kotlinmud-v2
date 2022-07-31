@@ -49,15 +49,15 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
   * rooms - done
   * mobs
   * items
+* Respawns - done
 
 ## Todo - M6
 
-* Respawns
+* Leveling
 * Doors
 * Classes
 
 ## Todo - M7
-* Leveling
 * Shops
 * Skills
 * Spells

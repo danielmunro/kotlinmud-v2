@@ -139,10 +139,28 @@ class MobService(private val itemService: ItemService) {
         }
     }
 
+    fun respawnMobs() {
+        MobEntity.all().forEach { mob ->
+            val inGame = mobsById[mob.id.value]?.size ?: 0
+            val inRoom = mobRooms[mob.roomId]?.filter { it.roomId == mob.roomId }?.size ?: 0
+            var allCountdown = inGame - mob.maxInGame
+            var roomCountdown = inRoom - mob.maxInRoom
+            while (allCountdown > 0 && roomCountdown > 0) {
+                hydrateMobEntity(mob)
+                allCountdown--
+                roomCountdown--
+            }
+        }
+    }
+
     private fun createMobInstance(id: Int): Mob? {
         return transaction { MobEntity.findById(id) }?.let {
-            mapMob(it)
-        }?.also {
+            hydrateMobEntity(it)
+        }
+    }
+
+    private fun hydrateMobEntity(mob: MobEntity): Mob {
+        return mapMob(mob).also {
             addToMobs(it)
             addToMobRooms(it)
         }
