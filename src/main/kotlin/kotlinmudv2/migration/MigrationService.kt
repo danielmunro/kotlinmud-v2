@@ -79,7 +79,7 @@ class MigrationService(private val data: String) {
                     if (direction.startsWith("B")) {
                         continue
                     }
-                    if(direction.startsWith("C")) {
+                    if (direction.startsWith("C")) {
                         continue
                     }
                     readUntil("\n")
