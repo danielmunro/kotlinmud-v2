@@ -6,3 +6,6 @@ run:
 
 test:
 	./gradlew clean test
+
+migrate:
+	./gradlew clean run --args='migrate'

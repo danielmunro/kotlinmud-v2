@@ -8,6 +8,8 @@ import kotlinmudv2.game.WebServerService
 import kotlinmudv2.game.createContainer
 import kotlinmudv2.migration.MigrationService
 import kotlinmudv2.observer.Observer
+import kotlinmudv2.room.RoomEntity
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.instance
 import java.io.File
 
@@ -15,8 +17,10 @@ fun main(args: Array<String>) {
     if (args.getOrNull(0) == "migrate") {
         File("data.db").delete()
         createConnection()
-        MigrationService(File("sourceData/midgaard.are").readText()).read()
-        MigrationService(File("sourceData/school.are").readText()).read()
+        File("sourceData/").listFiles()?.forEach {
+            println("reading ${it.name}")
+            MigrationService(it.readText()).read()
+        }
         System.exit(0)
     }
 
@@ -28,6 +32,8 @@ fun main(args: Array<String>) {
     val observers by container.instance<Map<EventType, List<Observer>>>(tag = "observers")
 
     eventService.observers = observers
+
+    println("rooms: " + transaction { RoomEntity.count() })
 
     webServer.start()
     gameService.start()

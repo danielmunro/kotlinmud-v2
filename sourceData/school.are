@@ -324,9 +324,9 @@ the adept of Opus~
 The adept of Opus stands here, waiting patiently to help you train.
 ~
 The adept of Opus stands before you.  He will be your mental and physical
-attribute teacher for the duration of your time in Newbie School, so
+attribute teacher for the duration of your time in Newbie School, so 
 listen to him carefully.
-
+ 
 The adept of Opus tells you 'type: LOOK SIGN'.
 ~
 human~
@@ -783,7 +783,7 @@ This is the entrance to MooseHead SLED's Newbie School.  Go north to go
 through a formal education which teaches you the basics of how to play
 on MHS.  If you have been here before and want to go directly to the
 practice arena, open the door and go south.
-
+ 
 A sign warns, 'You may not enter the school once you have passed level 5.'
 ~
 0 CD 0
@@ -843,7 +843,7 @@ Equipment check time!  To see the equipment you are currently wearing,
 type: EQUIPMENT.  RIght now, you are only wearing a vest, a shield and
 a weapon.  As you go through Newbie School, you will acquire a complete
 set of equipment.
-
+ 
 To pick up items on the ground, type: GET <item>  (where 'item' refers to
      the name of the item on the ground.)
 To wear a piece of armour, type: WEAR <item>
@@ -852,7 +852,7 @@ To wield a weapon, type: WIELD <item>
 To wear, hold and wield everything you have, type: WEAR ALL
 To stop using a piece of equipment, type: REMOVE <item>
 Finally, to see the items you are carrying, type: INVENTORY
-
+ 
 When you are ready to continue, go west.
 ~
 S
@@ -892,24 +892,24 @@ sign~
 This is the direction practising room.  The possible range of directions
 you can go in any room are: north, south, east, west, up or down.  Of
 course, not all rooms have all exits available.
-
+ 
 To see the obvious exits in a room, type: EXITS
-
+ 
 Sometimes doors are closed, locked or secret.  Then you have to notice
-clues in the room description, or try going into that direction and
+clues in the room description, or try going into that direction and 
 seeing if you bump into a door.
-
+ 
 The game has some automatic settings, and one setting allows you to turn
 on or off (toggle) a switch which will automatically give you a list of
 obvious exits every time you enter a new room.  To turn on this automatic
 setting, type: AUTOEXIT.  To see a complete list of all your automatic
 settings, type: AUTOLIST.
-
+ 
 You can also customize your prompt (the hitpoints/mana/movement status
 information line) so it also shows you a list of obvious exits whenever
 you enter a new room.  For information on this and other ways to change
 and customize your prompt, type: HELP PROMPT.
-
+ 
 Try going into each direction from here.  When you are done, return
 to this room and go north.
 ~
@@ -956,8 +956,8 @@ sign~
 Some places are water areas, and you will require either a spell of flying
 or a boat of some kind to traverse.  Pick up the small raft that lies on
 the ground, and float west.
-
-Once you are further along in your training, you will have an opportunity
+ 
+Once you are further along in your training, you will have an opportunity 
 to practise your swimming skills, to the point where you will rarely if ever
 require a boat to traverse shallow water areas.
 ~
@@ -980,7 +980,7 @@ to you.  In order to allow you to sort your items and keep your load light,
 there exists a variety of containers, pouches, backpacks, and satchels in
 which to keep your belongings.  Some containers are even fireproof or
 closable, and many can be worn upon your person to prevent theft.
-
+ 
 A small leather satchel has been thoughtfully provided for you here, and
 you will notice that it will lighten your load considerably.  If for some
 reason the satchel is not on the floor here, try coming back a little later.
@@ -1033,10 +1033,10 @@ sign~
 As you can see, you had to climb a flight of stairs in order to go up from
 the Centre Room.  However, some places are "in the air" as it were, and
 require a spell of flying to traverse.
-
+ 
 To fly like an eagle, pick up the potion o flying that lies on the ground
 and type: quaff flying
-
+ 
 Then just go soaring up!
 ~
 S
@@ -1062,23 +1062,23 @@ Exit ~
 E
 sign~
 Welcome to your first class in combat training.
-
+ 
 The first lesson is knowing what monsters you are capable of fighting
 without risking your life.  To find out whether a monster is too easy or
 too difficult, type: CONSIDER <monster>  (where 'monster' is the name of
 the monster).  Avoid fighting monsters that look like they can kill you
 easily.
-
+ 
 The second lesson is learning to run away.  There is a monster in the room
 below you.  He is too strong for you to kill, but he will barely hurt you.
 So go down from here, and then consider him.  Then, to attack him, type:
 KILL <monster>  (you can also use: HIT <monster>).
-
+ 
      After a while, to flee from combat, type: FLEE
 You can also set your character to automatically flee after you are hurt
 badly enough, and to do that, type: WIMPY
 (For more information about this command, type: HELP WIMPY)
-
+ 
 After you flee, you will be back in this room.  When you are ready to go on
 to your next class, go west.
 ~
@@ -1117,7 +1117,7 @@ door~
 E
 sign~
 Welcome to real combat training!  In the next couple of rooms, you will
-encounter real monsters which you must fight and kill (some may even
+encounter real monsters which you must fight and kill (some may even 
 attack first!) without fleeing.  Kill every monster, since they all hold
 a piece or two of equipment you will need later on in your journeys.
 To begin combat training, go down.
@@ -1125,7 +1125,7 @@ To begin combat training, go down.
 S
 #3712
 Healing Room (Newbie School)~
-You are in the healing room of the combat training area.  All around you
+You are in the healing room of the combat training area.  All around you 
 are four cages.  From all around you can hear the menacing growls of
 ferocious animals and the rattling of chains.  There is a big sign on the
 wall.  Exits lead off into the cardinal directions, or you can go back
@@ -1163,14 +1163,14 @@ Welcome to the healing room of the Combat Training area.  The adepts of
 SLED Newbie School have captured some monsters for you to kill.  In the
 four cages in the surrounding rooms are four monsters of various types.
 Kill them all!
-
+ 
 After you kill each monster, to get every item from their corpses, type:
 GET ALL CORPSE.  You can then wear it all by typing: WEAR ALL
-
+ 
 When you are done with the corpse, you will want to offer it up as a
 sacrifice to Mojo.  Mojo rewards greatly all those who type: SACRIFICE
 CORPSE.
-
+ 
 Between combat, you may need to rest or sleep to regenerate hit points or
 mana (magic points) faster.  You can either rest or sit, simply by typing:
 REST  (or: SIT).  You can also sleep, which is more effective in healing
@@ -1307,7 +1307,7 @@ Newbie School Cafeteria~
 You find yourself in a large cafeteria, filled with famished students
 eager to take a break from the rigorous combat training regimen.  The
 smell of freshly baked bread fills the room.
-
+ 
 There is a sign on the wall here.
 ~
 0 DR 0
@@ -1318,13 +1318,13 @@ Exit ~
 E
 sign~
 You can do the following actions at a shop:
-
+ 
    LIST         - The shopkeeper will tell you what's for sale.
    BUY <item>   - Allows you to buy the 'item' from the shopkeeper.
    VALUE <item> - The shopkeeper will tell you how much he will give you
                   for that item.
    SELL <item>  - Sell the 'item' to the shopkeeper.
-
+ 
 ~
 S
 #3719
@@ -1354,7 +1354,7 @@ you recently died and you cannot seem to reach your corpse without
 dying, then type: OUTFIT.   Mojo will kindly reequip you with a basic
 light, armor and weapon so you are not totally defenseless in your
 quest for more money and equipment.
-
+ 
 In the room north is a monster with a key that you need.  After killing
 the monster and getting the key, come back here and type: UNLOCK EAST
 This will unlock the locked door to the east exit, and then simply type:
@@ -1404,19 +1404,19 @@ read 'help clan' for more info) you will be unable to attack other players.
 (which is fine for now, since you will have between levels 5 and 20 to
 learn how to play the game, and decide if you wish to enter the player
 killing realm *WARNING: Recommended for advanced players only*)
-
+ 
 Every so often, you may wish to save your character's file because you
 have advanced considerably or surmounted a particularly difficult problem
-and received many experience points.  To save, simply type: SAVE.  The
+and received many experience points.  To save, simply type: SAVE.  The 
 game will also routinely save your character's file, every 5-10 minutes
 or so.
-
+ 
 If you need more help during the game, type: HELP    There are also many
 helpful fellow players on-line (to find out who's on, type: WHO) and to ask
 them a question, simply type: TELL <character> <message>  (with 'character'
 being the name of the person you wish to ask a question or talk to, and
 'message' being what you would like to ask/say).
-
+ 
 {YFinally, You can find Church of Matook from northwest corner
 of Midgaard. From there you can find additional help from members
 of Matook ; {x({BMatook{x) {Ybefore their names. You can also find
@@ -2241,11 +2241,11 @@ hallowed walls of this fine educational facility.  Paintings of the
 honourde graduates of SLED School adorn the walls.  To the west is Opus'
 Training Room, and to the east is Mojo's Guild Room.  North of you is
 your next class.
-
+ 
 If you have any questions, please feel free to ask for help from other
 players on the Question/Answer channel.  Use ? <your question> to ask a
 question.
-
+ 
        There is a sign on the wall (type:  LOOK SIGN).
 ~
 0 CDR 1
@@ -2267,11 +2267,11 @@ Exit ~
 16384 0 3758
 E
 sign~
-To find out the attributes for your character, type: SCORE.  You can
+To find out the attributes for your character, type: SCORE.  You can 
 improve your attributes in Opus' Training Room to the west.  You can
 practise your skills and spells in Mojo's Guild Room to the east.  You
 can continue onto your next class by going north.
-
+ 
      If you are a new character, you are advised to go west to train your
 attributes, and then come back here and go north.
 ~
@@ -2281,7 +2281,7 @@ Opus' Training Room~
 You are in Opus' Training Room.  Around you are all sorts of physical and
 mental training tools.  The whole room is filled with magic, holiness and
 of course, sweat.  There is a sign on the wall (type: LOOK SIGN).
-
+ 
 ~
 0 CDR 1
 D1
@@ -2291,13 +2291,13 @@ Exit ~
 E
 sign~
 Welcome to Opus' Training Room.  Here you can train your attributes.  To
-train an attribute, you need at least 1 training session (Note: 10
+train an attribute, you need at least 1 training session (Note: 10 
 practice sessions can be converted to 1 training session).  To find out
 how many training sessions you have, type: TRAIN  (only while you are in
 this room).  To train a specific attribute, type: TRAIN <attribute>
 (where 'attribute' is the first 3 letters of the attribute you wish to
 train.  For more information, type: HELP TRAIN.
-
+ 
      For more information on how to convert practice sessions into trains,
 or to find out how to gain skills and spells you did not take when you
 created your character, type: HELP GAIN.
@@ -2326,7 +2326,7 @@ certain maximum.  When you have practiced all you wish to practice, go west.
 S
 #3760
 A Safe Room~
-You are in a relatively safe room, away from all the mean rabbits and snails
+You are in a relatively safe room, away from all the mean rabbits and snails 
 of the Arena.  You can rest here, and go up to go back to the Temple of
 Midgaard.
 ~
@@ -2417,8 +2417,8 @@ door~
 S
 #3768
 The Commune of the Elementalist~
-This small room is ablaze with sensory overload.  You have a dizzying
-sensation of being bombarded by imagery from all the branches of
+This small room is ablaze with sensory overload.  You have a dizzying 
+sensation of being bombarded by imagery from all the branches of 
 Elementalist study.
 ~
 0 0 0
@@ -2437,9 +2437,9 @@ The Pfresh Room~
 Welcome to the Pfresh Room. Here you can train, practice and gain
 skills all without worry of being attacked. This room will only
 be around for a short time, so make use of it.
-
+ 
 ATTENTION P-FRESHERS!
-
+ 
 Once you LONER in this Room, you will NOT be permitted re-entry.
 So, do any running around you need to do, BEFORE YOU LONER.
 If you loner in this room, you will be able to use its facilities
