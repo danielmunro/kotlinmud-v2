@@ -1,5 +1,3 @@
-aztec.are
 cace.are
 limp.are
 JMHouse.are
-newthalos.are
