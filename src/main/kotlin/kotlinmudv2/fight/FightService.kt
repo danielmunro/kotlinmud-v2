@@ -34,7 +34,8 @@ class FightService(
                     return@also
                 }
 
-                target.hp -= attacker.calc(Attribute.Dam)
+                val damage = attacker.calc(Attribute.Dam)
+                target.hp -= damage
 
                 clientService.sendToRoom(
                     RoomMessage(

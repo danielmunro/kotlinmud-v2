@@ -7,7 +7,7 @@ fun d20(): Int {
 }
 
 fun diceFromString(dice: String): Int {
-    val (rolls, sides, bonus) = dice.split("d", "+").map{ it.toInt() }
+    val (rolls, sides, bonus) = dice.split("d", "+").map { it.toInt() }
     var amount = bonus
     for (i in 0..rolls) {
         amount += Random.nextInt(sides) + 1

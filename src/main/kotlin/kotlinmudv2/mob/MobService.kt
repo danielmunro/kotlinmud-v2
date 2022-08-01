@@ -92,6 +92,15 @@ class MobService(private val itemService: ItemService) {
     }
 
     fun mapMob(entity: MobEntity): Mob {
+        val hp = diceFromString(entity.hp)
+        val mana = diceFromString(entity.mana)
+        val moves = diceFromString(entity.moves)
+        val attributes = entity.attributes.toMutableMap().also {
+            it[Attribute.Hp] = hp
+            it[Attribute.Mana] = mana
+            it[Attribute.Moves] = moves
+        }
+
         return Mob(
             entity.id.value,
             entity.name,
@@ -100,11 +109,11 @@ class MobService(private val itemService: ItemService) {
             Race.valueOf(entity.race),
             transaction { entity.items.map { itemService.createFromEntity(it) } }.toMutableList(),
             transaction { entity.equipped.map { itemService.createFromEntity(it) } }.toMutableList(),
-            entity.attributes,
+            attributes,
             entity.affects,
-            diceFromString(entity.hp),
-            diceFromString(entity.mana),
-            diceFromString(entity.moves),
+            hp,
+            mana,
+            moves,
             entity.roomId,
             Disposition.valueOf(entity.disposition),
         )

@@ -12,12 +12,16 @@ class FightServiceTest {
     fun testFightRoundReducesHpInTarget() {
         // setup
         val test = createTestService()
-        val mob1 = test.getPlayerMob()
-        val mob2 = test.createMob()
 
         // given
-        mob1.attributes[Attribute.Hit] = 20
-        mob2.attributes[Attribute.Hit] = 20
+        val mob1 = test.getPlayerMob().also {
+            it.attributes[Attribute.Hit] = 20
+            it.attributes[Attribute.Dam] = 20
+        }
+        val mob2 = test.createMob().also {
+            it.attributes[Attribute.Hit] = 20
+            it.attributes[Attribute.Dam] = 20
+        }
         test.setupFight()
 
         // when -- randomness taken into account
@@ -26,8 +30,7 @@ class FightServiceTest {
         }
 
         // then
-        assertThat(mob1.hp).isLessThan(mob1.calc(Attribute.Hp))
-        assertThat(mob2.hp).isLessThan(mob2.calc(Attribute.Hp))
+        assertThat(mob1.hp + mob2.hp).isLessThan(mob1.calc(Attribute.Hp) + mob2.calc(Attribute.Hp))
     }
 
     @Test

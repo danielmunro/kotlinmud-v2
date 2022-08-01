@@ -2,7 +2,6 @@ package kotlinmudv2.migration
 
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.MobEntity
-import kotlinmudv2.mob.Race
 import kotlinmudv2.room.RoomEntity
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -17,7 +16,7 @@ class MigrationService(private val data: String) {
 
     companion object {
         fun mapRace(race: String): String {
-            return when(race) {
+            return when (race) {
                 "Water fowl" -> "Bird"
                 "Half-elf" -> "Halfling"
                 "School monster" -> "Monster"
@@ -88,7 +87,7 @@ class MigrationService(private val data: String) {
         while (true) {
             readUntil("\n")
             val commentPos = buffer.indexOf("*")
-            val reset = buffer.take(if(commentPos > -1) commentPos else 0).trim()
+            val reset = buffer.take(if (commentPos > -1) commentPos else 0).trim()
             if (buffer == "S\n") {
                 return
             }
@@ -135,7 +134,7 @@ class MigrationService(private val data: String) {
                 "P" -> {}
                 "R" -> {}
                 else -> {
-                    println("NOT FOUND: "+parts[0])
+                    println("NOT FOUND: " + parts[0])
                 }
             }
         }
