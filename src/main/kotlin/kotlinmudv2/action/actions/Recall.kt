@@ -12,7 +12,7 @@ fun createRecallAction(): Action {
         Command.Recall,
         listOf(Syntax.Command),
         listOf(Disposition.Standing),
-    ) { _, mob, _, _ ->
+    ) { actionService, mob, context, _ ->
         if (mob.moves < 20) {
             return@Action Response(
                 mob,
@@ -23,7 +23,8 @@ fun createRecallAction(): Action {
         mob.moves = mob.moves / 2
         Response(
             mob,
-            "you pray for recall.",
+            "you pray for recall.\n" +
+                    createLookAction().execute(actionService, mob, context, "look").toActionCreator,
         )
     }
 }

@@ -35,10 +35,10 @@ fun main(args: Array<String>) {
 
     eventService.observers = observers
 
-    println("rooms: " + transaction { RoomEntity.count() })
     runBlocking {
         eventService.publish(createTickEvent())
     }
+    
     webServer.start()
     gameService.start()
 }
