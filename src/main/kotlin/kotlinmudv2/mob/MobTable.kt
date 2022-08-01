@@ -3,6 +3,7 @@ package kotlinmudv2.mob
 import org.jetbrains.exposed.dao.id.IntIdTable
 
 object MobTable : IntIdTable() {
+    val canonicalId = integer("canonicalId")
     val name = varchar("name", 50)
     val brief = varchar("brief", 255)
     val description = text("description")

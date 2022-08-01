@@ -16,6 +16,7 @@ val gson = Gson()
 
 class MobEntity(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<MobEntity>(MobTable)
+    var canonicalId by MobTable.canonicalId
     var name by MobTable.name
     var brief by MobTable.brief
     var description by MobTable.description

@@ -13,7 +13,7 @@ class MigrationService(private val data: String) {
     private var buffer = ""
     private var lastRoom: RoomEntity? = null
     private val mobs = mutableMapOf<Int, Map<String, String>>()
-    private val mobResets = mutableMapOf<Int, MobReset>()
+    private val mobResets = mutableMapOf<Int, MutableList<MobReset>>()
 
     companion object {
         fun mapRace(race: String): String {
@@ -38,9 +38,10 @@ class MigrationService(private val data: String) {
             }
         }
         mobs.forEach { (id, props) ->
-            mobResets[id]?.also {
+            mobResets[id]?.forEach {
                 transaction {
-                    MobEntity.new(id) {
+                    MobEntity.new {
+                        canonicalId = id
                         name = props["name"]!!.trim()
                         brief = props["brief"]!!.trim()
                         description = props["description"]!!.trim()
@@ -114,10 +115,16 @@ class MigrationService(private val data: String) {
             }
             when (parts[0]) {
                 "M" -> {
-                    mobResets[parts[2].toInt()] = MobReset(
-                        parts[4].toInt(),
-                        parts[5].toInt(),
-                        parts[3].toInt(),
+                    val id = parts[2].toInt()
+                    if (mobResets[id] == null) {
+                        mobResets[id] = mutableListOf()
+                    }
+                    mobResets[id]?.add(
+                        MobReset(
+                            parts[4].toInt(),
+                            parts[5].toInt(),
+                            parts[3].toInt(),
+                        )
                     )
                 }
                 "G" -> {}
