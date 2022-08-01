@@ -29,4 +29,5 @@ enum class Command(val value: String) {
     West("west"),
     Up("up"),
     Down("down"),
+    Recall("recall"),
 }

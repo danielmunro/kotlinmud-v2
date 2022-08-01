@@ -38,7 +38,7 @@ class MigrationService(private val data: String) {
         }
         mobs.forEach { (id, props) ->
             mobResets[id]?.forEach {
-                val parts = props["flags2"]!!.split(" ")
+                val parts = props["flags3"]!!.split(" ")
                 transaction {
                     MobEntity.new {
                         canonicalId = id

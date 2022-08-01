@@ -16,6 +16,7 @@ import kotlinmudv2.action.actions.createLookAtItemInRoomAction
 import kotlinmudv2.action.actions.createLookAtMobInRoomAction
 import kotlinmudv2.action.actions.createNorthAction
 import kotlinmudv2.action.actions.createQuaffAction
+import kotlinmudv2.action.actions.createRecallAction
 import kotlinmudv2.action.actions.createRemoveAction
 import kotlinmudv2.action.actions.createRemoveErrorAction
 import kotlinmudv2.action.actions.createSayAction
@@ -88,6 +89,7 @@ fun createContainer(port: Int): DI {
                 createWearErrorAction(),
                 createRemoveAction(),
                 createRemoveErrorAction(),
+                createRecallAction(),
             )
         }
 
