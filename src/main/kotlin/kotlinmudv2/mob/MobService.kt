@@ -96,6 +96,7 @@ class MobService(private val itemService: ItemService) {
             entity.brief,
             entity.description,
             Race.valueOf(entity.race),
+//            Race.Human,
             transaction { entity.items.map { itemService.createFromEntity(it) } }.toMutableList(),
             transaction { entity.equipped.map { itemService.createFromEntity(it) } }.toMutableList(),
             entity.attributes,
@@ -142,15 +143,17 @@ class MobService(private val itemService: ItemService) {
     }
 
     fun respawnMobs() {
-        MobEntity.all().forEach { mob ->
-            val inGame = mobsById[mob.id.value]?.size ?: 0
-            val inRoom = mobRooms[mob.roomId]?.filter { it.roomId == mob.roomId }?.size ?: 0
-            var allCountdown = inGame - mob.maxInGame
-            var roomCountdown = inRoom - mob.maxInRoom
-            while (allCountdown > 0 && roomCountdown > 0) {
-                hydrateMobEntity(mob)
-                allCountdown--
-                roomCountdown--
+        transaction {
+            MobEntity.all().forEach { mob ->
+                val inGame = mobsById[mob.id.value]?.size ?: 0
+                val inRoom = mobRooms[mob.roomId]?.filter { it.roomId == mob.roomId }?.size ?: 0
+                var allCountdown = mob.maxInGame - inGame
+                var roomCountdown = mob.maxInRoom - inRoom
+                while (allCountdown > 0 && roomCountdown > 0) {
+                    hydrateMobEntity(mob)
+                    allCountdown--
+                    roomCountdown--
+                }
             }
         }
     }

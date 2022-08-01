@@ -4,8 +4,8 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 
 object MobTable : IntIdTable() {
     val name = varchar("name", 50)
-    val brief = varchar("brief", 50)
-    val description = varchar("description", 255)
+    val brief = varchar("brief", 255)
+    val description = text("description")
     val hp = integer("hp")
     val mana = integer("mana")
     val moves = integer("moves")

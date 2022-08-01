@@ -1,6 +1,8 @@
 package kotlinmudv2.migration
 
+import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.MobEntity
+import kotlinmudv2.mob.Race
 import kotlinmudv2.room.RoomEntity
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -11,12 +13,49 @@ class MigrationService(private val data: String) {
     private var buffer = ""
     private var lastRoom: RoomEntity? = null
     private val mobs = mutableMapOf<Int, Map<String, String>>()
+    private val mobResets = mutableMapOf<Int, MobReset>()
+
+    companion object {
+        fun mapRace(race: String): String {
+            return when(race) {
+                "Water fowl" -> "Bird"
+                "Half-elf" -> "Halfling"
+                "School monster" -> "Monster"
+                "Song bird" -> "Bird"
+                "Fido" -> "Dog"
+                "Centipede" -> "Insect"
+                "Doll" -> "Unique"
+                else -> race
+            }
+        }
+    }
 
     fun read() {
         while (cursor < data.length) {
             readIntoBuffer()
             if (buffer.endsWith("\n")) {
                 evaluateLine()
+            }
+        }
+        mobs.forEach { (id, props) ->
+            mobResets[id]?.also {
+                transaction {
+                    MobEntity.new(id) {
+                        name = props["name"]!!.trim()
+                        brief = props["brief"]!!.trim()
+                        description = props["description"]!!.trim()
+                        race = mapRace(props["race"]!!.trim().capitalize())
+                        hp = 20
+                        mana = 100
+                        moves = 100
+                        maxInGame = it.maxInGame
+                        maxInRoom = it.maxInRoom
+                        roomId = it.roomId
+                        attributes = mutableMapOf()
+                        disposition = Disposition.Standing.toString()
+                        affects = mutableMapOf()
+                    }
+                }
             }
         }
     }
@@ -38,6 +77,59 @@ class MigrationService(private val data: String) {
             }
         } else if (line == "#MOBILES\n") {
             parseMobs()
+        } else if (line == "#RESETS\n") {
+            parseResets()
+        }
+    }
+
+    private fun parseResets() {
+        while (true) {
+            readUntil("\n")
+            val commentPos = buffer.indexOf("*")
+            val reset = buffer.take(if(commentPos > -1) commentPos else 0).trim()
+            if (buffer == "S\n") {
+                return
+            }
+            val parts = mutableListOf<String>()
+            var isOpen = false
+            var value = ""
+            reset.forEach {
+                val str = it.toString()
+                if (str == " ") {
+                    if (isOpen) {
+                        isOpen = false
+                        parts.add(value)
+                        value = ""
+                    }
+                } else {
+                    value += str
+                    isOpen = true
+                }
+            }
+            if (value != "") {
+                parts.add(value)
+            }
+            if (parts.size < 6) {
+                continue
+            }
+            when (parts[0]) {
+                "M" -> {
+                    mobResets[parts[2].toInt()] = MobReset(
+                        parts[4].toInt(),
+                        parts[5].toInt(),
+                        parts[3].toInt(),
+                    )
+                }
+                "G" -> {}
+                "E" -> {}
+                "D" -> {}
+                "O" -> {}
+                "P" -> {}
+                "R" -> {}
+                else -> {
+                    println("NOT FOUND: "+parts[0])
+                }
+            }
         }
     }
 
@@ -94,20 +186,6 @@ class MigrationService(private val data: String) {
                     Pair("flags5", flags5),
                     Pair("flags6", flags6),
                 )
-
-//                transaction {
-//                    MobEntity.new {
-//                        this.name = name
-//                        this.brief = brief
-//                        this.description = description
-//                        this.race = race
-//                        hp = 20
-//                        mana = 100
-//                        moves = 100
-//                        maxInGame = 1
-//                        maxInRoom = 1
-//                    }
-//                }
             }
         }
     }
