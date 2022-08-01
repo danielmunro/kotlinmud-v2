@@ -3,6 +3,7 @@ package kotlinmudv2.mob
 import com.google.gson.Gson
 import kotlinmudv2.crypto.generateSalt
 import kotlinmudv2.crypto.hash
+import kotlinmudv2.dice.diceFromString
 import kotlinmudv2.game.Affect
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.item.ItemService
@@ -61,6 +62,7 @@ class MobService(private val itemService: ItemService) {
     ): Mob {
         val entity = transaction {
             MobEntity.new {
+                canonicalId = 0
                 this.name = name
                 this.description = description
                 this.brief = brief
@@ -68,9 +70,9 @@ class MobService(private val itemService: ItemService) {
                 this.attributes = attributes
                 this.affects = affects
                 this.roomId = roomId
-                hp = 0
-                mana = 0
-                moves = 0
+                hp = "1d1+1"
+                mana = "1d1+1"
+                moves = "1d1+1"
                 disposition = Disposition.Standing.toString()
                 maxInRoom = 1
                 maxInGame = 1
@@ -96,14 +98,13 @@ class MobService(private val itemService: ItemService) {
             entity.brief,
             entity.description,
             Race.valueOf(entity.race),
-//            Race.Human,
             transaction { entity.items.map { itemService.createFromEntity(it) } }.toMutableList(),
             transaction { entity.equipped.map { itemService.createFromEntity(it) } }.toMutableList(),
             entity.attributes,
             entity.affects,
-            entity.hp,
-            entity.mana,
-            entity.moves,
+            diceFromString(entity.hp),
+            diceFromString(entity.mana),
+            diceFromString(entity.moves),
             entity.roomId,
             Disposition.valueOf(entity.disposition),
         )

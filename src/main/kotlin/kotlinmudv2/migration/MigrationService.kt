@@ -39,6 +39,7 @@ class MigrationService(private val data: String) {
         }
         mobs.forEach { (id, props) ->
             mobResets[id]?.forEach {
+                val parts = props["flags2"]!!.split(" ")
                 transaction {
                     MobEntity.new {
                         canonicalId = id
@@ -46,9 +47,9 @@ class MigrationService(private val data: String) {
                         brief = props["brief"]!!.trim()
                         description = props["description"]!!.trim()
                         race = mapRace(props["race"]!!.trim().capitalize())
-                        hp = 20
-                        mana = 100
-                        moves = 100
+                        hp = parts[2]
+                        mana = parts[3]
+                        moves = parts[4]
                         maxInGame = it.maxInGame
                         maxInRoom = it.maxInRoom
                         roomId = it.roomId

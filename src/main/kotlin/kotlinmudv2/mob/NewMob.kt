@@ -8,8 +8,8 @@ class NewMob(
     val description: String,
     val race: Race,
     val items: MutableList<Item>,
-    var hp: Int,
-    var mana: Int,
-    var moves: Int,
+    var hp: String,
+    var mana: String,
+    var moves: String,
     var roomId: Int,
 )
