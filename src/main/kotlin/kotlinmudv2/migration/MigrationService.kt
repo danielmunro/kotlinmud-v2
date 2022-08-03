@@ -201,7 +201,21 @@ class MigrationService(private val data: String) {
                     )
                 }
                 "D" -> {}
-                "O" -> {}
+                "O" -> {
+                    val itemId = parts[2].toInt()
+                    val roomId = parts[4].toInt()
+                    if (itemRoomResets[roomId] == null) {
+                        itemRoomResets[roomId] = mutableListOf()
+                    }
+                    itemRoomResets[roomId]!!.add(
+                        ItemRoomReset(
+                            itemId,
+                            roomId,
+                            1,
+                            1,
+                        )
+                    )
+                }
                 "P" -> {}
                 "R" -> {}
                 else -> {
