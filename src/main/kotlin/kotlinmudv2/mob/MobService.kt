@@ -102,7 +102,7 @@ class MobService(private val itemService: ItemService) {
         }
 
         return Mob(
-            entity.id.value,
+            entity.canonicalId,
             entity.name,
             entity.brief,
             entity.description,
@@ -155,7 +155,7 @@ class MobService(private val itemService: ItemService) {
     fun respawnMobs() {
         transaction {
             MobEntity.all().forEach { mob ->
-                val inGame = mobsById[mob.id.value]?.size ?: 0
+                val inGame = mobsById[mob.canonicalId]?.size ?: 0
                 val inRoom = mobRooms[mob.roomId]?.filter { it.roomId == mob.roomId }?.size ?: 0
                 var allCountdown = mob.maxInGame - inGame
                 var roomCountdown = mob.maxInRoom - inRoom

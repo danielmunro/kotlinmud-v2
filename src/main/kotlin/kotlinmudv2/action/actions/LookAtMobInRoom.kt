@@ -14,6 +14,6 @@ fun createLookAtMobInRoomAction(): Action {
         alertDisposition(),
     ) { _, mob, context, _ ->
         val target = context[1] as Mob
-        Response(mob, target.description)
+        Response(mob, target.description + "\n\nEquipped:\n" + target.equipped.fold("") { _, it -> it.brief + "\n" })
     }
 }

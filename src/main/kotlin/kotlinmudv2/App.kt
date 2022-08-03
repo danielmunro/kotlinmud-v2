@@ -38,7 +38,7 @@ fun main(args: Array<String>) {
     runBlocking {
         eventService.publish(createTickEvent())
     }
-    
+
     webServer.start()
     gameService.start()
 }

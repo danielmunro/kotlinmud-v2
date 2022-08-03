@@ -1,5 +1,7 @@
 package kotlinmudv2.migration
 
+import kotlinmudv2.item.ItemEntity
+import kotlinmudv2.item.ItemType
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.room.RoomEntity
@@ -11,8 +13,12 @@ class MigrationService(private val data: String) {
     private var cursor = 0
     private var buffer = ""
     private var lastRoom: RoomEntity? = null
-    private val mobs = mutableMapOf<Int, Map<String, String>>()
+    private val mobModels = mutableMapOf<Int, Map<String, String>>()
     private val mobResets = mutableMapOf<Int, MutableList<MobReset>>()
+    private var lastMobReset: MobReset? = null
+    private val itemModels = mutableMapOf<Int, Map<String, String>>()
+    private val itemRoomResets = mutableMapOf<Int, MutableList<ItemRoomReset>>()
+    private val itemMobResets = mutableMapOf<Int, MutableList<ItemMobReset>>()
 
     companion object {
         fun mapRace(race: String): String {
@@ -36,9 +42,38 @@ class MigrationService(private val data: String) {
                 evaluateLine()
             }
         }
-        mobs.forEach { (id, props) ->
+        hydrateMobs()
+    }
+
+    private fun evaluateLine() {
+        val line = buffer
+        buffer = ""
+        when(line) {
+            "#ROOMS\n" -> {
+                try {
+                    parseRooms()
+                } catch (e: NumberFormatException) {
+                    println("last buffer: '$buffer'")
+                    println("last room ID: ${lastRoom?.id}")
+                    throw e
+                } catch (e: ExposedSQLException) {
+                    println("last buffer: '$buffer'")
+                    println("last room ID: ${lastRoom?.id}")
+                    throw e
+                }
+            }
+            "#MOBILES\n" -> parseMobs()
+            "#RESETS\n" -> parseResets()
+            "#OBJECTS\n" -> parseItems()
+        }
+    }
+
+    private fun hydrateMobs() {
+        mobModels.forEach { (id, props) ->
             mobResets[id]?.forEach {
                 val parts = props["flags3"]!!.split(" ")
+                val inventory = itemMobResets[id]?.filter { !it.isEquipped } ?: listOf()
+                val equipped = itemMobResets[id]?.filter { it.isEquipped } ?: listOf()
                 transaction {
                     MobEntity.new {
                         canonicalId = id
@@ -55,31 +90,37 @@ class MigrationService(private val data: String) {
                         attributes = mutableMapOf()
                         disposition = Disposition.Standing.toString()
                         affects = mutableMapOf()
+                    }.also { mob ->
+                        inventory.forEach {
+                            itemModels[it.itemId]?.also {
+                                ItemEntity.new {
+                                    name = it["name"]!!.trim()
+                                    brief = it["brief"]!!.trim()
+                                    description = it["description"]!!.trim()
+                                    mobInventory = mob.id
+                                    itemType = ItemType.Indeterminate.toString()
+                                    attributes = mutableMapOf()
+                                    affects = mutableMapOf()
+                                }
+                            } ?: println("item model missing ${it.itemId}")
+
+                        }
+                        equipped.forEach {
+                            itemModels[it.itemId]?.also {
+                                ItemEntity.new {
+                                    name = it["name"]!!.trim()
+                                    brief = it["brief"]!!.trim()
+                                    description = it["description"]!!.trim()
+                                    mobEquipped = mob.id
+                                    itemType = ItemType.Indeterminate.toString()
+                                    attributes = mutableMapOf()
+                                    affects = mutableMapOf()
+                                }
+                            } ?: println("item model missing ${it.itemId}")
+                        }
                     }
                 }
             }
-        }
-    }
-
-    private fun evaluateLine() {
-        val line = buffer
-        buffer = ""
-        if (line == "#ROOMS\n") {
-            try {
-                parseRooms()
-            } catch (e: NumberFormatException) {
-                println("last buffer: '$buffer'")
-                println("last room ID: ${lastRoom?.id}")
-                throw e
-            } catch (e: ExposedSQLException) {
-                println("last buffer: '$buffer'")
-                println("last room ID: ${lastRoom?.id}")
-                throw e
-            }
-        } else if (line == "#MOBILES\n") {
-            parseMobs()
-        } else if (line == "#RESETS\n") {
-            parseResets()
         }
     }
 
@@ -110,7 +151,7 @@ class MigrationService(private val data: String) {
             if (value != "") {
                 parts.add(value)
             }
-            if (parts.size < 6) {
+            if (parts.size == 0) {
                 continue
             }
             when (parts[0]) {
@@ -121,14 +162,45 @@ class MigrationService(private val data: String) {
                     }
                     mobResets[id]?.add(
                         MobReset(
+                            id,
                             parts[4].toInt(),
                             parts[5].toInt(),
                             parts[3].toInt(),
+                        ).also {
+                            lastMobReset = it
+                        }
+                    )
+                }
+                "G" -> {
+                    val mobId = lastMobReset!!.mobId
+                    if (itemMobResets[mobId] == null) {
+                        itemMobResets[mobId] = mutableListOf()
+                    }
+                    itemMobResets[mobId]!!.add(
+                        ItemMobReset(
+                            mobId,
+                            parts[2].toInt(),
+                            parts[1].toInt(),
+                            parts[3].toInt(),
+                            false,
                         )
                     )
                 }
-                "G" -> {}
-                "E" -> {}
+                "E" -> {
+                    val mobId = lastMobReset!!.mobId
+                    if (itemMobResets[mobId] == null) {
+                        itemMobResets[mobId] = mutableListOf()
+                    }
+                    itemMobResets[mobId]!!.add(
+                        ItemMobReset(
+                            mobId,
+                            parts[2].toInt(),
+                            parts[1].toInt(),
+                            parts[3].toInt(),
+                            true,
+                        )
+                    )
+                }
                 "D" -> {}
                 "O" -> {}
                 "P" -> {}
@@ -136,6 +208,41 @@ class MigrationService(private val data: String) {
                 else -> {
                     println("NOT FOUND: " + parts[0])
                 }
+            }
+        }
+    }
+
+    private fun parseItems() {
+        while (true) {
+            val addition = readIntoBuffer()
+            if (addition == "#") {
+                readUntil("\n")
+                val itemId = buffer.dropLast(1).toInt()
+                if (itemId == 0) {
+                    return
+                }
+                readUntil("~")
+                readUntil("~")
+                val name = buffer.dropLast(1)
+                readUntil("~")
+                val description = buffer.dropLast(1)
+                readUntil("~")
+                val material = buffer
+                readUntil("\n")
+                val flags1 = buffer
+                readUntil("\n")
+                val flags2 = buffer
+                readUntil("\n")
+                val flags3 = buffer
+                itemModels[itemId] = mapOf(
+                    Pair("name", name),
+                    Pair("brief", name),
+                    Pair("description", description),
+                    Pair("material", material),
+                    Pair("flags1", flags1),
+                    Pair("flags2", flags2),
+                    Pair("flags3", flags3),
+                )
             }
         }
     }
@@ -181,7 +288,7 @@ class MigrationService(private val data: String) {
 
                 readUntil("\n")
                 val flags6 = buffer
-                mobs[mobId] = mapOf(
+                mobModels[mobId] = mapOf(
                     Pair("name", name),
                     Pair("brief", brief),
                     Pair("description", description),

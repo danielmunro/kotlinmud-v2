@@ -4,4 +4,5 @@ enum class ItemType {
     Equipment,
     Potion,
     Furniture,
+    Indeterminate,
 }
