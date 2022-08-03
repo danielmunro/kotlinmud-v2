@@ -50,8 +50,8 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
   * mobs - done
   * items
     * rooms
-    * mob inventory
-    * mob equipped
+    * mob inventory - done
+    * mob equipped - done
 * Respawns - done
 
 ## Todo - M6
