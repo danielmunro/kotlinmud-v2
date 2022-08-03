@@ -48,7 +48,7 @@ class MigrationService(private val data: String) {
     private fun evaluateLine() {
         val line = buffer
         buffer = ""
-        when(line) {
+        when (line) {
             "#ROOMS\n" -> {
                 try {
                     parseRooms()
@@ -103,7 +103,6 @@ class MigrationService(private val data: String) {
                                     affects = mutableMapOf()
                                 }
                             } ?: println("item model missing ${it.itemId}")
-
                         }
                         equipped.forEach {
                             itemModels[it.itemId]?.also {

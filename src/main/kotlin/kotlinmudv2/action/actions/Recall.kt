@@ -24,7 +24,7 @@ fun createRecallAction(): Action {
         Response(
             mob,
             "you pray for recall.\n" +
-                    createLookAction().execute(actionService, mob, context, "look").toActionCreator,
+                createLookAction().execute(actionService, mob, context, "look").toActionCreator,
         )
     }
 }
