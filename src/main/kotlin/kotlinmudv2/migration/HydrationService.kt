@@ -103,6 +103,7 @@ class HydrationService(
             attributes = mutableMapOf()
             affects = mutableMapOf()
             level = flag3[0].toInt()
+            value = flag3[2].toInt()
         }
     }
 }

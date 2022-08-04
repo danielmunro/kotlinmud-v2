@@ -102,6 +102,7 @@ class TestService(private val container: DI) {
                     attributes = mutableMapOf()
                     affects = mutableMapOf()
                     level = 1
+                    value = 0
                 }
             }
         ).also {
@@ -121,6 +122,7 @@ class TestService(private val container: DI) {
                     attributes = mutableMapOf()
                     affects = mutableMapOf()
                     level = 1
+                    value = 0
                 }
             }
         ).also {
@@ -167,6 +169,7 @@ class TestService(private val container: DI) {
                     attributes = mutableMapOf()
                     affects = mutableMapOf()
                     level = 1
+                    value = 0
                 }
             }
         )
