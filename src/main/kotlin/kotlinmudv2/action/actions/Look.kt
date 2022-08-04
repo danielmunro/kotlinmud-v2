@@ -15,11 +15,11 @@ fun createLookAction(): Action {
     ) { actionService, mob, _, _ ->
         actionService.getRoom(mob.roomId)?.let {
             val exits = "[Exits: ${it.northId?.let{"N"} ?: ""}${it.southId?.let{"S"} ?: ""}${it.eastId?.let{"E"} ?: ""}${it.westId?.let{"W"} ?: ""}${it.upId?.let{"U"} ?: ""}${it.downId?.let{"D"} ?: ""}]"
-            val items = it.items.joinToString("\n") { item -> "${item.brief} is here" }
+            val items = it.items.joinToString("\n") { item -> "${item.brief} is here" } + if (it.items.size > 0) "\n" else ""
             val mobs = actionService.getMobsInRoom(it.id).filter { m -> m != mob }.joinToString("\n") { mob -> mob.brief }
             Response(
                 mob,
-                "${it.name}\n${it.description}\n$exits\n$items\n$mobs",
+                "${it.name}\n${it.description}\n$exits\n$items$mobs",
             )
         } ?: Response(
             mob,
