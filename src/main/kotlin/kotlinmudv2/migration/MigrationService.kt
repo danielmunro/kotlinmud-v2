@@ -1,12 +1,6 @@
 package kotlinmudv2.migration
 
-import kotlinmudv2.item.ItemEntity
-import kotlinmudv2.item.ItemType
-import kotlinmudv2.mob.Disposition
-import kotlinmudv2.mob.MobEntity
-import kotlinmudv2.room.RoomEntity
 import org.jetbrains.exposed.exceptions.ExposedSQLException
-import org.jetbrains.exposed.sql.transactions.transaction
 import java.lang.NumberFormatException
 
 class MigrationService(private val data: String) {
