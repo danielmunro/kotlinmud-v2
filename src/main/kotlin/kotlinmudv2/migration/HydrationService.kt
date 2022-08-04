@@ -39,15 +39,9 @@ class HydrationService(
                     downId = props["downId"]?.toInt()
                 }.also { room ->
                     itemRoomResets[id]?.forEach { reset ->
-                        itemModels[reset.itemId]?.also {
-                            ItemEntity.new {
-                                name = it["name"]!!.trim()
-                                brief = it["brief"]!!.trim()
-                                description = it["description"]!!.trim()
-                                this.room = room.id
-                                itemType = ItemType.Indeterminate.toString()
-                                attributes = mutableMapOf()
-                                affects = mutableMapOf()
+                        itemModels[reset.itemId]?.also { model ->
+                            createItemEntityFromModel(model).also { entity ->
+                                entity.room = room.id
                             }
                         } ?: println("item model missing ${reset.itemId}")
                     }
@@ -80,34 +74,35 @@ class HydrationService(
                         affects = mutableMapOf()
                     }.also { mob ->
                         itemMobInventoryResets[id]?.forEach {
-                            itemModels[it.itemId]?.also {
-                                ItemEntity.new {
-                                    name = it["name"]!!.trim()
-                                    brief = it["brief"]!!.trim()
-                                    description = it["description"]!!.trim()
-                                    mobInventory = mob.id
-                                    itemType = ItemType.Indeterminate.toString()
-                                    attributes = mutableMapOf()
-                                    affects = mutableMapOf()
+                            itemModels[it.itemId]?.also { model ->
+                                createItemEntityFromModel(model).also { entity ->
+                                    entity.mobInventory = mob.id
                                 }
                             } ?: println("item model missing ${it.itemId}")
                         }
                         itemMobEquippedResets[id]?.forEach {
-                            itemModels[it.itemId]?.also {
-                                ItemEntity.new {
-                                    name = it["name"]!!.trim()
-                                    brief = it["brief"]!!.trim()
-                                    description = it["description"]!!.trim()
-                                    mobEquipped = mob.id
-                                    itemType = ItemType.Indeterminate.toString()
-                                    attributes = mutableMapOf()
-                                    affects = mutableMapOf()
+                            itemModels[it.itemId]?.also { model ->
+                                createItemEntityFromModel(model).also { entity ->
+                                    entity.mobEquipped = mob.id
                                 }
                             } ?: println("item model missing ${it.itemId}")
                         }
                     }
                 }
             }
+        }
+    }
+
+    private fun createItemEntityFromModel(model: Map<String, String>): ItemEntity {
+        val flag3 = model["flags3"]!!.split(" ")
+        return ItemEntity.new {
+            name = model["name"]!!.trim()
+            brief = model["brief"]!!.trim()
+            description = model["description"]!!.trim()
+            itemType = ItemType.Indeterminate.toString()
+            attributes = mutableMapOf()
+            affects = mutableMapOf()
+            level = flag3[0].toInt()
         }
     }
 }

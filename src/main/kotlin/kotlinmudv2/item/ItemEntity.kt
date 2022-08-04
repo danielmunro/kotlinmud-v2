@@ -21,6 +21,7 @@ class ItemEntity(id: EntityID<Int>) : IntEntity(id) {
     var position by ItemTable.position
     var mobInventory by ItemTable.mobInventory
     var mobEquipped by ItemTable.mobEquipped
+    var level by ItemTable.level
     var room by ItemTable.room
     var attributes: MutableMap<Attribute, Int> by ItemTable.attributes.transform(
         { gson.toJson(it) },

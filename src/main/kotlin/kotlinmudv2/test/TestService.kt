@@ -101,6 +101,7 @@ class TestService(private val container: DI) {
                     room = RoomEntity.findById(startRoom.id)?.id
                     attributes = mutableMapOf()
                     affects = mutableMapOf()
+                    level = 1
                 }
             }
         ).also {
@@ -119,6 +120,7 @@ class TestService(private val container: DI) {
                     mobInventory = MobEntity.findById(client.mob!!.id)?.id
                     attributes = mutableMapOf()
                     affects = mutableMapOf()
+                    level = 1
                 }
             }
         ).also {
@@ -164,6 +166,7 @@ class TestService(private val container: DI) {
                     mobInventory = MobEntity.findById(client.mob!!.id)?.id
                     attributes = mutableMapOf()
                     affects = mutableMapOf()
+                    level = 1
                 }
             }
         )

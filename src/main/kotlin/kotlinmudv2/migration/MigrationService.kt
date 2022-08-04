@@ -177,6 +177,7 @@ class MigrationService(private val data: String) {
                 readUntil("~")
                 val material = buffer
                 readUntil("\n")
+                readUntil("\n")
                 val flags1 = buffer
                 readUntil("\n")
                 val flags2 = buffer
