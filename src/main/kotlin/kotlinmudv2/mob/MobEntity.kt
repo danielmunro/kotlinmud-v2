@@ -28,6 +28,7 @@ class MobEntity(id: EntityID<Int>) : IntEntity(id) {
     var disposition by MobTable.disposition
     var maxInRoom by MobTable.maxInRoom
     var maxInGame by MobTable.maxInGame
+    var level by MobTable.level
     val items by ItemEntity optionalReferrersOn ItemTable.mobInventory
     val equipped by ItemEntity optionalReferrersOn ItemTable.mobEquipped
     var attributes: MutableMap<Attribute, Int> by MobTable.attributes.transform(

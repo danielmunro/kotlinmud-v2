@@ -59,7 +59,8 @@ class HydrationService(
     private fun hydrateMobs() {
         mobModels.forEach { (id, props) ->
             mobResets[id]?.forEach {
-                val parts = props["flags3"]!!.split(" ")
+                val flag3 = props["flags3"]!!.split(" ")
+
                 transaction {
                     MobEntity.new {
                         canonicalId = id
@@ -67,9 +68,10 @@ class HydrationService(
                         brief = props["brief"]!!.trim()
                         description = props["description"]!!.trim()
                         race = MigrationService.mapRace(props["race"]!!.trim().capitalize())
-                        hp = parts[2]
-                        mana = parts[3]
-                        moves = parts[4]
+                        level = flag3[0].toInt()
+                        hp = flag3[2]
+                        mana = flag3[3]
+                        moves = flag3[4]
                         maxInGame = it.maxInGame
                         maxInRoom = it.maxInRoom
                         roomId = it.roomId

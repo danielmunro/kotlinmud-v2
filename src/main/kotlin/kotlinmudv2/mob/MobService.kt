@@ -76,6 +76,7 @@ class MobService(private val itemService: ItemService) {
                 disposition = Disposition.Standing.toString()
                 maxInRoom = 1
                 maxInGame = 1
+                level = 1
             }
         }
         return createMobInstance(entity.id.value)!!

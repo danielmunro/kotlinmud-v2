@@ -12,6 +12,7 @@ object MobTable : IntIdTable() {
     val moves = varchar("moves", 64)
     val roomId = integer("roomId")
     val race = varchar("race", 50)
+    val level = integer("level")
     val attributes = text("attributes")
     val affects = text("affects")
     val disposition = varchar("disposition", 50)
