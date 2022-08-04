@@ -13,6 +13,7 @@ class MigrationService(private val data: String) {
     private var cursor = 0
     private var buffer = ""
     private var lastRoom: RoomEntity? = null
+    private val roomModels = mutableMapOf<Int, Map<String, String?>>()
     private val mobModels = mutableMapOf<Int, Map<String, String>>()
     private val mobResets = mutableMapOf<Int, MutableList<MobReset>>()
     private var lastMobReset: MobReset? = null
@@ -43,6 +44,7 @@ class MigrationService(private val data: String) {
             }
         }
         hydrateMobs()
+        hydrateRooms()
     }
 
     private fun evaluateLine() {
@@ -65,6 +67,39 @@ class MigrationService(private val data: String) {
             "#MOBILES\n" -> parseMobs()
             "#RESETS\n" -> parseResets()
             "#OBJECTS\n" -> parseItems()
+        }
+    }
+
+    private fun hydrateRooms() {
+        roomModels.forEach {
+            val id = it.key
+            val props = it.value
+            lastRoom = transaction {
+                RoomEntity.new(id) {
+                    name = props["name"]!!.trim()
+                    description = props["description"]!!.trim()
+                    northId = props["northId"]?.toInt()
+                    southId = props["southId"]?.toInt()
+                    eastId = props["eastId"]?.toInt()
+                    westId = props["westId"]?.toInt()
+                    upId = props["upId"]?.toInt()
+                    downId = props["downId"]?.toInt()
+                }.also { room ->
+                    itemRoomResets[id]?.forEach { reset ->
+                        itemModels[reset.itemId]?.also {
+                            ItemEntity.new {
+                                name = it["name"]!!.trim()
+                                brief = it["brief"]!!.trim()
+                                description = it["description"]!!.trim()
+                                this.room = room.id
+                                itemType = ItemType.Indeterminate.toString()
+                                attributes = mutableMapOf()
+                                affects = mutableMapOf()
+                            }
+                        } ?: println("item model missing ${reset.itemId}")
+                    }
+                }
+            }
         }
     }
 
@@ -332,12 +367,12 @@ class MigrationService(private val data: String) {
                 val description = buffer.dropLast(1)
                 readUntil("\n")
                 readUntil("\n")
-                var northId: Int? = null
-                var southId: Int? = null
-                var eastId: Int? = null
-                var westId: Int? = null
-                var upId: Int? = null
-                var downId: Int? = null
+                var northId: String? = null
+                var southId: String? = null
+                var eastId: String? = null
+                var westId: String? = null
+                var upId: String? = null
+                var downId: String? = null
                 while (peek(1).trim() != "S") {
                     readUntil("\n")
                     val direction = buffer.trim()
@@ -365,7 +400,7 @@ class MigrationService(private val data: String) {
                     readUntil("\n")
                     readUntil("\n")
                     readUntil("\n")
-                    val exit = buffer.split(" ").takeLast(1).first().trim().toInt()
+                    val exit = buffer.split(" ").takeLast(1).first().trim()
                     when (direction) {
                         "D0" -> northId = exit
                         "D1" -> eastId = exit
@@ -374,18 +409,16 @@ class MigrationService(private val data: String) {
                         "D4" -> upId = exit
                         "D5" -> downId = exit
                     }
-                }
-                lastRoom = transaction {
-                    RoomEntity.new(roomId) {
-                        this.name = name
-                        this.description = description
-                        this.northId = northId
-                        this.southId = southId
-                        this.eastId = eastId
-                        this.westId = westId
-                        this.upId = upId
-                        this.downId = downId
-                    }
+                    roomModels[roomId] = mapOf(
+                        Pair("name", name),
+                        Pair("description", description),
+                        Pair("northId", northId),
+                        Pair("southId", southId),
+                        Pair("eastId", eastId),
+                        Pair("westId", westId),
+                        Pair("upId", upId),
+                        Pair("downId", downId),
+                    )
                 }
             }
         }
