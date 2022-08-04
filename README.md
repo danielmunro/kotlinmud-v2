@@ -45,22 +45,24 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 
 ## Todo - M5
 
-* Moosehead
-  * rooms - done
-  * mobs - done
+* Moosehead - done
+  * rooms
+  * mobs
   * items
     * rooms
-    * mob inventory - done
-    * mob equipped - done
-* Respawns - done
+    * mob inventory
+    * mob equipped
 
 ## Todo - M6
 
+* Add level property to mob and items
+
+## Todo - M7
 * Leveling
 * Doors
 * Classes
 
-## Todo - M7
+## Todo - M8
 * Shops
 * Skills
 * Spells
