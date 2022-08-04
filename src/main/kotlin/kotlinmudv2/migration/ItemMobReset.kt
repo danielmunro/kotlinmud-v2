@@ -5,5 +5,4 @@ class ItemMobReset(
     val itemId: Int,
     val maxToInventory: Int,
     val maxInGame: Int,
-    val isEquipped: Boolean = false,
 )

@@ -12,14 +12,14 @@ import java.lang.NumberFormatException
 class MigrationService(private val data: String) {
     private var cursor = 0
     private var buffer = ""
-    private var lastRoom: RoomEntity? = null
-    private val roomModels = mutableMapOf<Int, Map<String, String?>>()
-    private val mobModels = mutableMapOf<Int, Map<String, String>>()
-    private val mobResets = mutableMapOf<Int, MutableList<MobReset>>()
     private var lastMobReset: MobReset? = null
-    private val itemModels = mutableMapOf<Int, Map<String, String>>()
-    private val itemRoomResets = mutableMapOf<Int, MutableList<ItemRoomReset>>()
-    private val itemMobResets = mutableMapOf<Int, MutableList<ItemMobReset>>()
+    val roomModels = mutableMapOf<Int, Map<String, String?>>()
+    val mobModels = mutableMapOf<Int, Map<String, String>>()
+    val itemModels = mutableMapOf<Int, Map<String, String>>()
+    val mobResets = mutableMapOf<Int, MutableList<MobReset>>()
+    val itemRoomResets = mutableMapOf<Int, MutableList<ItemRoomReset>>()
+    val itemMobInventoryResets = mutableMapOf<Int, MutableList<ItemMobReset>>()
+    val itemMobEquippedResets = mutableMapOf<Int, MutableList<ItemMobReset>>()
 
     companion object {
         fun mapRace(race: String): String {
@@ -43,8 +43,6 @@ class MigrationService(private val data: String) {
                 evaluateLine()
             }
         }
-        hydrateMobs()
-        hydrateRooms()
     }
 
     private fun evaluateLine() {
@@ -56,105 +54,15 @@ class MigrationService(private val data: String) {
                     parseRooms()
                 } catch (e: NumberFormatException) {
                     println("last buffer: '$buffer'")
-                    println("last room ID: ${lastRoom?.id}")
                     throw e
                 } catch (e: ExposedSQLException) {
                     println("last buffer: '$buffer'")
-                    println("last room ID: ${lastRoom?.id}")
                     throw e
                 }
             }
             "#MOBILES\n" -> parseMobs()
             "#RESETS\n" -> parseResets()
             "#OBJECTS\n" -> parseItems()
-        }
-    }
-
-    private fun hydrateRooms() {
-        roomModels.forEach {
-            val id = it.key
-            val props = it.value
-            lastRoom = transaction {
-                RoomEntity.new(id) {
-                    name = props["name"]!!.trim()
-                    description = props["description"]!!.trim()
-                    northId = props["northId"]?.toInt()
-                    southId = props["southId"]?.toInt()
-                    eastId = props["eastId"]?.toInt()
-                    westId = props["westId"]?.toInt()
-                    upId = props["upId"]?.toInt()
-                    downId = props["downId"]?.toInt()
-                }.also { room ->
-                    itemRoomResets[id]?.forEach { reset ->
-                        itemModels[reset.itemId]?.also {
-                            ItemEntity.new {
-                                name = it["name"]!!.trim()
-                                brief = it["brief"]!!.trim()
-                                description = it["description"]!!.trim()
-                                this.room = room.id
-                                itemType = ItemType.Indeterminate.toString()
-                                attributes = mutableMapOf()
-                                affects = mutableMapOf()
-                            }
-                        } ?: println("item model missing ${reset.itemId}")
-                    }
-                }
-            }
-        }
-    }
-
-    private fun hydrateMobs() {
-        mobModels.forEach { (id, props) ->
-            mobResets[id]?.forEach {
-                val parts = props["flags3"]!!.split(" ")
-                val inventory = itemMobResets[id]?.filter { !it.isEquipped } ?: listOf()
-                val equipped = itemMobResets[id]?.filter { it.isEquipped } ?: listOf()
-                transaction {
-                    MobEntity.new {
-                        canonicalId = id
-                        name = props["name"]!!.trim()
-                        brief = props["brief"]!!.trim()
-                        description = props["description"]!!.trim()
-                        race = mapRace(props["race"]!!.trim().capitalize())
-                        hp = parts[2]
-                        mana = parts[3]
-                        moves = parts[4]
-                        maxInGame = it.maxInGame
-                        maxInRoom = it.maxInRoom
-                        roomId = it.roomId
-                        attributes = mutableMapOf()
-                        disposition = Disposition.Standing.toString()
-                        affects = mutableMapOf()
-                    }.also { mob ->
-                        inventory.forEach {
-                            itemModels[it.itemId]?.also {
-                                ItemEntity.new {
-                                    name = it["name"]!!.trim()
-                                    brief = it["brief"]!!.trim()
-                                    description = it["description"]!!.trim()
-                                    mobInventory = mob.id
-                                    itemType = ItemType.Indeterminate.toString()
-                                    attributes = mutableMapOf()
-                                    affects = mutableMapOf()
-                                }
-                            } ?: println("item model missing ${it.itemId}")
-                        }
-                        equipped.forEach {
-                            itemModels[it.itemId]?.also {
-                                ItemEntity.new {
-                                    name = it["name"]!!.trim()
-                                    brief = it["brief"]!!.trim()
-                                    description = it["description"]!!.trim()
-                                    mobEquipped = mob.id
-                                    itemType = ItemType.Indeterminate.toString()
-                                    attributes = mutableMapOf()
-                                    affects = mutableMapOf()
-                                }
-                            } ?: println("item model missing ${it.itemId}")
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -207,31 +115,29 @@ class MigrationService(private val data: String) {
                 }
                 "G" -> {
                     val mobId = lastMobReset!!.mobId
-                    if (itemMobResets[mobId] == null) {
-                        itemMobResets[mobId] = mutableListOf()
+                    if (itemMobInventoryResets[mobId] == null) {
+                        itemMobInventoryResets[mobId] = mutableListOf()
                     }
-                    itemMobResets[mobId]!!.add(
+                    itemMobInventoryResets[mobId]!!.add(
                         ItemMobReset(
                             mobId,
                             parts[2].toInt(),
                             parts[1].toInt(),
                             parts[3].toInt(),
-                            false,
                         )
                     )
                 }
                 "E" -> {
                     val mobId = lastMobReset!!.mobId
-                    if (itemMobResets[mobId] == null) {
-                        itemMobResets[mobId] = mutableListOf()
+                    if (itemMobEquippedResets[mobId] == null) {
+                        itemMobEquippedResets[mobId] = mutableListOf()
                     }
-                    itemMobResets[mobId]!!.add(
+                    itemMobEquippedResets[mobId]!!.add(
                         ItemMobReset(
                             mobId,
                             parts[2].toInt(),
                             parts[1].toInt(),
                             parts[3].toInt(),
-                            true,
                         )
                     )
                 }

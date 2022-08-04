@@ -7,7 +7,11 @@ import kotlinmudv2.event.createTickEvent
 import kotlinmudv2.game.GameService
 import kotlinmudv2.game.WebServerService
 import kotlinmudv2.game.createContainer
+import kotlinmudv2.migration.HydrationService
+import kotlinmudv2.migration.ItemMobReset
+import kotlinmudv2.migration.ItemRoomReset
 import kotlinmudv2.migration.MigrationService
+import kotlinmudv2.migration.MobReset
 import kotlinmudv2.observer.Observer
 import kotlinx.coroutines.runBlocking
 import org.kodein.di.instance
@@ -17,10 +21,36 @@ fun main(args: Array<String>) {
     if (args.getOrNull(0) == "migrate") {
         File("data.db").delete()
         createConnection()
+        val roomModels = mutableMapOf<Int, Map<String, String?>>()
+        val mobModels = mutableMapOf<Int, Map<String, String>>()
+        val itemModels = mutableMapOf<Int, Map<String, String>>()
+        val mobResets = mutableMapOf<Int, MutableList<MobReset>>()
+        val itemRoomResets = mutableMapOf<Int, MutableList<ItemRoomReset>>()
+        val itemMobInventoryResets = mutableMapOf<Int, MutableList<ItemMobReset>>()
+        val itemMobEquippedResets = mutableMapOf<Int, MutableList<ItemMobReset>>()
         File("sourceData/").listFiles()?.forEach {
             println("reading ${it.name}")
-            MigrationService(it.readText()).read()
+            MigrationService(it.readText()).also { service ->
+                service.read()
+                roomModels += service.roomModels
+                mobModels += service.mobModels
+                itemModels += service.itemModels
+                mobResets += service.mobResets
+                itemRoomResets += service.itemRoomResets
+                itemMobInventoryResets += service.itemMobInventoryResets
+                itemMobEquippedResets += service.itemMobEquippedResets
+            }
         }
+        println("hydrating models into entities")
+        HydrationService(
+            roomModels,
+            mobModels,
+            itemModels,
+            mobResets,
+            itemRoomResets,
+            itemMobInventoryResets,
+            itemMobEquippedResets,
+        ).hydrate()
         System.exit(0)
     }
 
