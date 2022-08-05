@@ -9,6 +9,7 @@ class Item(
     val description: String,
     val brief: String,
     val itemType: ItemType,
+    val material: Material,
     val level: Int,
     val attributes: MutableMap<Attribute, Int>,
     val affects: MutableMap<Affect, Int>,

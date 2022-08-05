@@ -24,6 +24,7 @@ class ItemEntity(id: EntityID<Int>) : IntEntity(id) {
     var level by ItemTable.level
     var value by ItemTable.value
     var weight by ItemTable.weight
+    var material by ItemTable.material
     var room by ItemTable.room
     var attributes: MutableMap<Attribute, Int> by ItemTable.attributes.transform(
         { gson.toJson(it) },

@@ -6,6 +6,7 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
 import kotlinmudv2.item.Item
 import kotlinmudv2.item.ItemType
+import kotlinmudv2.item.Material
 import kotlinmudv2.test.createTestService
 import kotlin.test.Test
 
@@ -33,6 +34,7 @@ class LookTest {
             "hello",
             "a potion is here",
             ItemType.Potion,
+            Material.Glass,
             1,
             mutableMapOf(),
             mutableMapOf(),

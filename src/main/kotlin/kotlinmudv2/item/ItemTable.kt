@@ -15,6 +15,7 @@ object ItemTable : IntIdTable() {
     val level = integer("level")
     val value = integer("value")
     val weight = integer("weight")
+    val material = varchar("material", 64)
     val mobInventory = reference("mobInventoryId", MobTable).nullable()
     val mobEquipped = reference("mobEquippedId", MobTable).nullable()
     val room = reference("roomId", RoomTable).nullable()
