@@ -22,6 +22,23 @@ class WearTest {
     }
 
     @Test
+    fun testCannotWearEquipmentThatIsTooHighLevel() {
+        // setup
+        val test = createTestService()
+
+        // given
+        test.createSwordInInventory {
+            it.level = 2
+        }
+
+        // when
+        val response = test.handleRequest("wear sword")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("you wear a sword.")
+    }
+
+    @Test
     fun testRemovesEquippedWhenWearingEquipment() {
         // setup
         val test = createTestService()

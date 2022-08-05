@@ -21,6 +21,12 @@ fun createWearAction(): Action {
                 "that is not equipment."
             )
         }
+        if (item.level < mob.level) {
+            return@Action Response(
+                mob,
+                "you are not a high enough level to wear that.",
+            )
+        }
         var removed = ""
         mob.equipped.find {
             it.position == item.position

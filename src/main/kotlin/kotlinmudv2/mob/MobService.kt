@@ -35,6 +35,7 @@ class MobService(private val itemService: ItemService) {
             "$name is here",
             "",
             race,
+            1,
             mutableListOf(),
             mutableListOf(),
             mutableMapOf(
@@ -108,6 +109,7 @@ class MobService(private val itemService: ItemService) {
             entity.brief,
             entity.description,
             Race.valueOf(entity.race),
+            entity.level,
             transaction { entity.items.map { itemService.createFromEntity(it) } }.toMutableList(),
             transaction { entity.equipped.map { itemService.createFromEntity(it) } }.toMutableList(),
             attributes,

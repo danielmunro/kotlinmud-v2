@@ -132,8 +132,8 @@ class TestService(private val container: DI) {
         }
     }
 
-    fun createSwordInInventory(): Item {
-        return createSword().also {
+    fun createSwordInInventory(modifier: (ItemEntity) -> Unit = { }): Item {
+        return createSword(modifier).also {
             client.mob!!.items.add(it)
         }
     }
@@ -159,7 +159,7 @@ class TestService(private val container: DI) {
         return container.direct.instance(tag = "processClientBuffer")
     }
 
-    private fun createSword(): Item {
+    private fun createSword(modifier: (ItemEntity) -> Unit = {}): Item {
         return itemService.createFromEntity(
             transaction {
                 ItemEntity.new {
@@ -173,6 +173,8 @@ class TestService(private val container: DI) {
                     level = 1
                     weight = 1
                     value = 0
+                }.also {
+                    modifier(it)
                 }
             }
         )

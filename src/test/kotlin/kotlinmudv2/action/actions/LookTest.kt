@@ -33,6 +33,7 @@ class LookTest {
             "hello",
             "a potion is here",
             ItemType.Potion,
+            1,
             mutableMapOf(),
             mutableMapOf(),
         )
