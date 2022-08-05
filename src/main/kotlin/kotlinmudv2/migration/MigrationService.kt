@@ -32,10 +32,8 @@ class MigrationService(private val data: String) {
 
     fun read() {
         while (cursor < data.length) {
-            readIntoBuffer()
-            if (buffer.endsWith("\n")) {
-                evaluateLine()
-            }
+            readUntil("\n")
+            evaluateLine()
         }
     }
 
@@ -43,7 +41,7 @@ class MigrationService(private val data: String) {
         val line = buffer
         buffer = ""
         when (line) {
-            "#ROOMS\n" -> {
+            "#ROOMS" -> {
                 try {
                     parseRooms()
                 } catch (e: NumberFormatException) {
@@ -54,9 +52,9 @@ class MigrationService(private val data: String) {
                     throw e
                 }
             }
-            "#MOBILES\n" -> parseMobs()
-            "#RESETS\n" -> parseResets()
-            "#OBJECTS\n" -> parseItems()
+            "#MOBILES" -> parseMobs()
+            "#RESETS" -> parseResets()
+            "#OBJECTS" -> parseItems()
         }
     }
 
@@ -65,7 +63,7 @@ class MigrationService(private val data: String) {
             readUntil("\n")
             val commentPos = buffer.indexOf("*")
             val reset = buffer.take(if (commentPos > -1) commentPos else 0).trim()
-            if (buffer == "S\n") {
+            if (buffer == "S") {
                 return
             }
             val parts = mutableListOf<String>()
@@ -165,15 +163,15 @@ class MigrationService(private val data: String) {
             val addition = readIntoBuffer()
             if (addition == "#") {
                 readUntil("\n")
-                val itemId = buffer.dropLast(1).toInt()
+                val itemId = buffer.toInt()
                 if (itemId == 0) {
                     return
                 }
                 readUntil("~")
                 readUntil("~")
-                val name = buffer.dropLast(1)
+                val name = buffer
                 readUntil("~")
-                val description = buffer.dropLast(1)
+                val description = buffer
                 readUntil("~")
                 val material = buffer
                 readUntil("\n")
@@ -201,19 +199,19 @@ class MigrationService(private val data: String) {
             val addition = readIntoBuffer()
             if (addition == "#") {
                 readUntil("\n")
-                val mobId = buffer.dropLast(1).toInt()
+                val mobId = buffer.toInt()
                 if (mobId == 0) {
                     return
                 }
                 readUntil("~")
                 readUntil("~")
-                val name = buffer.dropLast(1)
+                val name = buffer
                 readUntil("~")
-                val brief = buffer.dropLast(1)
+                val brief = buffer
                 readUntil("~")
-                val description = buffer.dropLast(1)
+                val description = buffer
                 readUntil("~")
-                val race = buffer.dropLast(1)
+                val race = buffer
 
                 // null
                 readUntil("\n")
@@ -258,14 +256,14 @@ class MigrationService(private val data: String) {
             val addition = readIntoBuffer()
             if (addition == "#") {
                 readUntil("\n")
-                val roomId = buffer.dropLast(1).toInt()
+                val roomId = buffer.toInt()
                 if (roomId == 0) {
                     return
                 }
                 readUntil("~")
-                val name = buffer.dropLast(1)
+                val name = buffer
                 readUntil("~")
-                val description = buffer.dropLast(1)
+                val description = buffer
                 readUntil("\n")
                 readUntil("\n")
                 var northId: String? = null
@@ -338,6 +336,7 @@ class MigrationService(private val data: String) {
         while (add != terminator) {
             add = readIntoBuffer()
         }
+        buffer = buffer.dropLast(terminator.length)
     }
 
     private fun peek(amount: Int): String {
