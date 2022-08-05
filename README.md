@@ -56,6 +56,8 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 ## Todo - M6
 
 * Add level property to mob and items
+* Item material
+* Item type
 
 ## Todo - M7
 * Leveling

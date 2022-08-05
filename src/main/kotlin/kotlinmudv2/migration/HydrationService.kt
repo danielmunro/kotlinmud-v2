@@ -18,6 +18,28 @@ class HydrationService(
 ) {
     private var lastRoom: RoomEntity? = null
 
+    companion object {
+        fun mapItemType(type: String): String {
+            return when (type) {
+                "Warp_stone" -> "WarpStone"
+                "Spell_page" -> "SpellPage"
+                "Room_key" -> "Key"
+                "Trap_part" -> "TrapPart"
+                "Item_part" -> "ItemPart"
+                "Npc_corpse" -> "NpcCorpse"
+                else -> {
+                    try {
+                        ItemType.valueOf(type)
+                        return type
+                    } catch (e: IllegalArgumentException) {
+                        println("unknown type: $type")
+                        return "Indeterminate"
+                    }
+                }
+            }
+        }
+    }
+
     fun hydrate() {
         hydrateMobs()
         hydrateRooms()
@@ -94,12 +116,13 @@ class HydrationService(
     }
 
     private fun createItemEntityFromModel(model: Map<String, String>): ItemEntity {
-        val flag3 = model["flags3"]!!.split(" ")
+        val flag1 = model["flags1"]!!.trim().split(" ")
+        val flag3 = model["flags3"]!!.trim().split(" ")
         return ItemEntity.new {
             name = model["name"]!!.trim()
             brief = model["brief"]!!.trim()
             description = model["description"]!!.trim()
-            itemType = ItemType.Indeterminate.toString()
+            itemType = ItemType.valueOf(mapItemType(flag1[0].capitalize())).toString()
             attributes = mutableMapOf()
             affects = mutableMapOf()
             level = flag3[0].toInt()
