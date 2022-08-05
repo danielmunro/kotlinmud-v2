@@ -35,7 +35,7 @@ class WearTest {
         val response = test.handleRequest("wear sword")
 
         // then
-        assertThat(response.toActionCreator).isEqualTo("you wear a sword.")
+        assertThat(response.toActionCreator).isEqualTo("you are not a high enough level to wear that.")
     }
 
     @Test
