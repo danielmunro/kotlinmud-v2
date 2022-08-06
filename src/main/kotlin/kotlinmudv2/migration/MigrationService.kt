@@ -171,7 +171,7 @@ class MigrationService(private val data: String) {
                 readUntil("~")
                 val name = buffer
                 readUntil("~")
-                val description = buffer
+                val brief = buffer
                 readUntil("~")
                 val material = buffer
                 readUntil("\n")
@@ -183,8 +183,8 @@ class MigrationService(private val data: String) {
                 val flags3 = buffer
                 itemModels[itemId] = mapOf(
                     Pair("name", name),
-                    Pair("brief", name),
-                    Pair("description", description),
+                    Pair("brief", brief),
+                    Pair("description", brief),
                     Pair("material", material),
                     Pair("flags1", flags1),
                     Pair("flags2", flags2),
