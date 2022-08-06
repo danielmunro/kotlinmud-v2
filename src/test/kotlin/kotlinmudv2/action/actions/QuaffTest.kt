@@ -39,4 +39,16 @@ class QuaffTest {
         assertThat(response.toActionCreator).isEqualTo("that's not a potion")
         assertThat(response.mob.items).contains(item)
     }
+
+    @Test
+    fun testCannotQuaffItemsThatDontExist() {
+        // setup
+        val test = createTestService()
+
+        // when
+        val response = test.handleRequest("quaff potion")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("you don't have anything like that to quaff")
+    }
 }
