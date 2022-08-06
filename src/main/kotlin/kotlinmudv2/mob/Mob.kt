@@ -20,6 +20,7 @@ open class Mob(
     var moves: Int,
     var roomId: Int,
     var disposition: Disposition,
+    val flags: List<MobFlag>,
 ) {
     var target: Mob? = null
 

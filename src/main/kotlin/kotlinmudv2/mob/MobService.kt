@@ -50,6 +50,7 @@ class MobService(private val itemService: ItemService) {
             100,
             3001,
             Disposition.Standing,
+            listOf(),
         )
     }
 
@@ -79,6 +80,7 @@ class MobService(private val itemService: ItemService) {
                 maxInRoom = 1
                 maxInGame = 1
                 level = 1
+                flags = listOf()
             }
         }
         return createMobInstance(entity.id.value)!!
@@ -120,6 +122,7 @@ class MobService(private val itemService: ItemService) {
             moves,
             entity.roomId,
             Disposition.valueOf(entity.disposition),
+            listOf(),
         )
     }
 

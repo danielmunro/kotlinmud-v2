@@ -23,6 +23,7 @@ class PlayerMob(
     moves: Int,
     roomId: Int,
     disposition: Disposition,
+    flags: List<MobFlag>,
 ) : Mob(
     id,
     name,
@@ -39,4 +40,5 @@ class PlayerMob(
     moves,
     roomId,
     disposition,
+    flags,
 )

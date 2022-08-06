@@ -10,6 +10,7 @@ import kotlinmudv2.action.actions.createGetErrorAction
 import kotlinmudv2.action.actions.createGossipAction
 import kotlinmudv2.action.actions.createKillAction
 import kotlinmudv2.action.actions.createKillErrorAction
+import kotlinmudv2.action.actions.createListAction
 import kotlinmudv2.action.actions.createLookAction
 import kotlinmudv2.action.actions.createLookAtItemInInventoryAction
 import kotlinmudv2.action.actions.createLookAtItemInRoomAction
@@ -96,6 +97,7 @@ fun createContainer(port: Int): DI {
                 createRecallAction(),
                 createSacrificeAction(),
                 createSacrificeErrorAction(),
+                createListAction(),
             )
         }
 

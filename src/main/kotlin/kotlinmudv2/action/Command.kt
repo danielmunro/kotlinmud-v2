@@ -15,6 +15,11 @@ enum class Command(val value: String) {
     Wear("wear"),
     Remove("remove"),
 
+    // shops
+    List("list"),
+    Buy("buy"),
+    Sell("sell"),
+
     // social
     Say("say"),
     Gossip("gossip"),
