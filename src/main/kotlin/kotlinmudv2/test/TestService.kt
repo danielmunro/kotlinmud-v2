@@ -11,6 +11,7 @@ import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobService
+import kotlinmudv2.mob.PlayerMob
 import kotlinmudv2.mob.Race
 import kotlinmudv2.observer.ProcessClientBufferObserver
 import kotlinmudv2.room.Direction
@@ -49,7 +50,7 @@ class TestService(private val container: DI) {
         }
     }
 
-    fun getPlayerMob(): Mob {
+    fun getPlayerMob(): PlayerMob {
         return client.mob!!
     }
 

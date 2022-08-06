@@ -19,6 +19,8 @@ import kotlinmudv2.action.actions.createQuaffAction
 import kotlinmudv2.action.actions.createRecallAction
 import kotlinmudv2.action.actions.createRemoveAction
 import kotlinmudv2.action.actions.createRemoveErrorAction
+import kotlinmudv2.action.actions.createSacrificeAction
+import kotlinmudv2.action.actions.createSacrificeErrorAction
 import kotlinmudv2.action.actions.createSayAction
 import kotlinmudv2.action.actions.createSouthAction
 import kotlinmudv2.action.actions.createUpAction
@@ -90,6 +92,8 @@ fun createContainer(port: Int): DI {
                 createRemoveAction(),
                 createRemoveErrorAction(),
                 createRecallAction(),
+                createSacrificeAction(),
+                createSacrificeErrorAction(),
             )
         }
 

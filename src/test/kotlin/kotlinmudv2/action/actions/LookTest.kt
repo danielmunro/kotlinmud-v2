@@ -35,6 +35,7 @@ class LookTest {
             ItemType.Potion,
             "potion",
             1,
+            0,
             mutableMapOf(),
             mutableMapOf(),
         )

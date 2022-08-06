@@ -18,6 +18,7 @@ class ItemService {
             ItemType.valueOf(entity.itemType),
             entity.material,
             entity.level,
+            entity.value,
             entity.attributes,
             entity.affects,
             entity.position?.let { Position.valueOf(it) }
