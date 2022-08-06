@@ -19,6 +19,7 @@ import kotlinmudv2.room.Direction
 import kotlinmudv2.room.Room
 import kotlinmudv2.room.RoomEntity
 import kotlinmudv2.room.RoomService
+import kotlinmudv2.room.startRoomId
 import kotlinmudv2.socket.Client
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.DI
@@ -94,22 +95,9 @@ class TestService(private val container: DI) {
 
     fun createPotionInRoom(): Item {
         return itemService.createFromEntity(
-            transaction {
-                ItemEntity.new {
-                    name = "a potion"
-                    brief = "a strange potion is lying here"
-                    description = "a strange potion is lying here"
-                    itemType = ItemType.Potion.toString()
-                    room = RoomEntity.findById(startRoom.id)?.id
-                    attributes = mutableMapOf()
-                    affects = mutableMapOf()
-                    material = "potion"
-                    level = 1
-                    weight = 1
-                    value = 0
-                    flags = listOf(
-                        ItemFlag.CanOwn,
-                    )
+            createPotion().also {
+                transaction {
+                    it.room = RoomEntity.findById(startRoomId)?.id
                 }
             }
         ).also {
@@ -119,22 +107,9 @@ class TestService(private val container: DI) {
 
     fun createPotionInInventory(): Item {
         return itemService.createFromEntity(
-            transaction {
-                ItemEntity.new {
-                    name = "a potion"
-                    brief = "a strange potion is lying here"
-                    description = "a strange potion is lying here"
-                    itemType = ItemType.Potion.toString()
-                    mobInventory = MobEntity.findById(client.mob!!.id)?.id
-                    attributes = mutableMapOf()
-                    affects = mutableMapOf()
-                    material = "potion"
-                    level = 1
-                    weight = 1
-                    value = 0
-                    flags = listOf(
-                        ItemFlag.CanOwn,
-                    )
+            createPotion().also {
+                transaction {
+                    it.mobInventory = MobEntity.findById(getPlayerMob().id)?.id
                 }
             }
         ).also {
@@ -215,5 +190,26 @@ class TestService(private val container: DI) {
                 }
             }
         )
+    }
+
+    private fun createPotion(): ItemEntity {
+        return transaction {
+            ItemEntity.new {
+                name = "a potion"
+                brief = "a strange potion is lying here"
+                description = "a strange potion is lying here"
+                itemType = ItemType.Potion.toString()
+                room = RoomEntity.findById(startRoom.id)?.id
+                attributes = mutableMapOf()
+                affects = mutableMapOf()
+                material = "potion"
+                level = 1
+                weight = 1
+                value = 0
+                flags = listOf(
+                    ItemFlag.CanOwn,
+                )
+            }
+        }
     }
 }
