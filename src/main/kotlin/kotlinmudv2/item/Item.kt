@@ -12,6 +12,7 @@ class Item(
     val material: String,
     val level: Int,
     val value: Int,
+    val flags: List<ItemFlag>,
     val attributes: MutableMap<Attribute, Int>,
     val affects: MutableMap<Affect, Int>,
     val position: Position? = null,

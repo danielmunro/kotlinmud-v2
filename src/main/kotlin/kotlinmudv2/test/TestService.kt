@@ -5,6 +5,7 @@ import kotlinmudv2.fight.FightService
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.item.Item
 import kotlinmudv2.item.ItemEntity
+import kotlinmudv2.item.ItemFlag
 import kotlinmudv2.item.ItemService
 import kotlinmudv2.item.ItemType
 import kotlinmudv2.mob.Disposition
@@ -106,6 +107,9 @@ class TestService(private val container: DI) {
                     level = 1
                     weight = 1
                     value = 0
+                    flags = listOf(
+                        ItemFlag.CanOwn,
+                    )
                 }
             }
         ).also {
@@ -128,10 +132,36 @@ class TestService(private val container: DI) {
                     level = 1
                     weight = 1
                     value = 0
+                    flags = listOf(
+                        ItemFlag.CanOwn,
+                    )
                 }
             }
         ).also {
             client.mob!!.items.add(it)
+        }
+    }
+
+    fun createDonationPitInRoom(): Item {
+        return itemService.createFromEntity(
+            transaction {
+                ItemEntity.new {
+                    name = "a donation pit"
+                    brief = "a donation pit is here"
+                    description = "a donation pit is here"
+                    itemType = ItemType.Furniture.toString()
+                    room = RoomEntity.findById(startRoom.id)?.id
+                    attributes = mutableMapOf()
+                    affects = mutableMapOf()
+                    material = "stone"
+                    level = 1
+                    weight = 1
+                    value = 0
+                    flags = listOf()
+                }
+            }
+        ).also {
+            startRoom.items.add(it)
         }
     }
 
@@ -177,6 +207,9 @@ class TestService(private val container: DI) {
                     level = 1
                     weight = 1
                     value = 0
+                    flags = listOf(
+                        ItemFlag.CanOwn,
+                    )
                 }.also {
                     modifier(it)
                 }

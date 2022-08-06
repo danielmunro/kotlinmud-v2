@@ -1,6 +1,7 @@
 package kotlinmudv2.migration
 
 import kotlinmudv2.item.ItemEntity
+import kotlinmudv2.item.ItemFlag
 import kotlinmudv2.item.ItemType
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.MobEntity
@@ -120,19 +121,31 @@ class HydrationService(
     }
 
     private fun createItemEntityFromModel(model: Map<String, String>): ItemEntity {
-        val flag1 = model["flags1"]!!.trim().split(" ")
+        val (type, extraFlags, wearFlags) = model["flags1"]!!.trim().split(" ")
         val flag3 = model["flags3"]!!.trim().split(" ")
+        val flags = mutableListOf<ItemFlag>()
+        extraFlags.split("").forEach {
+            when (it) {
+                "Y" -> flags.add(ItemFlag.BurnProof)
+            }
+        }
+        wearFlags.split("").forEach {
+            when (it) {
+                "A" -> flags.add(ItemFlag.CanOwn)
+            }
+        }
         return ItemEntity.new {
             name = model["name"]!!.trim()
             brief = model["brief"]!!.trim()
             description = model["description"]!!.trim()
-            itemType = ItemType.valueOf(mapItemType(flag1[0].capitalize())).toString()
+            itemType = ItemType.valueOf(mapItemType(type.capitalize())).toString()
             material = model["material"]!!.trim()
             attributes = mutableMapOf()
             affects = mutableMapOf()
             level = flag3[0].toInt()
             weight = flag3[1].toInt()
             value = flag3[2].toInt()
+            this.flags = flags
         }
     }
 }

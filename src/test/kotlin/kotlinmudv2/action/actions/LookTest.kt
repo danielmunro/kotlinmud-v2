@@ -5,6 +5,7 @@ import assertk.assertions.contains
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
 import kotlinmudv2.item.Item
+import kotlinmudv2.item.ItemFlag
 import kotlinmudv2.item.ItemType
 import kotlinmudv2.test.createTestService
 import kotlin.test.Test
@@ -36,6 +37,7 @@ class LookTest {
             "potion",
             1,
             0,
+            listOf(ItemFlag.CanOwn),
             mutableMapOf(),
             mutableMapOf(),
         )

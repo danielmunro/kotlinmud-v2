@@ -35,4 +35,19 @@ class GetTest {
         // then
         assertThat(response.toActionCreator).isEqualTo("you don't see that anywhere.")
     }
+
+    @Test
+    fun testCannotGetItemsThatAreNotOwnable() {
+        // setup
+        val test = createTestService()
+
+        // given
+        test.createDonationPitInRoom()
+
+        // when
+        val response = test.handleRequest("get pit")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("you cannot pick that up.")
+    }
 }

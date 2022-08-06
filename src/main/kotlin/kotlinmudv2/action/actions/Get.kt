@@ -6,7 +6,7 @@ import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.item.Item
-import kotlinmudv2.item.ItemType
+import kotlinmudv2.item.ItemFlag
 import kotlinmudv2.mob.alertDisposition
 
 fun createGetAction(): Action {
@@ -16,7 +16,7 @@ fun createGetAction(): Action {
         alertDisposition(),
     ) { actionService, mob, context, _ ->
         val item = context[1] as Item
-        if (item.itemType == ItemType.Furniture) {
+        if (item.flags.find { it == ItemFlag.CanOwn } == null) {
             return@Action Response(
                 mob,
                 "you cannot pick that up.",
