@@ -16,7 +16,7 @@ fun createGetAction(): Action {
         alertDisposition(),
     ) { actionService, mob, context, _ ->
         val item = context[1] as Item
-        if (item.flags.find { it == ItemFlag.CanOwn } == null) {
+        if (item.flags.find { it == ItemFlag.NoGet } != null) {
             return@Action Response(
                 mob,
                 "you cannot pick that up.",

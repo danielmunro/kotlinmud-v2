@@ -129,10 +129,8 @@ class HydrationService(
                 "Y" -> flags.add(ItemFlag.BurnProof)
             }
         }
-        wearFlags.split("").forEach {
-            when (it) {
-                "A" -> flags.add(ItemFlag.CanOwn)
-            }
+        if (!wearFlags.contains("A")) {
+            flags.add(ItemFlag.NoGet)
         }
         return ItemEntity.new {
             name = model["name"]!!.trim()

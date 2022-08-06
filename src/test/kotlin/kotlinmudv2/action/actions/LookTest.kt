@@ -37,7 +37,7 @@ class LookTest {
             "potion",
             1,
             0,
-            listOf(ItemFlag.CanOwn),
+            listOf(),
             mutableMapOf(),
             mutableMapOf(),
         )

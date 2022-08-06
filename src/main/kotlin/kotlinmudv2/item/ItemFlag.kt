@@ -5,7 +5,7 @@ enum class ItemFlag {
     Hum,
     Immortal,
     Invisible,
-    CanOwn,
+    NoGet,
     NoDrop,
     NoRemove,
     NoPurge,

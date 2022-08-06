@@ -132,7 +132,9 @@ class TestService(private val container: DI) {
                     level = 1
                     weight = 1
                     value = 0
-                    flags = listOf()
+                    flags = listOf(
+                        ItemFlag.NoGet,
+                    )
                 }
             }
         ).also {
@@ -182,9 +184,7 @@ class TestService(private val container: DI) {
                     level = 1
                     weight = 1
                     value = 0
-                    flags = listOf(
-                        ItemFlag.CanOwn,
-                    )
+                    flags = listOf()
                 }.also {
                     modifier(it)
                 }
@@ -206,9 +206,7 @@ class TestService(private val container: DI) {
                 level = 1
                 weight = 1
                 value = 0
-                flags = listOf(
-                    ItemFlag.CanOwn,
-                )
+                flags = listOf()
             }
         }
     }
