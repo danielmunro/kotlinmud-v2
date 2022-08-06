@@ -7,7 +7,6 @@ import kotlinmudv2.item.Item
 import kotlinmudv2.item.ItemEntity
 import kotlinmudv2.item.ItemService
 import kotlinmudv2.item.ItemType
-import kotlinmudv2.item.Material
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobEntity
@@ -102,7 +101,7 @@ class TestService(private val container: DI) {
                     room = RoomEntity.findById(startRoom.id)?.id
                     attributes = mutableMapOf()
                     affects = mutableMapOf()
-                    material = Material.Glass.toString()
+                    material = "potion"
                     level = 1
                     weight = 1
                     value = 0
@@ -124,7 +123,7 @@ class TestService(private val container: DI) {
                     mobInventory = MobEntity.findById(client.mob!!.id)?.id
                     attributes = mutableMapOf()
                     affects = mutableMapOf()
-                    material = Material.Glass.toString()
+                    material = "potion"
                     level = 1
                     weight = 1
                     value = 0
@@ -171,7 +170,7 @@ class TestService(private val container: DI) {
                     description = "a practice sword is lying here"
                     itemType = ItemType.Equipment.toString()
                     mobInventory = MobEntity.findById(client.mob!!.id)?.id
-                    material = Material.Iron.toString()
+                    material = "iron"
                     attributes = mutableMapOf()
                     affects = mutableMapOf()
                     level = 1

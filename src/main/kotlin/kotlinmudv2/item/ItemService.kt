@@ -16,7 +16,7 @@ class ItemService {
             entity.description,
             entity.brief,
             ItemType.valueOf(entity.itemType),
-            Material.valueOf(entity.material),
+            entity.material,
             entity.level,
             entity.attributes,
             entity.affects,

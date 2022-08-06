@@ -2,7 +2,6 @@ package kotlinmudv2.migration
 
 import kotlinmudv2.item.ItemEntity
 import kotlinmudv2.item.ItemType
-import kotlinmudv2.item.Material
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.room.RoomEntity
@@ -39,69 +38,6 @@ class HydrationService(
                         }
                         return "Indeterminate"
                     }
-                }
-            }
-        }
-    }
-
-    fun mapMaterial(material: String): String {
-        return when (material) {
-            "Bird" -> "Flesh"
-            "Cherry wood" -> "Wood"
-            "Stuff" -> "Unknown"
-            "Water" -> "Liquid"
-            "Calcium rock stalagmite" -> "Rock"
-            "Amethyst rock mineral" -> "Rock"
-            "Waterfall" -> "Liquid"
-            "Oldstyle" -> "Unknown"
-            "Vegtable" -> "Vegetable"
-            "Fabric" -> "Cloth"
-            "Faerie" -> "Organic"
-            "Nature spring" -> "Water"
-            "Runts" -> "Organic"
-            "Yinn" -> "Organic"
-            "Kender" -> "Organic"
-            "Silver and gold" -> "Alloy"
-            "Silver and Gold" -> "Alloy"
-            "Satan" -> "Evil"
-            "Crud" -> "Trash"
-            "Dog hair" -> "Fur"
-            "Persperation" -> "Water"
-            "Finnish Vodka" -> "Alcohol"
-            "Solid gold" -> "Gold"
-            "Whicker" -> "Wicker"
-            "Rosewood" -> "Wood"
-            "Nothing" -> "Unknown"
-            "Steam" -> "Water"
-            "Pasta" -> "Food"
-            "Egg" -> "Food"
-            "None" -> "Unknown"
-            "Porcelin" -> "Porcelain"
-            "Denim" -> "Textile"
-            "Sex" -> "Unknown"
-            "Corpses" -> "Corpse"
-            "Animal furs" -> "Fur"
-            "Pine needle" -> "Organic"
-            "Linen" -> "Textile"
-            "Black Dragon Leather" -> "DragonSkin"
-            "Feathers" -> "Feather"
-            "Splinters and dried blood" -> "Blood"
-            "Lapis lazuli" -> "LapisLazuli"
-            "Fish" -> "Meat"
-            "Red gold" -> "RedGold"
-            "Dust" -> "Earth"
-            "Larva" -> "Organic"
-            "Eel" -> "Organic"
-            "Finest cotton" -> "Cotton"
-            else -> {
-                try {
-                    Material.valueOf(material)
-                    return material
-                } catch (e: IllegalArgumentException) {
-                    if (material != "") {
-                        unknownMaterials.add(material)
-                    }
-                    return "Unknown"
                 }
             }
         }
@@ -191,7 +127,7 @@ class HydrationService(
             brief = model["brief"]!!.trim()
             description = model["description"]!!.trim()
             itemType = ItemType.valueOf(mapItemType(flag1[0].capitalize())).toString()
-            material = Material.valueOf(mapMaterial(model["material"]!!.trim().capitalize())).toString()
+            material = model["material"]!!.trim()
             attributes = mutableMapOf()
             affects = mutableMapOf()
             level = flag3[0].toInt()
