@@ -13,14 +13,12 @@ fun createListAction(): Action {
         listOf(Syntax.Command),
         alertDisposition(),
     ) { actionService, mob, _, _ ->
-        println(mob.roomId)
         actionService.getMobsInRoom(mob.roomId).find {
-            println("yo - ${it.flags.size}")
             it.flags.contains(MobFlag.Shopkeeper)
         }?.let {
             Response(
                 mob,
-                mob.items.joinToString("\n") { "${it.brief} - ${it.value}" },
+                it.items.joinToString("\n") { item -> "${item.brief} - ${item.value}" },
             )
         } ?: Response (
             mob,
