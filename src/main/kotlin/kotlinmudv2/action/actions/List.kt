@@ -18,7 +18,8 @@ fun createListAction(): Action {
         }?.let {
             Response(
                 mob,
-                it.items.joinToString("\n") { item -> "${item.brief} - ${item.value}" },
+                "[Lv Price Qty] Item\n" + it.items.sortedBy { item -> item.level }.joinToString("\n") { item ->
+                    "[${String.format("%1$2s", item.level)} ${String.format("%1$5s", item.value)}   -] ${item.name}" },
             )
         } ?: Response (
             mob,
