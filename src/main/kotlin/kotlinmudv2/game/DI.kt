@@ -25,6 +25,7 @@ import kotlinmudv2.action.actions.createRemoveErrorAction
 import kotlinmudv2.action.actions.createSacrificeAction
 import kotlinmudv2.action.actions.createSacrificeErrorAction
 import kotlinmudv2.action.actions.createSayAction
+import kotlinmudv2.action.actions.createSellAction
 import kotlinmudv2.action.actions.createSouthAction
 import kotlinmudv2.action.actions.createUpAction
 import kotlinmudv2.action.actions.createWearAction
@@ -100,6 +101,7 @@ fun createContainer(port: Int): DI {
                 createSacrificeErrorAction(),
                 createListAction(),
                 createBuyAction(),
+                createSellAction(),
             )
         }
 
