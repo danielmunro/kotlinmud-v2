@@ -40,7 +40,7 @@ class MobEntity(id: EntityID<Int>) : IntEntity(id) {
         { gson.toJson(it) },
         { gson.fromJson(it, AffectToken().type) }
     )
-    var flags: List<MobFlag> by MobTable.flags.transform(
+    var flags: MutableList<MobFlag> by MobTable.flags.transform(
         { gson.toJson(it) },
         { gson.fromJson(it, FlagsToken().type)}
     )

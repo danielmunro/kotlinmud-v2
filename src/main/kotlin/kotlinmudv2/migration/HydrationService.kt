@@ -5,6 +5,7 @@ import kotlinmudv2.item.ItemFlag
 import kotlinmudv2.item.ItemType
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.MobEntity
+import kotlinmudv2.mob.MobFlag
 import kotlinmudv2.room.RoomEntity
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -81,7 +82,10 @@ class HydrationService(
         mobModels.forEach { (id, props) ->
             mobResets[id]?.forEach {
                 val flag3 = props["flags3"]!!.split(" ")
-
+                val flags = mutableListOf<MobFlag>()
+                if (props["shop"] == "true") {
+                    flags.add(MobFlag.Shopkeeper)
+                }
                 transaction {
                     MobEntity.new {
                         canonicalId = id
@@ -99,6 +103,7 @@ class HydrationService(
                         attributes = mutableMapOf()
                         disposition = Disposition.Standing.toString()
                         affects = mutableMapOf()
+                        this.flags = flags
                     }.also { mob ->
                         itemMobInventoryResets[id]?.forEach {
                             itemModels[it.itemId]?.also { model ->

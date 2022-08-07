@@ -8,7 +8,7 @@ class MigrationService(private val data: String) {
     private var buffer = ""
     private var lastMobReset: MobReset? = null
     val roomModels = mutableMapOf<Int, Map<String, String?>>()
-    val mobModels = mutableMapOf<Int, Map<String, String>>()
+    val mobModels = mutableMapOf<Int, MutableMap<String, String>>()
     val itemModels = mutableMapOf<Int, Map<String, String>>()
     val mobResets = mutableMapOf<Int, MutableList<MobReset>>()
     val itemRoomResets = mutableMapOf<Int, MutableList<ItemRoomReset>>()
@@ -55,6 +55,20 @@ class MigrationService(private val data: String) {
             "#MOBILES" -> parseMobs()
             "#RESETS" -> parseResets()
             "#OBJECTS" -> parseItems()
+            "#SHOPS" -> parseShops()
+        }
+    }
+
+    private fun parseShops() {
+        while (true) {
+            readUntil("\n")
+            if (buffer == "0") {
+                return
+            }
+            val mobId = buffer.trim().split(" ").first().toInt()
+            mobModels[mobId]?.also {
+                it["shop"] = "true"
+            }
         }
     }
 
@@ -235,7 +249,7 @@ class MigrationService(private val data: String) {
 
                 readUntil("\n")
                 val flags6 = buffer
-                mobModels[mobId] = mapOf(
+                mobModels[mobId] = mutableMapOf(
                     Pair("name", name),
                     Pair("brief", brief),
                     Pair("description", description),
