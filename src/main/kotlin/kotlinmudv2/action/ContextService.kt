@@ -46,6 +46,14 @@ class ContextService(
                             true
                         } ?: false
                     }
+                    Syntax.ItemInMobInventoryInRoom -> {
+                        val itemName = parts[index]
+                        mobService.getMobsForRoom(client.mob!!.roomId).find { mob ->
+                            mob.items.find { matchesInput(it.brief, itemName) }?.also { item ->
+                                context[index] = item
+                            } != null
+                        }?.let { true } ?: false
+                    }
                     Syntax.EquippedItem -> {
                         val itemName = parts[index]
                         findItemInInventory(client.mob!!.equipped, itemName)?.let {

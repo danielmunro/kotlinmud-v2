@@ -36,7 +36,7 @@ class ItemEntity(id: EntityID<Int>) : IntEntity(id) {
         { gson.toJson(it) },
         { gson.fromJson(it, AffectToken().type) }
     )
-    var flags: List<ItemFlag> by ItemTable.flags.transform(
+    var flags: MutableList<ItemFlag> by ItemTable.flags.transform(
         { gson.toJson(it) },
         { gson.fromJson(it, ItemFlagToken().type) },
     )

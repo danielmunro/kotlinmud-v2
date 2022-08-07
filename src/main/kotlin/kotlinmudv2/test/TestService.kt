@@ -132,7 +132,7 @@ class TestService(private val container: DI) {
                     level = 1
                     weight = 1
                     value = 0
-                    flags = listOf(
+                    flags = mutableListOf(
                         ItemFlag.NoGet,
                     )
                 }
@@ -184,7 +184,7 @@ class TestService(private val container: DI) {
                     level = 1
                     weight = 1
                     value = 0
-                    flags = listOf()
+                    flags = mutableListOf()
                 }.also {
                     modifier(it)
                 }
@@ -206,7 +206,7 @@ class TestService(private val container: DI) {
                 level = 1
                 weight = 1
                 value = 0
-                flags = listOf()
+                flags = mutableListOf()
             }
         }
     }

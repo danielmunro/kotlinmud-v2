@@ -49,6 +49,7 @@ class MobService(private val itemService: ItemService) {
             100,
             100,
             3001,
+            200,
             Disposition.Standing,
             listOf(),
         )
@@ -81,6 +82,7 @@ class MobService(private val itemService: ItemService) {
                 maxInGame = 1
                 level = 1
                 flags = mutableListOf()
+                coins = 200
             }
         }
         return createMobInstance(entity.id.value)!!
@@ -121,6 +123,7 @@ class MobService(private val itemService: ItemService) {
             mana,
             moves,
             entity.roomId,
+            entity.coins,
             Disposition.valueOf(entity.disposition),
             entity.flags,
         )

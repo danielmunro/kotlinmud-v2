@@ -1,5 +1,7 @@
 package kotlinmudv2.action
 
+import kotlinmudv2.item.Item
+import kotlinmudv2.item.ItemService
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.room.Direction
@@ -11,6 +13,7 @@ import kotlinmudv2.socket.ClientService
 class ActionService(
     private val roomService: RoomService,
     private val mobService: MobService,
+    private val itemService: ItemService,
     private val clientService: ClientService,
 ) {
     fun getClients(): List<Client> {
@@ -39,5 +42,9 @@ class ActionService(
                 it
             }
         }
+    }
+
+    fun cloneItem(item: Item): Item {
+        return itemService.clone(item)
     }
 }

@@ -16,6 +16,7 @@ object MobTable : IntIdTable() {
     val attributes = text("attributes")
     val affects = text("affects")
     val flags = text("flags")
+    val coins = integer("coins")
     val disposition = varchar("disposition", 50)
     val maxInRoom = integer("maxInRoom")
     val maxInGame = integer("maxInGame")

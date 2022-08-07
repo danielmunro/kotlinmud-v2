@@ -1,7 +1,16 @@
 package kotlinmudv2.item
 
+import org.jetbrains.exposed.sql.transactions.transaction
+import java.lang.Exception
+
 class ItemService {
     private val items = mutableListOf<Item>()
+
+    fun clone(item: Item): Item {
+        return transaction { ItemEntity.findById(item.id) }?.let {
+            createFromEntity(it)
+        } ?: throw Exception("item entity not found for model")
+    }
 
     fun createFromEntity(entity: ItemEntity): Item {
         return mapItem(entity).also {

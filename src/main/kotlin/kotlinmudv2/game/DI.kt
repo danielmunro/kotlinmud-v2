@@ -2,6 +2,7 @@ package kotlinmudv2.game
 
 import kotlinmudv2.action.ActionService
 import kotlinmudv2.action.ContextService
+import kotlinmudv2.action.actions.createBuyAction
 import kotlinmudv2.action.actions.createDownAction
 import kotlinmudv2.action.actions.createEastAction
 import kotlinmudv2.action.actions.createFleeAction
@@ -64,7 +65,7 @@ fun createContainer(port: Int): DI {
         bindSingleton { AuthService(instance()) }
         bindSingleton { WebServerService(instance(), instance(), instance()) }
         bindSingleton { ContextService(instance(), instance(), instance()) }
-        bindSingleton { ActionService(instance(), instance(), instance()) }
+        bindSingleton { ActionService(instance(), instance(), instance(), instance()) }
         bindSingleton { SocketService(instance(), instance(), instance(), port) }
         bindSingleton { GameService(instance()) }
 
@@ -98,6 +99,7 @@ fun createContainer(port: Int): DI {
                 createSacrificeAction(),
                 createSacrificeErrorAction(),
                 createListAction(),
+                createBuyAction(),
             )
         }
 

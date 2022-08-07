@@ -19,9 +19,10 @@ fun createListAction(): Action {
             Response(
                 mob,
                 "[Lv Price Qty] Item\n" + it.items.sortedBy { item -> item.level }.joinToString("\n") { item ->
-                    "[${String.format("%1$2s", item.level)} ${String.format("%1$5s", item.value)}   -] ${item.name}" },
+                    "[${String.format("%1$2s", item.level)} ${String.format("%1$5s", item.value)}   -] ${item.name}"
+                },
             )
-        } ?: Response (
+        } ?: Response(
             mob,
             "you don't see any shopkeeper here"
         )

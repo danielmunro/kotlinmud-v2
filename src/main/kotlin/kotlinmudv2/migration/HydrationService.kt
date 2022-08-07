@@ -104,10 +104,11 @@ class HydrationService(
                         disposition = Disposition.Standing.toString()
                         affects = mutableMapOf()
                         this.flags = flags
+                        coins = 0
                     }.also { mob ->
                         itemMobInventoryResets[id]?.forEach {
                             itemModels[it.itemId]?.also { model ->
-                                createItemEntityFromModel(model).also { entity ->
+                                createItemEntityFromModel(model, props["shop"] == "true").also { entity ->
                                     entity.mobInventory = mob.id
                                 }
                             } ?: println("item model missing ${it.itemId}")
@@ -125,7 +126,7 @@ class HydrationService(
         }
     }
 
-    private fun createItemEntityFromModel(model: Map<String, String>): ItemEntity {
+    private fun createItemEntityFromModel(model: Map<String, String>, isShop: Boolean = false): ItemEntity {
         val (type, extraFlags, wearFlags) = model["flags1"]!!.trim().split(" ")
         val flag3 = model["flags3"]!!.trim().split(" ")
         val flags = mutableListOf<ItemFlag>()
@@ -136,6 +137,9 @@ class HydrationService(
         }
         if (!wearFlags.contains("A")) {
             flags.add(ItemFlag.NoGet)
+        }
+        if (isShop) {
+            flags.add(ItemFlag.ShopInventory)
         }
         return ItemEntity.new {
             name = model["name"]!!.trim()

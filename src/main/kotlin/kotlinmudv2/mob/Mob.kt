@@ -19,6 +19,7 @@ open class Mob(
     var mana: Int,
     var moves: Int,
     var roomId: Int,
+    var coins: Int,
     var disposition: Disposition,
     val flags: List<MobFlag>,
 ) {

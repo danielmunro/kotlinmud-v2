@@ -18,4 +18,5 @@ enum class ItemFlag {
     MeltDrop,
     BurnProof,
     NoIdentify,
+    ShopInventory,
 }

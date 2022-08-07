@@ -30,6 +30,7 @@ class MobEntity(id: EntityID<Int>) : IntEntity(id) {
     var maxInRoom by MobTable.maxInRoom
     var maxInGame by MobTable.maxInGame
     var level by MobTable.level
+    var coins by MobTable.coins
     val items by ItemEntity optionalReferrersOn ItemTable.mobInventory
     val equipped by ItemEntity optionalReferrersOn ItemTable.mobEquipped
     var attributes: MutableMap<Attribute, Int> by MobTable.attributes.transform(
@@ -42,6 +43,6 @@ class MobEntity(id: EntityID<Int>) : IntEntity(id) {
     )
     var flags: MutableList<MobFlag> by MobTable.flags.transform(
         { gson.toJson(it) },
-        { gson.fromJson(it, FlagsToken().type)}
+        { gson.fromJson(it, FlagsToken().type) }
     )
 }
