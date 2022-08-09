@@ -117,6 +117,21 @@ class TestService(private val container: DI) {
         }
     }
 
+    fun createPotionInInventory(amount: Int): List<Item> {
+        val entity = createPotion().also {
+            transaction {
+                it.mobInventory = MobEntity.findById(getPlayerMob().id)?.id
+            }
+        }
+        val items = mutableListOf<Item>()
+        for (i in 1..amount) {
+            items.add(itemService.createFromEntity(entity).also {
+                client.mob!!.items.add(it)
+            })
+        }
+        return items
+    }
+
     fun createDonationPitInRoom(): Item {
         return itemService.createFromEntity(
             transaction {
