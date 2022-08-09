@@ -9,6 +9,7 @@ import kotlinmudv2.action.actions.createFleeAction
 import kotlinmudv2.action.actions.createGetAction
 import kotlinmudv2.action.actions.createGetErrorAction
 import kotlinmudv2.action.actions.createGossipAction
+import kotlinmudv2.action.actions.createInventoryAction
 import kotlinmudv2.action.actions.createKillAction
 import kotlinmudv2.action.actions.createKillErrorAction
 import kotlinmudv2.action.actions.createListAction
@@ -102,6 +103,7 @@ fun createContainer(port: Int): DI {
                 createListAction(),
                 createBuyAction(),
                 createSellAction(),
+                createInventoryAction(),
             )
         }
 
