@@ -16,7 +16,7 @@ fun createSacrificeAction(): Action {
     ) { _, mob, context, _ ->
         val item = (context[1] as Item)
         val amount = (item.value / 100).coerceAtLeast(1).coerceAtMost(200)
-        (mob as PlayerMob).worth += amount
+        (mob as PlayerMob).coins += amount
         Response(
             mob,
             "Mojo gives you $amount silver for your sacrifice.",

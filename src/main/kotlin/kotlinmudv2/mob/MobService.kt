@@ -30,7 +30,6 @@ class MobService(private val itemService: ItemService) {
         return PlayerMob(
             hash(password, salt),
             salt,
-            20,
             0,
             name,
             "$name is here",

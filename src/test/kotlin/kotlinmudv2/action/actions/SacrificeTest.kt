@@ -13,14 +13,14 @@ class SacrificeTest {
 
         // given
         test.createPotionInRoom()
-        val worth = test.getPlayerMob().worth
+        val worth = test.getPlayerMob().coins
 
         // when
         val response = test.handleRequest("sac potion")
 
         // then
         assertThat(response.toActionCreator).isEqualTo("Mojo gives you 1 silver for your sacrifice.")
-        assertThat(test.getPlayerMob().worth).isEqualTo(worth + 1)
+        assertThat(test.getPlayerMob().coins).isEqualTo(worth + 1)
     }
 
     @Test
@@ -29,13 +29,13 @@ class SacrificeTest {
         val test = createTestService()
 
         // given
-        val worth = test.getPlayerMob().worth
+        val worth = test.getPlayerMob().coins
 
         // when
         val response = test.handleRequest("sac potion")
 
         // then
         assertThat(response.toActionCreator).isEqualTo("you don't see that anywhere.")
-        assertThat(test.getPlayerMob().worth).isEqualTo(worth)
+        assertThat(test.getPlayerMob().coins).isEqualTo(worth)
     }
 }

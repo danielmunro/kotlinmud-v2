@@ -7,7 +7,6 @@ import kotlinmudv2.item.Item
 class PlayerMob(
     val password: ByteArray,
     val salt: ByteArray,
-    var worth: Int,
     id: Int,
     name: String,
     brief: String,
