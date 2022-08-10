@@ -34,7 +34,7 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
   * attributes
 * Movement cost - done
 
-## Todo - M4
+## Todo - M4 - done
 
 * Affects - done
   * mobs
@@ -43,9 +43,9 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * Regen - done
 * Dispositions - done
 
-## Todo - M5
+## Todo - M5 - done
 
-* Moosehead - done
+* Moosehead - initial - done
   * rooms
   * mobs
   * items
@@ -53,11 +53,12 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
     * mob inventory
     * mob equipped
 
-## Todo - M6
+## Todo - M6 - done
 
-* Add level property to mob and items
-* Item material
-* Item type
+* Add level property to mob and items - done
+* Item material - done
+* Item type - done
+* Shops - done
 
 ## Todo - M7
 * Leveling
@@ -65,6 +66,5 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * Classes
 
 ## Todo - M8
-* Shops
 * Skills
 * Spells
