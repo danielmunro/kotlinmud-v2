@@ -3,6 +3,7 @@ package kotlinmudv2.game
 import kotlinmudv2.action.ActionService
 import kotlinmudv2.action.ContextService
 import kotlinmudv2.action.actions.createBuyAction
+import kotlinmudv2.action.actions.createBuyErrorAction
 import kotlinmudv2.action.actions.createDownAction
 import kotlinmudv2.action.actions.createEastAction
 import kotlinmudv2.action.actions.createFleeAction
@@ -27,6 +28,7 @@ import kotlinmudv2.action.actions.createSacrificeAction
 import kotlinmudv2.action.actions.createSacrificeErrorAction
 import kotlinmudv2.action.actions.createSayAction
 import kotlinmudv2.action.actions.createSellAction
+import kotlinmudv2.action.actions.createSellErrorAction
 import kotlinmudv2.action.actions.createSouthAction
 import kotlinmudv2.action.actions.createUpAction
 import kotlinmudv2.action.actions.createWearAction
@@ -102,7 +104,9 @@ fun createContainer(port: Int): DI {
                 createSacrificeErrorAction(),
                 createListAction(),
                 createBuyAction(),
+                createBuyErrorAction(),
                 createSellAction(),
+                createSellErrorAction(),
                 createInventoryAction(),
             )
         }
