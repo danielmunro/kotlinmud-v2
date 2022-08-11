@@ -4,6 +4,7 @@ import kotlinmudv2.action.Action
 import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
+import kotlinmudv2.mob.MaxLevel
 import kotlinmudv2.mob.PlayerMob
 import kotlinmudv2.mob.alertDisposition
 
@@ -19,7 +20,7 @@ fun createLevelAction(): Action {
                 "you have no debit levels available",
             )
         }
-        if (mob.level == 51) {
+        if (mob.level == MaxLevel) {
             return@Action Response(
                 mob,
                 "you are already the maximum level"
