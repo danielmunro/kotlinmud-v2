@@ -17,6 +17,12 @@ class ClientService {
         clients.forEach { it.persistPlayerMob() }
     }
 
+    fun sendToClientByMob(mob: PlayerMob, message: String) {
+        clients.find { it.mob == mob }?.also {
+            it.write(message)
+        }
+    }
+
     fun sendToRoom(roomMessage: RoomMessage) {
         val mobsInRoom = mutableMapOf<PlayerMob, Client>()
         clients.filter { it.mob?.roomId == roomMessage.actionCreator.roomId }.forEach {

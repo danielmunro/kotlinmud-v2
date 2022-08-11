@@ -125,9 +125,11 @@ class TestService(private val container: DI) {
         }
         val items = mutableListOf<Item>()
         for (i in 1..amount) {
-            items.add(itemService.createFromEntity(entity).also {
-                client.mob!!.items.add(it)
-            })
+            items.add(
+                itemService.createFromEntity(entity).also {
+                    client.mob!!.items.add(it)
+                }
+            )
         }
         return items
     }

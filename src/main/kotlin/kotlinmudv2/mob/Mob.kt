@@ -23,7 +23,7 @@ open class Mob(
     var disposition: Disposition,
     val flags: List<MobFlag>,
 ) {
-    var target: Mob? = null
+    @Transient var target: Mob? = null
 
     fun calc(attribute: Attribute): Int {
         return (attributes[attribute] ?: 0) +

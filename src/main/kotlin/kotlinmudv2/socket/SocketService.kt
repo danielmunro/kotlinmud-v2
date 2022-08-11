@@ -107,6 +107,9 @@ class SocketService(
         if (data.equals("quit", ignoreCase = true)) {
             logger.info("connection closed :: ${socket.remoteAddress}")
             socket.close()
+            clients[socket]?.mob?.also {
+                mobService.removeMob(it)
+            }
         }
     }
 

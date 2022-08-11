@@ -21,7 +21,12 @@ class MobService(private val itemService: ItemService) {
 
     fun hydratePlayerMob(name: String): PlayerMob {
         val data = File("./players/$name.json")
-        return Gson().fromJson(data.readText(), PlayerMob::class.java)
+        return Gson().fromJson(data.readText(), PlayerMob::class.java).also {
+            mobs.add(it)
+            if (it.disposition == Disposition.Fighting) {
+                it.disposition = Disposition.Standing
+            }
+        }
     }
 
     fun createPlayerMob(name: String, password: String, race: Race): PlayerMob {
@@ -30,6 +35,8 @@ class MobService(private val itemService: ItemService) {
         return PlayerMob(
             hash(password, salt),
             salt,
+            0,
+            0,
             0,
             name,
             "$name is here",
