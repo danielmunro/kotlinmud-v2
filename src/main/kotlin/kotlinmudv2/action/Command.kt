@@ -37,4 +37,7 @@ enum class Command(val value: String) {
     Up("up"),
     Down("down"),
     Recall("recall"),
+
+    // improvement
+    Level("level"),
 }

@@ -10,7 +10,7 @@ open class Mob(
     val brief: String,
     val description: String,
     val race: Race,
-    val level: Int,
+    var level: Int,
     val items: MutableList<Item>,
     val equipped: MutableList<Item>,
     val attributes: MutableMap<Attribute, Int>,
