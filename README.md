@@ -61,9 +61,12 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * Shops - done
 
 ## Todo - M7
-* Leveling
+* Leveling - done
 * Doors
 * Classes
+* Actions:
+  * level - done
+  * drop - done
 
 ## Todo - M8
 * Skills

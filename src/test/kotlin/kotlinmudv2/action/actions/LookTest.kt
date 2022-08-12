@@ -36,7 +36,7 @@ class LookTest {
             "potion",
             1,
             0,
-            listOf(),
+            mutableListOf(),
             mutableMapOf(),
             mutableMapOf(),
         )

@@ -5,6 +5,8 @@ import kotlinmudv2.action.ContextService
 import kotlinmudv2.action.actions.createBuyAction
 import kotlinmudv2.action.actions.createBuyErrorAction
 import kotlinmudv2.action.actions.createDownAction
+import kotlinmudv2.action.actions.createDropAction
+import kotlinmudv2.action.actions.createDropErrorAction
 import kotlinmudv2.action.actions.createEastAction
 import kotlinmudv2.action.actions.createFleeAction
 import kotlinmudv2.action.actions.createGetAction
@@ -96,6 +98,8 @@ fun createContainer(port: Int): DI {
                 createFleeAction(),
                 createGetAction(),
                 createGetErrorAction(),
+                createDropAction(),
+                createDropErrorAction(),
                 createWearAction(),
                 createWearErrorAction(),
                 createRemoveAction(),

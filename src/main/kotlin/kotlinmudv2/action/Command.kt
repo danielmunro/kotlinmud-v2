@@ -9,6 +9,7 @@ enum class Command(val value: String) {
 
     // items
     Get("get"),
+    Drop("drop"),
     Sacrifice("sacrifice"),
     Inventory("inventory"),
 

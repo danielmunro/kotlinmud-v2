@@ -2,10 +2,8 @@ package kotlinmudv2.action.actions
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import kotlinmudv2.room.Direction
-import kotlinmudv2.room.RoomEntity
+import kotlinmudv2.room.Room
 import kotlinmudv2.test.createTestService
-import org.jetbrains.exposed.sql.transactions.transaction
 import kotlin.test.Test
 
 class FleeTest {
@@ -13,16 +11,19 @@ class FleeTest {
     fun testCanFlee() {
         // setup
         val test = createTestService()
-        val destinationRoom = test.createRoom(
-            transaction {
-                RoomEntity.new {
-                    name = "foo"
-                    description = "bar"
-                }
-            },
+        val destinationRoom = Room(
+            2,
+            "name",
+            "description",
+            mutableListOf(),
+            null,
             1,
-            Direction.North,
+            null,
+            null,
+            null,
+            null,
         )
+        test.startRoom.northId = 2
         test.createMob()
 
         // given
