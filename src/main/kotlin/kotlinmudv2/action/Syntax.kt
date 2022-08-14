@@ -8,4 +8,5 @@ enum class Syntax {
     ItemInMobInventoryInRoom,
     EquippedItem,
     FreeForm,
+    Door,
 }

@@ -72,6 +72,14 @@ class ContextService(
                         context[index] = parts.drop(index).joinToString(" ")
                         true
                     }
+                    Syntax.Door -> {
+                        roomService.getRoom(client.mob!!.roomId)?.exits?.find {
+                            it.keyword?.startsWith(parts[index]) ?: false
+                        }?.let {
+                            context[index] = it
+                            true
+                        } ?: false
+                    }
                 }
             }.filter { it }.size == action.syntax.size
         }?.let {

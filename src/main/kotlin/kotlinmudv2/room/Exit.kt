@@ -4,7 +4,7 @@ class Exit(
     val direction: Direction,
     val roomId: Int,
     val keyword: String? = null,
-    val status: ExitStatus? = null,
+    var status: ExitStatus? = null,
     val lockId: Int? = null,
     val keyId: Int? = null,
 )
