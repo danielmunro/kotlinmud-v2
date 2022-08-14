@@ -16,7 +16,7 @@ fun createCloseAction(): Action {
             Disposition.Standing,
             Disposition.Fighting,
         ),
-    ) { _, mob, context, _ ->
+    ) { actionService, mob, context, _ ->
         val exit = context[1] as Exit
         if (exit.status == ExitStatus.Locked) {
             return@Action Response(
@@ -31,6 +31,7 @@ fun createCloseAction(): Action {
             )
         }
         exit.status = ExitStatus.Closed
+        actionService.getRoom(exit.roomId)?.exits?.find { it.roomId == mob.roomId }?.status = ExitStatus.Closed
         Response(
             mob,
             "you close the ${exit.keyword}",

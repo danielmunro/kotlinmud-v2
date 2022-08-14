@@ -16,7 +16,7 @@ fun createOpenAction(): Action {
             Disposition.Standing,
             Disposition.Fighting,
         ),
-    ) { _, mob, context, _ ->
+    ) { actionService, mob, context, _ ->
         val exit = context[1] as Exit
         if (exit.status == ExitStatus.Locked) {
             return@Action Response(
@@ -31,6 +31,7 @@ fun createOpenAction(): Action {
             )
         }
         exit.status = ExitStatus.Open
+        actionService.getRoom(exit.roomId)?.exits?.find { it.roomId == mob.roomId }?.status = ExitStatus.Open
         Response(
             mob,
             "you open the ${exit.keyword}",

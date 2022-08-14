@@ -339,7 +339,7 @@ class MigrationService(private val data: String) {
                     val getExitStatus = {
                         if (keyword == null) {
                             null
-                        } else if (lockId.toInt() <= 0) {
+                        } else if (keyId.toInt() <= 0) {
                             ExitStatus.Closed
                         } else {
                             ExitStatus.Locked
