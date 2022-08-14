@@ -336,6 +336,15 @@ class MigrationService(private val data: String) {
                     }
                     readUntil("\n")
                     val (lockId, keyId, exit) = buffer.split(" ")
+                    val getExitStatus = {
+                        if (keyword == null) {
+                            null
+                        } else if (lockId.toInt() == -1) {
+                            ExitStatus.Closed
+                        } else {
+                            ExitStatus.Locked
+                        }
+                    }
                     when (direction) {
                         "D0" -> {
                             northId = exit
@@ -343,7 +352,7 @@ class MigrationService(private val data: String) {
                                 Direction.North,
                                 exit.toInt(),
                                 keyword,
-                                if (keyword == null) null else ExitStatus.Closed,
+                                getExitStatus(),
                                 lockId.toInt(),
                                 keyId.toInt(),
                             )
@@ -354,7 +363,7 @@ class MigrationService(private val data: String) {
                                 Direction.East,
                                 exit.toInt(),
                                 keyword,
-                                if (keyword == null) null else ExitStatus.Closed,
+                                getExitStatus(),
                                 lockId.toInt(),
                                 keyId.toInt(),
                             )
@@ -365,7 +374,7 @@ class MigrationService(private val data: String) {
                                 Direction.South,
                                 exit.toInt(),
                                 keyword,
-                                if (keyword == null) null else ExitStatus.Closed,
+                                getExitStatus(),
                                 lockId.toInt(),
                                 keyId.toInt(),
                             )
@@ -376,7 +385,7 @@ class MigrationService(private val data: String) {
                                 Direction.West,
                                 exit.toInt(),
                                 keyword,
-                                if (keyword == null) null else ExitStatus.Closed,
+                                getExitStatus(),
                                 lockId.toInt(),
                                 keyId.toInt(),
                             )
@@ -387,7 +396,7 @@ class MigrationService(private val data: String) {
                                 Direction.Up,
                                 exit.toInt(),
                                 keyword,
-                                if (keyword == null) null else ExitStatus.Closed,
+                                getExitStatus(),
                                 lockId.toInt(),
                                 keyId.toInt(),
                             )
@@ -398,7 +407,7 @@ class MigrationService(private val data: String) {
                                 Direction.Down,
                                 exit.toInt(),
                                 keyword,
-                                if (keyword == null) null else ExitStatus.Closed,
+                                getExitStatus(),
                                 lockId.toInt(),
                                 keyId.toInt(),
                             )
