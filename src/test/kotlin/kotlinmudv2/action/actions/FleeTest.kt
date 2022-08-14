@@ -18,12 +18,6 @@ class FleeTest {
             "name",
             "description",
             mutableListOf(),
-            null,
-            1,
-            null,
-            null,
-            null,
-            null,
             listOf(
                 Exit(
                     Direction.South,

@@ -9,11 +9,5 @@ class Room(
     val name: String,
     val description: String,
     val items: MutableList<Item>,
-    var northId: Int?,
-    var southId: Int?,
-    var eastId: Int?,
-    var westId: Int?,
-    var upId: Int?,
-    var downId: Int?,
     var exits: List<Exit>,
 )

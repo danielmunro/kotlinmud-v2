@@ -60,12 +60,6 @@ class HydrationService(
                 RoomEntity.new(id) {
                     name = props["name"]!!.trim()
                     description = props["description"]!!.trim()
-                    northId = props["northId"]?.toInt()
-                    southId = props["southId"]?.toInt()
-                    eastId = props["eastId"]?.toInt()
-                    westId = props["westId"]?.toInt()
-                    upId = props["upId"]?.toInt()
-                    downId = props["downId"]?.toInt()
                     exits = gson.fromJson(props["exits"], ExitsToken().type)
                 }.also { room ->
                     itemRoomResets[id]?.forEach { reset ->

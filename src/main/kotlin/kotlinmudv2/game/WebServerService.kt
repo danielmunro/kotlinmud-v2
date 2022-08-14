@@ -17,8 +17,6 @@ import kotlinmudv2.item.NewItem
 import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.mob.NewMob
-import kotlinmudv2.room.Direction
-import kotlinmudv2.room.Exit
 import kotlinmudv2.room.NewRoom
 import kotlinmudv2.room.RoomEntity
 import kotlinmudv2.room.RoomService
@@ -53,40 +51,11 @@ class WebServerService(
                         RoomEntity.new {
                             name = model.name
                             description = model.description
-                            northId = model.northId
-                            southId = model.southId
-                            eastId = model.eastId
-                            westId = model.westId
-                            upId = model.upId
-                            downId = model.downId
-                            exits = mutableListOf(
-                                model.northId?.let { Exit(Direction.North, it) },
-                                model.southId?.let { Exit(Direction.South, it) },
-                                model.eastId?.let { Exit(Direction.East, it) },
-                                model.westId?.let { Exit(Direction.West, it) },
-                                model.upId?.let { Exit(Direction.Up, it) },
-                                model.downId?.let { Exit(Direction.Down, it) },
-                            ).filterNotNull().toMutableList()
+                            exits = model.exits
                         }
                     }
-                    // reciprocal connections
-                    entity.northId?.let {
-                        roomService.connectRooms(it, entity, Direction.South)
-                    }
-                    entity.southId?.let {
-                        roomService.connectRooms(it, entity, Direction.North)
-                    }
-                    entity.eastId?.let {
-                        roomService.connectRooms(it, entity, Direction.West)
-                    }
-                    entity.westId?.let {
-                        roomService.connectRooms(it, entity, Direction.East)
-                    }
-                    entity.upId?.let {
-                        roomService.connectRooms(it, entity, Direction.Down)
-                    }
-                    entity.downId?.let {
-                        roomService.connectRooms(it, entity, Direction.Up)
+                    model.exits.forEach {
+                        roomService.connectRooms(it.roomId, entity, it.direction)
                     }
                     call.respondText(
                         gson.toJson(roomService.mapRoom(entity)),
