@@ -18,6 +18,7 @@ import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.mob.NewMob
 import kotlinmudv2.room.Direction
+import kotlinmudv2.room.Exit
 import kotlinmudv2.room.NewRoom
 import kotlinmudv2.room.RoomEntity
 import kotlinmudv2.room.RoomService
@@ -58,6 +59,14 @@ class WebServerService(
                             westId = model.westId
                             upId = model.upId
                             downId = model.downId
+                            exits = mutableListOf(
+                                model.northId?.let { Exit(Direction.North, it) },
+                                model.southId?.let { Exit(Direction.South, it) },
+                                model.eastId?.let { Exit(Direction.East, it) },
+                                model.westId?.let { Exit(Direction.West, it) },
+                                model.upId?.let { Exit(Direction.Up, it) },
+                                model.downId?.let { Exit(Direction.Down, it) },
+                            ).filterNotNull().toMutableList()
                         }
                     }
                     // reciprocal connections

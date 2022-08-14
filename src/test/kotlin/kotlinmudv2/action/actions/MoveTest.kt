@@ -18,6 +18,7 @@ class MoveTest {
                 RoomEntity.new {
                     name = "test destination"
                     description = "a description"
+                    exits = mutableListOf()
                 }
             },
             test.startRoom.id,
@@ -45,6 +46,7 @@ class MoveTest {
                 RoomEntity.new {
                     name = "test destination"
                     description = "a description"
+                    exits = mutableListOf()
                 }
             },
             testService.startRoom.id,
@@ -69,6 +71,7 @@ class MoveTest {
                 RoomEntity.new {
                     name = "test destination"
                     description = "a description"
+                    exits = mutableListOf()
                 }
             },
             testService.startRoom.id,
@@ -93,6 +96,7 @@ class MoveTest {
                 RoomEntity.new {
                     name = "test destination"
                     description = "a description"
+                    exits = mutableListOf()
                 }
             },
             testService.startRoom.id,
@@ -117,6 +121,7 @@ class MoveTest {
                 RoomEntity.new {
                     name = "test destination"
                     description = "a description"
+                    exits = mutableListOf()
                 }
             },
             testService.startRoom.id,
@@ -141,6 +146,7 @@ class MoveTest {
                 RoomEntity.new {
                     name = "test destination"
                     description = "a description"
+                    exits = mutableListOf()
                 }
             },
             testService.startRoom.id,
@@ -165,6 +171,7 @@ class MoveTest {
                 RoomEntity.new {
                     name = "test destination"
                     description = "a description"
+                    exits = mutableListOf()
                 }
             },
             testService.startRoom.id,

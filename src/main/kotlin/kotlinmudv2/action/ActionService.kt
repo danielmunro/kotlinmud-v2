@@ -30,16 +30,11 @@ class ActionService(
 
     fun moveMob(mob: Mob, direction: Direction): Int? {
         return getRoom(mob.roomId)?.let { room ->
-            when (direction) {
-                Direction.North -> room.northId
-                Direction.South -> room.southId
-                Direction.East -> room.eastId
-                Direction.West -> room.westId
-                Direction.Up -> room.upId
-                Direction.Down -> room.downId
+            room.exits.find {
+                it.direction == direction
             }?.let {
-                mobService.moveMob(mob, it)
-                it
+                mobService.moveMob(mob, it.roomId)
+                it.roomId
             }
         }
     }

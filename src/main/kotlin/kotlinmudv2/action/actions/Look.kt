@@ -14,7 +14,7 @@ fun createLookAction(): Action {
         alertDisposition(),
     ) { actionService, mob, _, _ ->
         actionService.getRoom(mob.roomId)?.let {
-            val exits = "[Exits: ${it.northId?.let{"N"} ?: ""}${it.southId?.let{"S"} ?: ""}${it.eastId?.let{"E"} ?: ""}${it.westId?.let{"W"} ?: ""}${it.upId?.let{"U"} ?: ""}${it.downId?.let{"D"} ?: ""}]"
+            val exits = "[Exits: ${it.exits.joinToString{ e -> e.direction.name.substring(0, 1) }}]"
             val items = it.items.joinToString("\n") { item -> item.brief } + if (it.items.size > 0) "\n" else ""
             val mobs = actionService.getMobsInRoom(it.id).filter { m -> m != mob }.joinToString("\n") { mob -> mob.brief }
             Response(

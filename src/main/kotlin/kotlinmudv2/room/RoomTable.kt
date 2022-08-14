@@ -11,4 +11,5 @@ object RoomTable : IntIdTable() {
     val westId = integer("westId").nullable()
     val upId = integer("upId").nullable()
     val downId = integer("downId").nullable()
+    val exits = text("exits")
 }

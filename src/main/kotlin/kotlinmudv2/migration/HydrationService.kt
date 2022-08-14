@@ -6,6 +6,7 @@ import kotlinmudv2.item.ItemType
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobFlag
+import kotlinmudv2.room.ExitsToken
 import kotlinmudv2.room.RoomEntity
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -65,6 +66,7 @@ class HydrationService(
                     westId = props["westId"]?.toInt()
                     upId = props["upId"]?.toInt()
                     downId = props["downId"]?.toInt()
+                    exits = gson.fromJson(props["exits"], ExitsToken().type)
                 }.also { room ->
                     itemRoomResets[id]?.forEach { reset ->
                         itemModels[reset.itemId]?.also { model ->

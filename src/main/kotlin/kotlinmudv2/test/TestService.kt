@@ -38,6 +38,7 @@ class TestService(private val container: DI) {
             RoomEntity.new {
                 name = "foo"
                 description = "bar"
+                exits = mutableListOf()
             }
         }
         startRoom = roomService.getRoom(roomEntity.id.value)!!

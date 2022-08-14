@@ -2,6 +2,8 @@ package kotlinmudv2.action.actions
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import kotlinmudv2.room.Direction
+import kotlinmudv2.room.Exit
 import kotlinmudv2.room.Room
 import kotlinmudv2.test.createTestService
 import kotlin.test.Test
@@ -22,8 +24,19 @@ class FleeTest {
             null,
             null,
             null,
+            listOf(
+                Exit(
+                    Direction.South,
+                    1,
+                )
+            )
         )
-        test.startRoom.northId = 2
+        test.startRoom.exits = listOf(
+            Exit(
+                Direction.North,
+                2,
+            )
+        )
         test.createMob()
 
         // given

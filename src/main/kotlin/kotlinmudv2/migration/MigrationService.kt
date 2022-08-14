@@ -1,7 +1,15 @@
 package kotlinmudv2.migration
 
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinmudv2.room.Direction
+import kotlinmudv2.room.Exit
+import kotlinmudv2.room.ExitStatus
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import java.lang.NumberFormatException
+
+class ExitsToken : TypeToken<MutableList<Exit>>()
+val gson = Gson()
 
 class MigrationService(private val data: String) {
     private var cursor = 0
@@ -286,6 +294,12 @@ class MigrationService(private val data: String) {
                 var westId: String? = null
                 var upId: String? = null
                 var downId: String? = null
+                var north: Exit? = null
+                var south: Exit? = null
+                var east: Exit? = null
+                var west: Exit? = null
+                var up: Exit? = null
+                var down: Exit? = null
                 while (peek(1).trim() != "S") {
                     readUntil("\n")
                     val direction = buffer.trim()
@@ -311,16 +325,84 @@ class MigrationService(private val data: String) {
                         continue
                     }
                     readUntil("\n")
+                    readUntil("~")
+                    cursor += 1
+                    val keyword = buffer.trim().let {
+                        if (it == "") {
+                            null
+                        } else {
+                            it
+                        }
+                    }
                     readUntil("\n")
-                    readUntil("\n")
-                    val exit = buffer.split(" ").takeLast(1).first().trim()
+                    val (lockId, keyId, exit) = buffer.split(" ")
                     when (direction) {
-                        "D0" -> northId = exit
-                        "D1" -> eastId = exit
-                        "D2" -> southId = exit
-                        "D3" -> westId = exit
-                        "D4" -> upId = exit
-                        "D5" -> downId = exit
+                        "D0" -> {
+                            northId = exit
+                            north = Exit(
+                                Direction.North,
+                                exit.toInt(),
+                                keyword,
+                                if (keyword == null) null else ExitStatus.Closed,
+                                lockId.toInt(),
+                                keyId.toInt(),
+                            )
+                        }
+                        "D1" -> {
+                            eastId = exit
+                            east = Exit(
+                                Direction.East,
+                                exit.toInt(),
+                                keyword,
+                                if (keyword == null) null else ExitStatus.Closed,
+                                lockId.toInt(),
+                                keyId.toInt(),
+                            )
+                        }
+                        "D2" -> {
+                            southId = exit
+                            south = Exit(
+                                Direction.South,
+                                exit.toInt(),
+                                keyword,
+                                if (keyword == null) null else ExitStatus.Closed,
+                                lockId.toInt(),
+                                keyId.toInt(),
+                            )
+                        }
+                        "D3" -> {
+                            westId = exit
+                            west = Exit(
+                                Direction.West,
+                                exit.toInt(),
+                                keyword,
+                                if (keyword == null) null else ExitStatus.Closed,
+                                lockId.toInt(),
+                                keyId.toInt(),
+                            )
+                        }
+                        "D4" -> {
+                            upId = exit
+                            up = Exit(
+                                Direction.Up,
+                                exit.toInt(),
+                                keyword,
+                                if (keyword == null) null else ExitStatus.Closed,
+                                lockId.toInt(),
+                                keyId.toInt(),
+                            )
+                        }
+                        "D5" -> {
+                            downId = exit
+                            down = Exit(
+                                Direction.Down,
+                                exit.toInt(),
+                                keyword,
+                                if (keyword == null) null else ExitStatus.Closed,
+                                lockId.toInt(),
+                                keyId.toInt(),
+                            )
+                        }
                     }
                     roomModels[roomId] = mapOf(
                         Pair("name", name),
@@ -331,6 +413,19 @@ class MigrationService(private val data: String) {
                         Pair("westId", westId),
                         Pair("upId", upId),
                         Pair("downId", downId),
+                        Pair(
+                            "exits",
+                            gson.toJson(
+                                mutableListOf(
+                                    north,
+                                    south,
+                                    east,
+                                    west,
+                                    up,
+                                    down,
+                                ).filterNotNull()
+                            )
+                        )
                     )
                 }
             }

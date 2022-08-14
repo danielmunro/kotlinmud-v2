@@ -15,4 +15,5 @@ class Room(
     var westId: Int?,
     var upId: Int?,
     var downId: Int?,
+    var exits: List<Exit>,
 )
