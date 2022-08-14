@@ -9,4 +9,5 @@ enum class Syntax {
     EquippedItem,
     FreeForm,
     Door,
+    Direction,
 }

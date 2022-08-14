@@ -62,12 +62,18 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 
 ## Todo - M7
 * Leveling - done
-* Doors
-* Classes
+* Doors - done
 * Actions:
   * level - done
   * drop - done
+  * open, door - done
+  * close, door - done
+  * open, direction - done
+  * close, direction - done
+  * open, error
+  * close, error
 
 ## Todo - M8
+* Classes
 * Skills
 * Spells

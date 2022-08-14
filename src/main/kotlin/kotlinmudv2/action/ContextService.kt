@@ -80,6 +80,14 @@ class ContextService(
                             true
                         } ?: false
                     }
+                    Syntax.Direction -> {
+                        roomService.getRoom(client.mob!!.roomId)?.exits?.find {
+                            it.direction.name.lowercase().startsWith(parts[index])
+                        }?.let {
+                            context[index] = it
+                            true
+                        } ?: false
+                    }
                 }
             }.filter { it }.size == action.syntax.size
         }?.let {

@@ -1,40 +1,28 @@
 package kotlinmudv2.action.actions
 
-import kotlinmudv2.action.Action
-import kotlinmudv2.action.Command
+import kotlinmudv2.action.ActionService
 import kotlinmudv2.action.Response
-import kotlinmudv2.action.Syntax
-import kotlinmudv2.mob.Disposition
+import kotlinmudv2.mob.Mob
 import kotlinmudv2.room.Exit
 import kotlinmudv2.room.ExitStatus
 
-fun createCloseAction(): Action {
-    return Action(
-        Command.Close,
-        listOf(Syntax.Command, Syntax.Door),
-        listOf(
-            Disposition.Standing,
-            Disposition.Fighting,
-        ),
-    ) { actionService, mob, context, _ ->
-        val exit = context[1] as Exit
-        if (exit.status == ExitStatus.Locked) {
-            return@Action Response(
-                mob,
-                "the ${exit.keyword} is locked"
-            )
-        }
-        if (exit.status == ExitStatus.Closed) {
-            return@Action Response(
-                mob,
-                "the ${exit.keyword} is already closed"
-            )
-        }
-        exit.status = ExitStatus.Closed
-        actionService.getRoom(exit.roomId)?.exits?.find { it.roomId == mob.roomId }?.status = ExitStatus.Closed
-        Response(
+fun close(actionService: ActionService, exit: Exit, mob: Mob): Response {
+    if (exit.status == ExitStatus.Locked) {
+        return Response(
             mob,
-            "you close the ${exit.keyword}",
+            "the ${exit.keyword} is locked"
         )
     }
+    if (exit.status == ExitStatus.Closed) {
+        return Response(
+            mob,
+            "the ${exit.keyword} is already closed"
+        )
+    }
+    exit.status = ExitStatus.Closed
+    actionService.getRoom(exit.roomId)?.exits?.find { it.roomId == mob.roomId }?.status = ExitStatus.Closed
+    return Response(
+        mob,
+        "you close the ${exit.keyword}",
+    )
 }
