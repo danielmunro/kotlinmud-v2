@@ -9,8 +9,16 @@ import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.sql.Connection
 
+fun getRandomString(length: Int): String {
+    val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+    return (1..length)
+        .map { allowedChars.random() }
+        .joinToString("")
+}
+
 fun createTestConnection(): Database {
-    return Database.connect("jdbc:h2:mem:regular;DB_CLOSE_DELAY=-1;", driver = "org.h2.Driver").also {
+    val connection = "regular${getRandomString(8)}"
+    return Database.connect("jdbc:h2:mem:$connection;DB_CLOSE_DELAY=-1;", driver = "org.h2.Driver").also {
         transaction {
             SchemaUtils.create(
                 ItemTable,

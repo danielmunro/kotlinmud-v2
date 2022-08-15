@@ -3,6 +3,8 @@ package kotlinmudv2.action.actions
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import kotlinmudv2.room.Direction
+import kotlinmudv2.room.Exit
+import kotlinmudv2.room.ExitStatus
 import kotlinmudv2.room.RoomEntity
 import kotlinmudv2.test.createTestService
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -13,6 +15,7 @@ class MoveTest {
     fun testCannotMoveIfOutOfMoves() {
         // setup
         val test = createTestService()
+        val destinationId: Int
         test.createRoom(
             transaction {
                 RoomEntity.new {
@@ -20,9 +23,11 @@ class MoveTest {
                     description = "a description"
                     exits = mutableListOf()
                 }
+            }.also {
+                destinationId = it.id.value
             },
             test.startRoom.id,
-            Direction.North,
+            Exit(Direction.North, destinationId),
         )
 
         // given
@@ -41,6 +46,7 @@ class MoveTest {
         val testService = createTestService()
 
         // given
+        val destinationId: Int
         val destinationRoom = testService.createRoom(
             transaction {
                 RoomEntity.new {
@@ -48,9 +54,11 @@ class MoveTest {
                     description = "a description"
                     exits = mutableListOf()
                 }
+            }.also {
+                destinationId = it.id.value
             },
             testService.startRoom.id,
-            Direction.North,
+            Exit(Direction.North, destinationId),
         )
 
         // when
@@ -66,6 +74,7 @@ class MoveTest {
         val testService = createTestService()
 
         // given
+        val destinationId: Int
         val destinationRoom = testService.createRoom(
             transaction {
                 RoomEntity.new {
@@ -73,9 +82,11 @@ class MoveTest {
                     description = "a description"
                     exits = mutableListOf()
                 }
+            }.also {
+                destinationId = it.id.value
             },
             testService.startRoom.id,
-            Direction.South,
+            Exit(Direction.South, destinationId),
         )
 
         // when
@@ -91,6 +102,7 @@ class MoveTest {
         val testService = createTestService()
 
         // given
+        val destinationId: Int
         val destinationRoom = testService.createRoom(
             transaction {
                 RoomEntity.new {
@@ -98,9 +110,11 @@ class MoveTest {
                     description = "a description"
                     exits = mutableListOf()
                 }
+            }.also {
+                destinationId = it.id.value
             },
             testService.startRoom.id,
-            Direction.East,
+            Exit(Direction.East, destinationId),
         )
 
         // when
@@ -116,6 +130,7 @@ class MoveTest {
         val testService = createTestService()
 
         // given
+        val destinationId: Int
         val destinationRoom = testService.createRoom(
             transaction {
                 RoomEntity.new {
@@ -123,9 +138,11 @@ class MoveTest {
                     description = "a description"
                     exits = mutableListOf()
                 }
+            }.also {
+                destinationId = it.id.value
             },
             testService.startRoom.id,
-            Direction.West,
+            Exit(Direction.West, destinationId),
         )
 
         // when
@@ -141,6 +158,7 @@ class MoveTest {
         val testService = createTestService()
 
         // given
+        val destinationId: Int
         val destinationRoom = testService.createRoom(
             transaction {
                 RoomEntity.new {
@@ -148,9 +166,11 @@ class MoveTest {
                     description = "a description"
                     exits = mutableListOf()
                 }
+            }.also {
+                destinationId = it.id.value
             },
             testService.startRoom.id,
-            Direction.Up,
+            Exit(Direction.Up, destinationId),
         )
 
         // when
@@ -166,6 +186,7 @@ class MoveTest {
         val testService = createTestService()
 
         // given
+        val destinationId: Int
         val destinationRoom = testService.createRoom(
             transaction {
                 RoomEntity.new {
@@ -173,9 +194,11 @@ class MoveTest {
                     description = "a description"
                     exits = mutableListOf()
                 }
+            }.also {
+                destinationId = it.id.value
             },
             testService.startRoom.id,
-            Direction.Down,
+            Exit(Direction.Down, destinationId),
         )
 
         // when
@@ -183,5 +206,33 @@ class MoveTest {
 
         // then
         assertThat(response.toActionCreator).isEqualTo("${destinationRoom.name}\n${destinationRoom.description}\n[Exits: U]\n")
+    }
+
+    @Test
+    fun testCannotMoveWhenDoorIsClosed() {
+        // setup
+        val test = createTestService()
+
+        // given
+        val destinationId: Int
+        test.createRoom(
+            transaction {
+                RoomEntity.new {
+                    name = "foo"
+                    description = "bar"
+                    exits = mutableListOf()
+                }
+            }.also {
+                destinationId = it.id.value
+            },
+            1,
+            Exit(Direction.North, destinationId, "door", ExitStatus.Closed),
+        )
+
+        // when
+        val response = test.handleRequest("n")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("the door is closed")
     }
 }

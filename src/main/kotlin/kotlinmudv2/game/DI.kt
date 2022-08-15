@@ -5,6 +5,7 @@ import kotlinmudv2.action.ContextService
 import kotlinmudv2.action.actions.createBuyAction
 import kotlinmudv2.action.actions.createBuyErrorAction
 import kotlinmudv2.action.actions.createCloseDirectionAction
+import kotlinmudv2.action.actions.createCloseErrorAction
 import kotlinmudv2.action.actions.createCloseExitAction
 import kotlinmudv2.action.actions.createDownAction
 import kotlinmudv2.action.actions.createDropAction
@@ -25,6 +26,7 @@ import kotlinmudv2.action.actions.createLookAtItemInRoomAction
 import kotlinmudv2.action.actions.createLookAtMobInRoomAction
 import kotlinmudv2.action.actions.createNorthAction
 import kotlinmudv2.action.actions.createOpenDirectionAction
+import kotlinmudv2.action.actions.createOpenErrorAction
 import kotlinmudv2.action.actions.createOpenExitAction
 import kotlinmudv2.action.actions.createQuaffAction
 import kotlinmudv2.action.actions.createQuaffErrorAction
@@ -110,8 +112,10 @@ fun createContainer(port: Int): DI {
                 createRemoveErrorAction(),
                 createOpenExitAction(),
                 createOpenDirectionAction(),
+                createOpenErrorAction(),
                 createCloseExitAction(),
                 createCloseDirectionAction(),
+                createCloseErrorAction(),
                 createRecallAction(),
                 createSacrificeAction(),
                 createSacrificeErrorAction(),

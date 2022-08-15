@@ -15,35 +15,24 @@ class RoomService(private val itemService: ItemService) {
         return rooms[id]
     }
 
-    fun connectRooms(fromRoomId: Int, toEntity: RoomEntity, direction: Direction): Room {
+    fun connectRooms(fromRoomId: Int, toEntity: RoomEntity, exit: Exit): Room {
         val fromEntity = transaction { RoomEntity.findById(fromRoomId)!! }
+        val fromExits = fromEntity.exits.toMutableList()
+        fromExits.add(exit)
+        val toExits = toEntity.exits.toMutableList()
+        toExits.add(
+            Exit(
+                opposite(exit.direction),
+                fromRoomId,
+                exit.keyword,
+                exit.status,
+                exit.lockId,
+                exit.keyId,
+            )
+        )
         transaction {
-            when (direction) {
-                Direction.North -> {
-                    fromEntity.setExit(Direction.North, toEntity.id.value)
-                    toEntity.setExit(Direction.South, fromEntity.id.value)
-                }
-                Direction.South -> {
-                    fromEntity.setExit(Direction.South, toEntity.id.value)
-                    toEntity.setExit(Direction.North, fromEntity.id.value)
-                }
-                Direction.East -> {
-                    fromEntity.setExit(Direction.East, toEntity.id.value)
-                    toEntity.setExit(Direction.West, fromEntity.id.value)
-                }
-                Direction.West -> {
-                    fromEntity.setExit(Direction.West, toEntity.id.value)
-                    toEntity.setExit(Direction.East, fromEntity.id.value)
-                }
-                Direction.Up -> {
-                    fromEntity.setExit(Direction.Up, toEntity.id.value)
-                    toEntity.setExit(Direction.Down, fromEntity.id.value)
-                }
-                Direction.Down -> {
-                    fromEntity.setExit(Direction.Down, toEntity.id.value)
-                    toEntity.setExit(Direction.Up, fromEntity.id.value)
-                }
-            }
+            fromEntity.exits = fromExits
+            toEntity.exits = toExits
         }
         rooms.remove(fromRoomId)
         return getRoom(toEntity.id.value)!!

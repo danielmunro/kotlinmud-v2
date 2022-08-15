@@ -21,10 +21,10 @@ class RoomEntity(id: EntityID<Int>) : IntEntity(id) {
         { gson.fromJson(it, ExitsToken().type) },
     )
 
-    fun setExit(direction: Direction, roomId: Int) {
+    fun setExit(direction: Direction, roomId: Int, keyword: String? = null, status: ExitStatus? = null) {
         val filtered = exits.filter { it.direction == direction }
         val added = filtered.toMutableList()
-        added.add(Exit(direction, roomId))
+        added.add(Exit(direction, roomId, keyword, status))
         exits = added
     }
 }

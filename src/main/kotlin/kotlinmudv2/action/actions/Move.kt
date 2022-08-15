@@ -7,6 +7,7 @@ import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.room.Direction
+import kotlinmudv2.room.ExitStatus
 
 private fun createMoveAction(command: Command, direction: Direction): Action {
     return Action(
@@ -26,6 +27,13 @@ private fun createMoveAction(command: Command, direction: Direction): Action {
                 mob,
                 "you are too tired to move.",
                 ActionStatus.Error,
+            )
+        }
+        val exit = actionService.getRoom(mob.roomId)?.exits?.find { it.direction == direction }
+        if (exit?.keyword != null && exit.status != ExitStatus.Open) {
+            return@Action Response(
+                mob,
+                "the ${exit.keyword} is ${exit.status?.name?.lowercase()}",
             )
         }
         mob.moves -= 1

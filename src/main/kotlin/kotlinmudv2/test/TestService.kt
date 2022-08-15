@@ -15,7 +15,7 @@ import kotlinmudv2.mob.MobService
 import kotlinmudv2.mob.PlayerMob
 import kotlinmudv2.mob.Race
 import kotlinmudv2.observer.ProcessClientBufferObserver
-import kotlinmudv2.room.Direction
+import kotlinmudv2.room.Exit
 import kotlinmudv2.room.Room
 import kotlinmudv2.room.RoomEntity
 import kotlinmudv2.room.RoomService
@@ -57,8 +57,8 @@ class TestService(private val container: DI) {
         return client.mob!!
     }
 
-    fun createRoom(destination: RoomEntity, sourceId: Int, direction: Direction): Room {
-        return roomService.connectRooms(sourceId, destination, direction)
+    fun createRoom(destination: RoomEntity, sourceId: Int, exit: Exit): Room {
+        return roomService.connectRooms(sourceId, destination, exit)
     }
 
     fun createMob(): Mob {

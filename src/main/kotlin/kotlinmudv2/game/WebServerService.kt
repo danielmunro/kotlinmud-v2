@@ -55,7 +55,7 @@ class WebServerService(
                         }
                     }
                     model.exits.forEach {
-                        roomService.connectRooms(it.roomId, entity, it.direction)
+                        roomService.connectRooms(it.roomId, entity, it)
                     }
                     call.respondText(
                         gson.toJson(roomService.mapRoom(entity)),
