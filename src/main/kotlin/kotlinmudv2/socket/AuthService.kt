@@ -4,6 +4,7 @@ import kotlinmudv2.crypto.isExpectedPassword
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.mob.PlayerMob
 import kotlinmudv2.mob.Race
+import kotlinmudv2.mob.Role
 
 class AuthService(
     private val mobService: MobService,
@@ -66,6 +67,7 @@ class AuthService(
             context[client]!!["mob"]!! as String,
             input,
             Race.Human,
+            Role.Warrior,
         )
         client.write("new character creation success!")
         client.persistPlayerMob()

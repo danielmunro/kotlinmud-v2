@@ -9,6 +9,7 @@ class PlayerMob(
     val salt: ByteArray,
     var experience: Int,
     var experiencePerLevel: Int,
+    val role: Role,
     id: Int,
     name: String,
     brief: String,

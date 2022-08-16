@@ -29,7 +29,7 @@ class MobService(private val itemService: ItemService) {
         }
     }
 
-    fun createPlayerMob(name: String, password: String, race: Race): PlayerMob {
+    fun createPlayerMob(name: String, password: String, race: Race, role: Role): PlayerMob {
         val salt = generateSalt()
 
         return PlayerMob(
@@ -37,6 +37,7 @@ class MobService(private val itemService: ItemService) {
             salt,
             0,
             0,
+            role,
             0,
             name,
             "$name is here",

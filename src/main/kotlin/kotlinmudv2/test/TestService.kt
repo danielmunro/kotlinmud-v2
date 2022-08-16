@@ -14,6 +14,7 @@ import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.mob.PlayerMob
 import kotlinmudv2.mob.Race
+import kotlinmudv2.mob.Role
 import kotlinmudv2.observer.ProcessClientBufferObserver
 import kotlinmudv2.room.Exit
 import kotlinmudv2.room.Room
@@ -46,7 +47,12 @@ class TestService(private val container: DI) {
 
     private val client = Client(
         SocketChannel.open(),
-        mobService.createPlayerMob("foo", "bar", Race.Human),
+        mobService.createPlayerMob(
+            "foo",
+            "bar",
+            Race.Human,
+            Role.Warrior,
+        ),
     ).also {
         transaction {
             it.mob!!.roomId = startRoom.id
