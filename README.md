@@ -60,7 +60,7 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * Item type - done
 * Shops - done
 
-## Todo - M7
+## Todo - M7 - done
 * Leveling - done
 * Doors - done
 * Actions:
@@ -70,8 +70,8 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
   * close, door - done
   * open, direction - done
   * close, direction - done
-  * open, error
-  * close, error
+  * open, error - done
+  * close, error - done
 
 ## Todo - M8
 * Classes
