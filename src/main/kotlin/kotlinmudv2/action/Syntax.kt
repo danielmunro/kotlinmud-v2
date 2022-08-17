@@ -10,4 +10,5 @@ enum class Syntax {
     FreeForm,
     Door,
     Direction,
+    Skill,
 }

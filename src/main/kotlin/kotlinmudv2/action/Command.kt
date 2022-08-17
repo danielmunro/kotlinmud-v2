@@ -47,4 +47,8 @@ enum class Command(val value: String) {
 
     // improvement
     Level("level"),
+
+    // skills
+    Bash("bash"),
+    Backstab("backstab"),
 }

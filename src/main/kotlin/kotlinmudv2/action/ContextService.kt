@@ -88,6 +88,15 @@ class ContextService(
                             true
                         } ?: false
                     }
+                    Syntax.Skill -> {
+                        client.mob!!.skills.forEach {
+                            if (it.key.value.startsWith(parts[index])) {
+                                context[index] = SkillContext(it.key, it.value)
+                                return@find true
+                            }
+                        }
+                        false
+                    }
                 }
             }.filter { it }.size == action.syntax.size
         }?.let {

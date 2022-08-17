@@ -3,6 +3,7 @@ package kotlinmudv2.mob
 import kotlinmudv2.game.Affect
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.item.Item
+import kotlinmudv2.skill.SkillName
 
 class PlayerMob(
     val password: ByteArray,
@@ -27,6 +28,7 @@ class PlayerMob(
     coins: Int,
     disposition: Disposition,
     flags: List<MobFlag>,
+    skills: MutableMap<SkillName, Int>,
 ) : Mob(
     id,
     name,
@@ -45,6 +47,7 @@ class PlayerMob(
     coins,
     disposition,
     flags,
+    skills,
 ) {
     var debitLevel = false
 }

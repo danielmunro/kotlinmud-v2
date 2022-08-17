@@ -7,6 +7,7 @@ import kotlinmudv2.mob.MobService
 import kotlinmudv2.room.Direction
 import kotlinmudv2.room.Room
 import kotlinmudv2.room.RoomService
+import kotlinmudv2.skill.Skill
 import kotlinmudv2.socket.Client
 import kotlinmudv2.socket.ClientService
 
@@ -15,6 +16,8 @@ class ActionService(
     private val mobService: MobService,
     private val itemService: ItemService,
     private val clientService: ClientService,
+    private val skills: List<Skill>,
+    private val spells: List<Skill>,
 ) {
     fun getClients(): List<Client> {
         return clientService.getClients()

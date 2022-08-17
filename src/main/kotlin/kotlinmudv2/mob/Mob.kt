@@ -3,6 +3,7 @@ package kotlinmudv2.mob
 import kotlinmudv2.game.Affect
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.item.Item
+import kotlinmudv2.skill.SkillName
 
 open class Mob(
     val id: Int,
@@ -22,6 +23,7 @@ open class Mob(
     var coins: Int,
     var disposition: Disposition,
     val flags: List<MobFlag>,
+    val skills: MutableMap<SkillName, Int>,
 ) {
     @Transient var target: Mob? = null
 

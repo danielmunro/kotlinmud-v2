@@ -58,6 +58,10 @@ import kotlinmudv2.observer.ReadClientsObserver
 import kotlinmudv2.observer.RegenObserver
 import kotlinmudv2.observer.RespawnObserver
 import kotlinmudv2.room.RoomService
+import kotlinmudv2.skill.skills.createBackStabSkill
+import kotlinmudv2.skill.skills.createBashSkill
+import kotlinmudv2.skill.skills.createHealSkill
+import kotlinmudv2.skill.skills.createMagicMissileSkill
 import kotlinmudv2.socket.AuthService
 import kotlinmudv2.socket.ClientService
 import kotlinmudv2.socket.SocketService
@@ -78,7 +82,14 @@ fun createContainer(port: Int): DI {
         bindSingleton { AuthService(instance()) }
         bindSingleton { WebServerService(instance(), instance(), instance()) }
         bindSingleton { ContextService(instance(), instance(), instance()) }
-        bindSingleton { ActionService(instance(), instance(), instance(), instance()) }
+        bindSingleton { ActionService(
+            instance(),
+            instance(),
+            instance(),
+            instance(),
+            instance(tag = "skills"),
+            instance(tag = "spells"),
+        ) }
         bindSingleton { SocketService(instance(), instance(), instance(), port) }
         bindSingleton { GameService(instance()) }
 
@@ -126,6 +137,21 @@ fun createContainer(port: Int): DI {
                 createSellErrorAction(),
                 createInventoryAction(),
                 createLevelAction(),
+            )
+        }
+
+        // skills
+        bindSingleton(tag = "skills") {
+            listOf(
+                createBashSkill(),
+                createBackStabSkill(),
+            )
+        }
+
+        bindSingleton(tag = "spells") {
+            listOf(
+                createHealSkill(),
+                createMagicMissileSkill(),
             )
         }
 

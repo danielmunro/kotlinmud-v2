@@ -59,6 +59,7 @@ class MobService(private val itemService: ItemService) {
             200,
             Disposition.Standing,
             listOf(),
+            mutableMapOf(),
         )
     }
 
@@ -133,6 +134,7 @@ class MobService(private val itemService: ItemService) {
             entity.coins,
             Disposition.valueOf(entity.disposition),
             entity.flags,
+            mutableMapOf(),
         )
     }
 
