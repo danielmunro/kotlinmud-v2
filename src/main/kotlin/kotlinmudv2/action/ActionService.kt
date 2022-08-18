@@ -8,6 +8,7 @@ import kotlinmudv2.room.Direction
 import kotlinmudv2.room.Room
 import kotlinmudv2.room.RoomService
 import kotlinmudv2.skill.Skill
+import kotlinmudv2.skill.SkillName
 import kotlinmudv2.socket.Client
 import kotlinmudv2.socket.ClientService
 
@@ -19,6 +20,15 @@ class ActionService(
     private val skills: List<Skill>,
     private val spells: List<Skill>,
 ) {
+    fun applySkillCosts(mob: Mob, ctx: SkillContext): Boolean {
+        val skill = getSkill(ctx.name)!!
+        if (!skill.canApplyCosts(mob)) {
+            return false
+        }
+        skill.applyCosts(mob)
+        return true
+    }
+
     fun getClients(): List<Client> {
         return clientService.getClients()
     }
@@ -44,5 +54,17 @@ class ActionService(
 
     fun cloneItem(item: Item): Item {
         return itemService.clone(item)
+    }
+
+    private fun getSkill(name: SkillName): Skill? {
+        return skills.find {
+            it.name == name
+        }
+    }
+
+    private fun getSpell(name: SkillName): Skill? {
+        return spells.find {
+            it.name == name
+        }
     }
 }

@@ -43,6 +43,7 @@ import kotlinmudv2.action.actions.createUpAction
 import kotlinmudv2.action.actions.createWearAction
 import kotlinmudv2.action.actions.createWearErrorAction
 import kotlinmudv2.action.actions.createWestAction
+import kotlinmudv2.action.skills.createBashAction
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
 import kotlinmudv2.fight.FightService
@@ -82,14 +83,16 @@ fun createContainer(port: Int): DI {
         bindSingleton { AuthService(instance()) }
         bindSingleton { WebServerService(instance(), instance(), instance()) }
         bindSingleton { ContextService(instance(), instance(), instance()) }
-        bindSingleton { ActionService(
-            instance(),
-            instance(),
-            instance(),
-            instance(),
-            instance(tag = "skills"),
-            instance(tag = "spells"),
-        ) }
+        bindSingleton {
+            ActionService(
+                instance(),
+                instance(),
+                instance(),
+                instance(),
+                instance(tag = "skills"),
+                instance(tag = "spells"),
+            )
+        }
         bindSingleton { SocketService(instance(), instance(), instance(), port) }
         bindSingleton { GameService(instance()) }
 
@@ -137,6 +140,7 @@ fun createContainer(port: Int): DI {
                 createSellErrorAction(),
                 createInventoryAction(),
                 createLevelAction(),
+                createBashAction(),
             )
         }
 

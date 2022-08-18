@@ -4,4 +4,5 @@ enum class Affect {
     Bless,
     Weaken,
     GiantStrength,
+    Stun,
 }

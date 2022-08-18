@@ -1,5 +1,6 @@
 package kotlinmudv2.test
 
+import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.Response
 import kotlinmudv2.fight.FightService
 import kotlinmudv2.game.Attribute
@@ -183,6 +184,28 @@ class TestService(private val container: DI) {
             client,
             input,
         )
+    }
+
+    fun repeatUntilSuccessful(input: String, reset: (Mob) -> Unit): Response? {
+        for (i in 1..100) {
+            val response = handleRequest(input)
+            if (response.actionStatus == ActionStatus.Success) {
+                return response
+            }
+            reset(getPlayerMob())
+        }
+        return null
+    }
+
+    fun repeatUntilFailed(input: String, reset: (Mob) -> Unit): Response? {
+        for (i in 1..100) {
+            val response = handleRequest(input)
+            if (response.actionStatus == ActionStatus.Failure) {
+                return response
+            }
+            reset(getPlayerMob())
+        }
+        return null
     }
 
     fun executeFight() {
