@@ -1,6 +1,6 @@
 package kotlinmudv2.mob
 
-enum class Race {
+enum class RaceType {
     Human,
     Elf,
     Dwarf,

@@ -14,7 +14,7 @@ import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.mob.PlayerMob
-import kotlinmudv2.mob.Race
+import kotlinmudv2.mob.RaceType
 import kotlinmudv2.mob.Role
 import kotlinmudv2.observer.ProcessClientBufferObserver
 import kotlinmudv2.room.Exit
@@ -51,7 +51,7 @@ class TestService(private val container: DI) {
         mobService.createPlayerMob(
             "foo",
             "bar",
-            Race.Human,
+            RaceType.Human,
             Role.Warrior,
         ),
     ).also {
@@ -73,7 +73,7 @@ class TestService(private val container: DI) {
             "a test mob",
             "this is a test",
             "a test mob created by TestService",
-            Race.Human,
+            RaceType.Human,
             startRoom.id,
             mutableMapOf(
                 Pair(Attribute.Hp, 20),

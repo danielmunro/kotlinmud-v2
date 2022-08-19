@@ -4,7 +4,7 @@ import kotlinmudv2.game.Attribute
 
 val raceAttributes = mapOf(
     Pair(
-        Race.Orc,
+        RaceType.Orc,
         mapOf(
             Pair(Attribute.Str, 20),
             Pair(Attribute.Int, 9),
@@ -16,7 +16,7 @@ val raceAttributes = mapOf(
         ),
     ),
     Pair(
-        Race.Human,
+        RaceType.Human,
         mapOf(
             Pair(Attribute.Str, 15),
             Pair(Attribute.Int, 15),
@@ -28,7 +28,7 @@ val raceAttributes = mapOf(
         ),
     ),
     Pair(
-        Race.Elf,
+        RaceType.Elf,
         mapOf(
             Pair(Attribute.Str, 10),
             Pair(Attribute.Int, 19),
@@ -40,7 +40,7 @@ val raceAttributes = mapOf(
         ),
     ),
     Pair(
-        Race.Halfling,
+        RaceType.Halfling,
         mapOf(
             Pair(Attribute.Str, 14),
             Pair(Attribute.Int, 16),
@@ -52,7 +52,7 @@ val raceAttributes = mapOf(
         ),
     ),
     Pair(
-        Race.Dwarf,
+        RaceType.Dwarf,
         mapOf(
             Pair(Attribute.Str, 17),
             Pair(Attribute.Int, 12),

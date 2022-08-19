@@ -3,7 +3,7 @@ package kotlinmudv2.socket
 import kotlinmudv2.crypto.isExpectedPassword
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.mob.PlayerMob
-import kotlinmudv2.mob.Race
+import kotlinmudv2.mob.RaceType
 import kotlinmudv2.mob.Role
 
 class AuthService(
@@ -66,7 +66,7 @@ class AuthService(
         client.mob = mobService.createPlayerMob(
             context[client]!!["mob"]!! as String,
             input,
-            Race.Human,
+            RaceType.Human,
             Role.Warrior,
         )
         client.write("new character creation success!")

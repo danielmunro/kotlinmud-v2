@@ -15,7 +15,7 @@ class PlayerMob(
     name: String,
     brief: String,
     description: String,
-    race: Race,
+    race: RaceType,
     level: Int,
     items: MutableList<Item>,
     equipped: MutableList<Item>,

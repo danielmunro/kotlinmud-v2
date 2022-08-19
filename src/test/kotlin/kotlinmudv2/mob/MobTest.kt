@@ -12,7 +12,7 @@ class MobTest {
     fun testAttributesUseRace() {
         // setup
         val test = createTestService()
-        val attributes = raceAttributes[Race.Human]
+        val attributes = raceAttributes[RaceType.Human]
 
         // when
         val mob = test.getPlayerMob()
