@@ -6,6 +6,7 @@ import kotlinmudv2.item.ItemType
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobFlag
+import kotlinmudv2.mob.Race
 import kotlinmudv2.room.ExitsToken
 import kotlinmudv2.room.RoomEntity
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -18,6 +19,7 @@ class HydrationService(
     private val itemRoomResets: MutableMap<Int, MutableList<ItemRoomReset>>,
     private val itemMobInventoryResets: MutableMap<Int, MutableList<ItemMobReset>>,
     private val itemMobEquippedResets: MutableMap<Int, MutableList<ItemMobReset>>,
+    private val races: List<Race>,
 ) {
     private var lastRoom: RoomEntity? = null
     private val unknownMaterials = mutableSetOf<String>()
@@ -82,13 +84,14 @@ class HydrationService(
                 if (props["shop"] == "true") {
                     flags.add(MobFlag.Shopkeeper)
                 }
+                val raceName = MigrationService.mapRace(props["race"]!!.trim().capitalize())
                 transaction {
                     MobEntity.new {
                         canonicalId = id
                         name = props["name"]!!.trim()
                         brief = props["brief"]!!.trim()
                         description = props["description"]!!.trim()
-                        race = MigrationService.mapRace(props["race"]!!.trim().capitalize())
+                        race = races.find { it.type.name == raceName }!!
                         level = flag3[0].toInt()
                         hp = flag3[2]
                         mana = flag3[3]

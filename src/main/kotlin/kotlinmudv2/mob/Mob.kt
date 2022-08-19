@@ -10,7 +10,7 @@ open class Mob(
     val name: String,
     val brief: String,
     val description: String,
-    val race: RaceType,
+    val race: Race,
     var level: Int,
     val items: MutableList<Item>,
     val equipped: MutableList<Item>,
@@ -29,7 +29,7 @@ open class Mob(
 
     fun calc(attribute: Attribute): Int {
         return (attributes[attribute] ?: 0) +
-            (raceAttributes[race]?.get(attribute) ?: 0) +
+            (race.attributes[attribute] ?: 0) +
             (equipped.fold(0) { _, item -> item.attributes[attribute] ?: 0 })
     }
 

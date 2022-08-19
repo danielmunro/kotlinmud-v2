@@ -14,6 +14,7 @@ import kotlinmudv2.migration.MigrationService
 import kotlinmudv2.migration.MobReset
 import kotlinmudv2.observer.Observer
 import kotlinx.coroutines.runBlocking
+import org.kodein.di.direct
 import org.kodein.di.instance
 import java.io.File
 
@@ -42,6 +43,7 @@ fun main(args: Array<String>) {
             }
         }
         println("hydrating models into entities")
+        val container = createContainer(0)
         HydrationService(
             roomModels,
             mobModels,
@@ -50,6 +52,7 @@ fun main(args: Array<String>) {
             itemRoomResets,
             itemMobInventoryResets,
             itemMobEquippedResets,
+            container.direct.instance(),
         ).hydrate()
         System.exit(0)
     }

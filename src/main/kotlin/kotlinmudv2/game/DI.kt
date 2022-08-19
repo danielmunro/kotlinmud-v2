@@ -49,6 +49,11 @@ import kotlinmudv2.event.EventType
 import kotlinmudv2.fight.FightService
 import kotlinmudv2.item.ItemService
 import kotlinmudv2.mob.MobService
+import kotlinmudv2.mob.races.createDwarfRace
+import kotlinmudv2.mob.races.createElfRace
+import kotlinmudv2.mob.races.createHalflingRace
+import kotlinmudv2.mob.races.createHumanRace
+import kotlinmudv2.mob.races.createOrcRace
 import kotlinmudv2.observer.AffectDecayObserver
 import kotlinmudv2.observer.ClientConnectedObserver
 import kotlinmudv2.observer.FightObserver
@@ -95,6 +100,17 @@ fun createContainer(port: Int): DI {
         }
         bindSingleton { SocketService(instance(), instance(), instance(), port) }
         bindSingleton { GameService(instance()) }
+
+        // races
+        bindSingleton {
+            listOf(
+                createHumanRace(),
+                createOrcRace(),
+                createElfRace(),
+                createHalflingRace(),
+                createDwarfRace(),
+            )
+        }
 
         // actions
         bindSingleton {

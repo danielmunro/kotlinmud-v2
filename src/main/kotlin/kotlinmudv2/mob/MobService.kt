@@ -29,7 +29,7 @@ class MobService(private val itemService: ItemService) {
         }
     }
 
-    fun createPlayerMob(name: String, password: String, race: RaceType, role: Role): PlayerMob {
+    fun createPlayerMob(name: String, password: String, race: Race, role: Role): PlayerMob {
         val salt = generateSalt()
 
         return PlayerMob(
@@ -67,7 +67,7 @@ class MobService(private val itemService: ItemService) {
         name: String,
         description: String,
         brief: String,
-        race: RaceType,
+        race: Race,
         roomId: Int,
         attributes: MutableMap<Attribute, Int>,
         affects: MutableList<Affect>,
@@ -78,7 +78,7 @@ class MobService(private val itemService: ItemService) {
                 this.name = name
                 this.description = description
                 this.brief = brief
-                this.race = race.toString()
+                this.race = race
                 this.attributes = attributes
                 this.affects = affects
                 this.roomId = roomId
@@ -121,7 +121,7 @@ class MobService(private val itemService: ItemService) {
             entity.name,
             entity.brief,
             entity.description,
-            RaceType.valueOf(entity.race),
+            entity.race,
             entity.level,
             transaction { entity.items.map { itemService.createFromEntity(it) } }.toMutableList(),
             transaction { entity.equipped.map { itemService.createFromEntity(it) } }.toMutableList(),

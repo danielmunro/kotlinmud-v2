@@ -13,6 +13,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 class AttributeToken : TypeToken<Map<Attribute, Int>>()
 class AffectToken : TypeToken<MutableList<Affect>>()
 class FlagsToken : TypeToken<List<MobFlag>>()
+class RaceToken : TypeToken<Race>()
 val gson = Gson()
 
 class MobEntity(id: EntityID<Int>) : IntEntity(id) {
@@ -25,7 +26,10 @@ class MobEntity(id: EntityID<Int>) : IntEntity(id) {
     var mana by MobTable.mana
     var moves by MobTable.moves
     var roomId by MobTable.roomId
-    var race by MobTable.race
+    var race: Race by MobTable.race.transform(
+        { gson.toJson(it) },
+        { gson.fromJson(it, RaceToken().type) }
+    )
     var disposition by MobTable.disposition
     var maxInRoom by MobTable.maxInRoom
     var maxInGame by MobTable.maxInGame
