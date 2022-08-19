@@ -2,15 +2,14 @@ package kotlinmudv2.item
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinmudv2.game.Affect
+import kotlinmudv2.game.AffectType
 import kotlinmudv2.game.Attribute
-import kotlinmudv2.mob.MobEntity.Companion.transform
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 
 class Token : TypeToken<Map<Attribute, Int>>()
-class AffectToken : TypeToken<Map<Affect, Int>>()
+class AffectToken : TypeToken<Map<AffectType, Int>>()
 class ItemFlagToken : TypeToken<List<ItemFlag>>()
 val gson = Gson()
 
@@ -32,7 +31,7 @@ class ItemEntity(id: EntityID<Int>) : IntEntity(id) {
         { gson.toJson(it) },
         { gson.fromJson(it, Token().type) },
     )
-    var affects: MutableMap<Affect, Int> by ItemTable.affects.transform(
+    var affects: MutableMap<AffectType, Int> by ItemTable.affects.transform(
         { gson.toJson(it) },
         { gson.fromJson(it, AffectToken().type) }
     )

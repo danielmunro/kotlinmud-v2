@@ -80,7 +80,7 @@ class TestService(private val container: DI) {
                 Pair(Attribute.Mana, 100),
                 Pair(Attribute.Moves, 100),
             ),
-            mutableMapOf(),
+            mutableListOf(),
         ).also {
             potentialTarget = it
         }

@@ -98,7 +98,7 @@ class HydrationService(
                         roomId = it.roomId
                         attributes = mutableMapOf()
                         disposition = Disposition.Standing.toString()
-                        affects = mutableMapOf()
+                        affects = mutableListOf()
                         this.flags = flags
                         coins = 0
                     }.also { mob ->

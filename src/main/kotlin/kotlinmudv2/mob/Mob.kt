@@ -15,7 +15,7 @@ open class Mob(
     val items: MutableList<Item>,
     val equipped: MutableList<Item>,
     val attributes: MutableMap<Attribute, Int>,
-    val affects: MutableMap<Affect, Int>,
+    val affects: MutableList<Affect>,
     var hp: Int,
     var mana: Int,
     var moves: Int,

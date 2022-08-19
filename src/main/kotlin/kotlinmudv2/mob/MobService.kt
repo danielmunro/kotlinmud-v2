@@ -51,7 +51,7 @@ class MobService(private val itemService: ItemService) {
                 Pair(Attribute.Mana, 100),
                 Pair(Attribute.Moves, 100),
             ),
-            mutableMapOf(),
+            mutableListOf(),
             20,
             100,
             100,
@@ -70,7 +70,7 @@ class MobService(private val itemService: ItemService) {
         race: Race,
         roomId: Int,
         attributes: MutableMap<Attribute, Int>,
-        affects: MutableMap<Affect, Int>,
+        affects: MutableList<Affect>,
     ): Mob {
         val entity = transaction {
             MobEntity.new {
@@ -159,12 +159,12 @@ class MobService(private val itemService: ItemService) {
 
     fun affectDecay() {
         mobs.forEach { mob ->
-            mob.affects.entries.removeIf {
-                if (it.value == 0) {
+            mob.affects.removeIf {
+                if (it.timeout == 0) {
                     return@removeIf true
                 }
-                if (it.value > 0) {
-                    it.setValue(it.value - 1)
+                if (it.timeout > 0) {
+                    it.timeout -= 1
                 }
                 false
             }

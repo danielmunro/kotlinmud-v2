@@ -1,8 +1,7 @@
 package kotlinmudv2.game
 
-enum class Affect {
-    Bless,
-    Weaken,
-    GiantStrength,
-    Stun,
-}
+class Affect(
+    val type: AffectType,
+    var timeout: Int,
+    val attributes: Map<Attribute, Int> = mapOf(),
+)

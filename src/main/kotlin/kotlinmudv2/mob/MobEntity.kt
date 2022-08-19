@@ -11,7 +11,7 @@ import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 
 class AttributeToken : TypeToken<Map<Attribute, Int>>()
-class AffectToken : TypeToken<Map<Affect, Int>>()
+class AffectToken : TypeToken<MutableList<Affect>>()
 class FlagsToken : TypeToken<List<MobFlag>>()
 val gson = Gson()
 
@@ -37,7 +37,7 @@ class MobEntity(id: EntityID<Int>) : IntEntity(id) {
         { gson.toJson(it) },
         { gson.fromJson(it, AttributeToken().type) },
     )
-    var affects: MutableMap<Affect, Int> by MobTable.affects.transform(
+    var affects: MutableList<Affect> by MobTable.affects.transform(
         { gson.toJson(it) },
         { gson.fromJson(it, AffectToken().type) }
     )

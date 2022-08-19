@@ -8,6 +8,8 @@ import kotlinmudv2.action.SkillContext
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.dice.d4
 import kotlinmudv2.game.Affect
+import kotlinmudv2.game.AffectType
+import kotlinmudv2.game.Attribute
 import kotlinmudv2.mob.Disposition
 
 fun createBashAction(): Action {
@@ -30,8 +32,22 @@ fun createBashAction(): Action {
                 ActionStatus.Failure,
             )
         }
-        mob.target?.also {
-            it.affects[Affect.Stun] = (it.affects[Affect.Stun] ?: 0) + (ctx.level / 3).coerceAtLeast(1)
+        mob.target?.also { target ->
+            val amount = (ctx.level / 3).coerceAtLeast(1)
+            val affect = target.affects.find { it.type == AffectType.Stun }
+            if (affect == null) {
+                target.affects.add(
+                    Affect(
+                        AffectType.Stun,
+                        amount,
+                        mutableMapOf(
+                            Pair(Attribute.Int, -2),
+                        ),
+                    )
+                )
+            } else {
+                affect.timeout += amount
+            }
         }
         Response(
             mob,

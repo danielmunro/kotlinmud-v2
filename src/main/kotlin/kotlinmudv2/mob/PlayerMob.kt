@@ -20,7 +20,7 @@ class PlayerMob(
     items: MutableList<Item>,
     equipped: MutableList<Item>,
     attributes: MutableMap<Attribute, Int>,
-    affects: MutableMap<Affect, Int>,
+    affects: MutableList<Affect>,
     hp: Int,
     mana: Int,
     moves: Int,
