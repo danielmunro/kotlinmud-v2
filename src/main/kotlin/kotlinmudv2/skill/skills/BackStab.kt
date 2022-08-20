@@ -21,7 +21,7 @@ fun createBackStabSkill(): Skill {
         "your backstab misses %s harmlessly",
         { _, mob ->
             val dexDiff = (mob.target?.attributes?.get(Attribute.Dex) ?: 0) - (mob.attributes[Attribute.Dex] ?: 0)
-            d20() < 10 - dexDiff
+            d20() > 5 + dexDiff
         }
     ) { _, mob, level ->
         mob.target?.let { target ->

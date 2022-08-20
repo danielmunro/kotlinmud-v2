@@ -1,5 +1,7 @@
 package kotlinmudv2.skill.skills
 
+import kotlinmudv2.dice.d20
+import kotlinmudv2.game.Attribute
 import kotlinmudv2.mob.Role
 import kotlinmudv2.skill.Cost
 import kotlinmudv2.skill.Skill
@@ -16,7 +18,17 @@ fun createHealSkill(): Skill {
         ),
         "you feel better!",
         "you lose your concentration",
-        { actionService, mob -> true },
-        { actionService, mob, i -> },
+        { _, mob ->
+            d20() > 5 - ((mob.attributes[Attribute.Wis] ?: 0) / 5)
+        },
+        { _, mob, level ->
+            val amount = level * 15
+            mob.hp += amount
+            mob.calc(Attribute.Hp).also {
+                if (it > mob.hp) {
+                    mob.hp = it
+                }
+            }
+        },
     )
 }
