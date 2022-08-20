@@ -13,8 +13,7 @@ fun createFleeAction(): Action {
         listOf(Syntax.Command),
         listOf(Disposition.Fighting),
     ) { actionService, mob, _, _ ->
-        val room = actionService.getRoom(mob.roomId)!!
-        room.exits.randomOrNull()?.let {
+        actionService.getRoom(mob.roomId)?.exits?.randomOrNull()?.let {
             actionService.moveMob(mob, it.direction)
             Response(mob, "you flee running scared!")
         } ?: errorResponse(mob, "you have nowhere to flee!")
