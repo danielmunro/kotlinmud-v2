@@ -7,7 +7,6 @@ import kotlinmudv2.mob.MobService
 import kotlinmudv2.room.Direction
 import kotlinmudv2.room.Room
 import kotlinmudv2.room.RoomService
-import kotlinmudv2.skill.Skill
 import kotlinmudv2.socket.Client
 import kotlinmudv2.socket.ClientService
 

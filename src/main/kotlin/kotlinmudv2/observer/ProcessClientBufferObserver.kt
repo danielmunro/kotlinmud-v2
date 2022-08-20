@@ -1,17 +1,20 @@
 package kotlinmudv2.observer
 
 import kotlinmudv2.action.ActionService
-import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.ContextService
 import kotlinmudv2.action.Response
+import kotlinmudv2.action.errorResponse
 import kotlinmudv2.event.Event
 import kotlinmudv2.socket.AuthService
 import kotlinmudv2.socket.Client
+import kotlinmudv2.socket.ClientService
+import kotlinmudv2.socket.RoomMessage
 import kotlinmudv2.socket.SocketService
 import kotlinx.coroutines.flow.asFlow
 
 class ProcessClientBufferObserver(
     private val socketService: SocketService,
+    private val clientService: ClientService,
     private val actionService: ActionService,
     private val contextService: ContextService,
     private val authService: AuthService,
@@ -26,14 +29,17 @@ class ProcessClientBufferObserver(
         val ctx = contextService.findActionForInput(client, input)
 
         if (ctx != null && !ctx.action.dispositions.contains(client.mob!!.disposition)) {
-            return Response(
+            return errorResponse(
                 client.mob!!,
                 "you are ${client.mob!!.disposition.toString().lowercase()} and cannot do that.",
             )
         }
 
         return ctx?.execute(actionService, client.mob!!, input)
-            ?: Response(client.mob!!, "what was that?", ActionStatus.Error)
+            ?: errorResponse(
+                client.mob!!,
+                "what was that?",
+            )
     }
 
     private fun processRequest(client: Client) {
@@ -42,9 +48,16 @@ class ProcessClientBufferObserver(
         }
 
         client.shiftInput().also {
-            handleRequest(client, it).also {
-                response ->
-                client.write(response.toActionCreator)
+            handleRequest(client, it).also { response ->
+                clientService.sendToRoom(
+                    RoomMessage(
+                        client.mob!!,
+                        response.toActionCreator,
+                        response.toRoom ?: "",
+                        client.mob?.target,
+                        response.toTarget,
+                    )
+                )
             }
         }
     }

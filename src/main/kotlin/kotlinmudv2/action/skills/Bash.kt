@@ -22,6 +22,8 @@ fun createBashAction(): Action {
             return@Action Response(
                 mob,
                 "you fall flat on your face!",
+                null,
+                null,
                 ActionStatus.Failure,
             )
         }

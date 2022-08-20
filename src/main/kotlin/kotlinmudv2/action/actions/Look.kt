@@ -1,10 +1,10 @@
 package kotlinmudv2.action.actions
 
 import kotlinmudv2.action.Action
-import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
+import kotlinmudv2.action.errorResponse
 import kotlinmudv2.mob.alertDisposition
 import kotlinmudv2.room.ExitStatus
 
@@ -22,10 +22,9 @@ fun createLookAction(): Action {
                 mob,
                 "${it.name}\n${it.description}\n$exits\n$items$mobs",
             )
-        } ?: Response(
+        } ?: errorResponse(
             mob,
             "Room was not found",
-            ActionStatus.Error,
         )
     }
 }

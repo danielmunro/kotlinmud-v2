@@ -7,6 +7,7 @@ import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobFlag
 import kotlinmudv2.mob.Race
+import kotlinmudv2.mob.races.createHumanRace
 import kotlinmudv2.room.ExitsToken
 import kotlinmudv2.room.RoomEntity
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -91,7 +92,7 @@ class HydrationService(
                         name = props["name"]!!.trim()
                         brief = props["brief"]!!.trim()
                         description = props["description"]!!.trim()
-                        race = races.find { it.type.name == raceName }!!
+                        race = races.find { it.type.toString() == raceName } ?: createHumanRace()
                         level = flag3[0].toInt()
                         hp = flag3[2]
                         mana = flag3[3]

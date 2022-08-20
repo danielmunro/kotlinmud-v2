@@ -180,6 +180,7 @@ fun createContainer(port: Int): DI {
                 instance(),
                 instance(),
                 instance(),
+                instance(),
             )
         }
         bindProvider(tag = "fight") { FightObserver(instance()) }

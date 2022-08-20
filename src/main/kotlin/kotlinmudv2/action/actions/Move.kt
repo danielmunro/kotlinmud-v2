@@ -1,10 +1,10 @@
 package kotlinmudv2.action.actions
 
 import kotlinmudv2.action.Action
-import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
+import kotlinmudv2.action.errorResponse
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.room.Direction
 import kotlinmudv2.room.ExitStatus
@@ -16,17 +16,15 @@ private fun createMoveAction(command: Command, direction: Direction): Action {
         listOf(Disposition.Standing),
     ) { actionService, mob, context, _ ->
         if (mob.target != null) {
-            return@Action Response(
+            return@Action errorResponse(
                 mob,
                 "you are fighting and can't do that!",
-                ActionStatus.Error,
             )
         }
         if (mob.moves < 1) {
-            return@Action Response(
+            return@Action errorResponse(
                 mob,
                 "you are too tired to move.",
-                ActionStatus.Error,
             )
         }
         val exit = actionService.getRoom(mob.roomId)?.exits?.find { it.direction == direction }
@@ -39,7 +37,7 @@ private fun createMoveAction(command: Command, direction: Direction): Action {
         mob.moves -= 1
         actionService.moveMob(mob, direction)?.let {
             createLookAction().execute(actionService, mob, context, "look")
-        } ?: Response(mob, "Alas, that direction does not exist.", ActionStatus.Error)
+        } ?: errorResponse(mob, "Alas, that direction does not exist.")
     }
 }
 
