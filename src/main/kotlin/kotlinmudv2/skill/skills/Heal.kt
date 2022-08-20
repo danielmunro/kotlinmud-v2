@@ -14,6 +14,8 @@ fun createHealSkill(): Skill {
             Pair(Cost.Mana, 100),
             Pair(Cost.Delay, 1),
         ),
+        "you feel better!",
+        "you lose your concentration",
         { actionService, mob -> true },
         { actionService, mob, i -> },
     )

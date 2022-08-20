@@ -9,6 +9,8 @@ class Skill(
     val roles: List<Role>,
     val level: Int,
     val costs: List<Pair<Cost, Int>>,
+    val success: String,
+    val failure: String,
     val rollCheck: (ActionService, Mob) -> Boolean,
     val execute: (ActionService, Mob, Int) -> Unit,
 ) {

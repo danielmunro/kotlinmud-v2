@@ -17,6 +17,8 @@ fun createBackStabSkill(): Skill {
             Pair(Cost.Moves, 100),
             Pair(Cost.Delay, 2),
         ),
+        "you stab %s in the back, making them gasp in pain!",
+        "your backstab misses %s harmlessly",
         { _, mob ->
             val dexDiff = (mob.target?.attributes?.get(Attribute.Dex) ?: 0) - (mob.attributes[Attribute.Dex] ?: 0)
             d20() < 10 - dexDiff

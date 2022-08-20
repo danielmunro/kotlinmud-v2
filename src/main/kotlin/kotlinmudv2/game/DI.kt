@@ -1,6 +1,7 @@
 package kotlinmudv2.game
 
 import kotlinmudv2.action.ActionService
+import kotlinmudv2.action.Command
 import kotlinmudv2.action.ContextService
 import kotlinmudv2.action.actions.createBuyAction
 import kotlinmudv2.action.actions.createBuyErrorAction
@@ -43,8 +44,7 @@ import kotlinmudv2.action.actions.createUpAction
 import kotlinmudv2.action.actions.createWearAction
 import kotlinmudv2.action.actions.createWearErrorAction
 import kotlinmudv2.action.actions.createWestAction
-import kotlinmudv2.action.skills.createBackstabAction
-import kotlinmudv2.action.skills.createBashAction
+import kotlinmudv2.action.skills.createSkillAction
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
 import kotlinmudv2.fight.FightService
@@ -155,8 +155,8 @@ fun createContainer(port: Int): DI {
                 createSellErrorAction(),
                 createInventoryAction(),
                 createLevelAction(),
-                createBashAction(),
-                createBackstabAction(),
+                createSkillAction(Command.Bash),
+                createSkillAction(Command.Backstab),
             )
         }
 

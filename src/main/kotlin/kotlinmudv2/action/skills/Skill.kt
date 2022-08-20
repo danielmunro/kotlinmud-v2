@@ -6,12 +6,11 @@ import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.SkillContext
 import kotlinmudv2.action.Syntax
-import kotlinmudv2.action.errorResponse
 import kotlinmudv2.mob.Disposition
 
-fun createBashAction(): Action {
+fun createSkillAction(command: Command): Action {
     return Action(
-        Command.Bash,
+        command,
         listOf(Syntax.Skill),
         listOf(Disposition.Fighting),
     ) { actionService, mob, context, _ ->
@@ -21,15 +20,18 @@ fun createBashAction(): Action {
         }
         ctx.skill.applyCosts(mob)
         if (!ctx.skill.rollCheck(actionService, mob)) {
-            return@Action errorResponse(
+            return@Action Response(
                 mob,
-                "you fall flat on your face!",
+                ctx.skill.failure.format(mob.target!!.name),
+                null,
+                null,
+                ActionStatus.Failure,
             )
         }
         ctx.skill.execute(actionService, mob, ctx.level)
         Response(
             mob,
-            "you slam into ${mob.target!!.name} and send them flying!",
+            ctx.skill.success.format(mob.target!!.name),
         )
     }
 }

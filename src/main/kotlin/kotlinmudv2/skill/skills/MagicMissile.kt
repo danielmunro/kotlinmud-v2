@@ -14,6 +14,8 @@ fun createMagicMissileSkill(): Skill {
             Pair(Cost.Mana, 100),
             Pair(Cost.Delay, 1),
         ),
+        "your magic missile grazes %s",
+        "you lose your concentration",
         { actionService, mob -> true },
         { actionService, mob, i -> },
     )
