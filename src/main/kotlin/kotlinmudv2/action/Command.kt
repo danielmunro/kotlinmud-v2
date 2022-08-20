@@ -51,4 +51,5 @@ enum class Command(val value: String) {
     // skills
     Bash("bash"),
     Backstab("backstab"),
+    Cast("cast"),
 }

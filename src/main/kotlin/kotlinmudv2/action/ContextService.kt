@@ -4,12 +4,14 @@ import kotlinmudv2.item.Item
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.room.RoomService
+import kotlinmudv2.skill.Skill
 import kotlinmudv2.socket.Client
 
 class ContextService(
     private val mobService: MobService,
     private val roomService: RoomService,
     private val actions: List<Action>,
+    private val skills: List<Skill>,
 ) {
     companion object {
         fun matchesInput(body: String, needle: String): Boolean {
@@ -91,7 +93,10 @@ class ContextService(
                     Syntax.Skill -> {
                         client.mob!!.skills.forEach {
                             if (it.key.value.startsWith(parts[index])) {
-                                context[index] = SkillContext(it.key, it.value)
+                                context[index] = SkillContext(
+                                    skills.find { skill -> skill.name == it.key }!!,
+                                    it.value,
+                                )
                                 return@find true
                             }
                         }

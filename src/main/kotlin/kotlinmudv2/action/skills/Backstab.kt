@@ -1,34 +1,33 @@
 package kotlinmudv2.action.skills
 
 import kotlinmudv2.action.Action
-import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.SkillContext
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.mob.Disposition
+import kotlinmudv2.skill.Skill
 
-fun createBashAction(): Action {
+fun createBackstabAction(): Action {
     return Action(
-        Command.Bash,
+        Command.Backstab,
         listOf(Syntax.Skill),
         listOf(Disposition.Fighting),
     ) { actionService, mob, context, _ ->
         val ctx = context[0] as SkillContext
-        if (!actionService.applySkillCosts(mob, ctx)) {
+        if (!ctx.skill.canApplyCosts(mob)) {
             return@Action tooTired(mob)
         }
         if (!ctx.skill.rollCheck(actionService, mob)) {
             return@Action Response(
                 mob,
-                "you fall flat on your face!",
-                ActionStatus.Failure,
+                "your backstab misses ${mob.target!!.name} harmlessly"
             )
         }
         ctx.skill.execute(actionService, mob, ctx.level)
         Response(
             mob,
-            "you slam into ${mob.target!!.name} and send them flying!",
+            "you backstab ${mob.target!!.name} making them gasp in pain",
         )
     }
 }

@@ -13,6 +13,8 @@ fun createMagicMissileSkill(): Skill {
         listOf(
             Pair(Cost.Mana, 100),
             Pair(Cost.Delay, 1),
-        )
+        ),
+        { actionService, mob -> true },
+        { actionService, mob, i -> },
     )
 }

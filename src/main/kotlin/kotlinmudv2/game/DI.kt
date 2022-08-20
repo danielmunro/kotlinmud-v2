@@ -43,6 +43,7 @@ import kotlinmudv2.action.actions.createUpAction
 import kotlinmudv2.action.actions.createWearAction
 import kotlinmudv2.action.actions.createWearErrorAction
 import kotlinmudv2.action.actions.createWestAction
+import kotlinmudv2.action.skills.createBackstabAction
 import kotlinmudv2.action.skills.createBashAction
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
@@ -87,15 +88,14 @@ fun createContainer(port: Int): DI {
         bindSingleton { MobService(instance()) }
         bindSingleton { AuthService(instance()) }
         bindSingleton { WebServerService(instance(), instance(), instance()) }
-        bindSingleton { ContextService(instance(), instance(), instance()) }
+        bindSingleton { ContextService(instance(), instance(), instance(), instance()) }
         bindSingleton {
             ActionService(
                 instance(),
                 instance(),
                 instance(),
                 instance(),
-                instance(tag = "skills"),
-                instance(tag = "spells"),
+                instance(),
             )
         }
         bindSingleton { SocketService(instance(), instance(), instance(), port) }
@@ -157,19 +157,15 @@ fun createContainer(port: Int): DI {
                 createInventoryAction(),
                 createLevelAction(),
                 createBashAction(),
+                createBackstabAction(),
             )
         }
 
         // skills
-        bindSingleton(tag = "skills") {
+        bindSingleton {
             listOf(
                 createBashSkill(),
                 createBackStabSkill(),
-            )
-        }
-
-        bindSingleton(tag = "spells") {
-            listOf(
                 createHealSkill(),
                 createMagicMissileSkill(),
             )

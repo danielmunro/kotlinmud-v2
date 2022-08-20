@@ -1,5 +1,6 @@
 package kotlinmudv2.skill
 
+import kotlinmudv2.action.ActionService
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.Role
 
@@ -8,6 +9,8 @@ class Skill(
     val roles: List<Role>,
     val level: Int,
     val costs: List<Pair<Cost, Int>>,
+    val rollCheck: (ActionService, Mob) -> Boolean,
+    val execute: (ActionService, Mob, Int) -> Unit,
 ) {
     fun canApplyCosts(mob: Mob): Boolean {
         return costs.all {
