@@ -6,6 +6,7 @@ import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.SkillContext
 import kotlinmudv2.action.Syntax
+import kotlinmudv2.action.failResponse
 import kotlinmudv2.mob.Disposition
 
 fun createSkillAction(command: Command): Action {
@@ -20,12 +21,9 @@ fun createSkillAction(command: Command): Action {
         }
         ctx.skill.applyCosts(mob)
         if (!ctx.skill.rollCheck(actionService, mob)) {
-            return@Action Response(
+            return@Action failResponse(
                 mob,
                 ctx.skill.failure.format(mob.target!!.name),
-                null,
-                null,
-                ActionStatus.Failure,
             )
         }
         ctx.skill.execute(actionService, mob, ctx.level)
