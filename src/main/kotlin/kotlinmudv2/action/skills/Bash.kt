@@ -11,6 +11,7 @@ import kotlinmudv2.game.Affect
 import kotlinmudv2.game.AffectType
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.mob.Disposition
+import kotlin.random.Random
 
 fun createBashAction(): Action {
     return Action(
@@ -50,6 +51,7 @@ fun createBashAction(): Action {
             } else {
                 affect.timeout = (affect.timeout + amount).coerceAtMost(4)
             }
+            target.hp -= Random.nextInt(amount - 1, amount + 1).coerceAtLeast(1)
         }
         Response(
             mob,
