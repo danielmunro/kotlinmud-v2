@@ -16,7 +16,6 @@ class ActionService(
     private val mobService: MobService,
     private val itemService: ItemService,
     private val clientService: ClientService,
-    private val skills: List<Skill>,
 ) {
     fun applySkillCosts(mob: Mob, ctx: SkillContext): Boolean {
         if (!ctx.skill.canApplyCosts(mob)) {

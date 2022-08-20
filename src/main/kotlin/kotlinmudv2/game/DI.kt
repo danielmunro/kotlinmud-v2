@@ -95,7 +95,6 @@ fun createContainer(port: Int): DI {
                 instance(),
                 instance(),
                 instance(),
-                instance(),
             )
         }
         bindSingleton { SocketService(instance(), instance(), instance(), port) }
