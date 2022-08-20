@@ -6,7 +6,6 @@ import kotlinmudv2.action.Response
 import kotlinmudv2.action.SkillContext
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.mob.Disposition
-import kotlinmudv2.skill.Skill
 
 fun createBackstabAction(): Action {
     return Action(
@@ -18,6 +17,7 @@ fun createBackstabAction(): Action {
         if (!ctx.skill.canApplyCosts(mob)) {
             return@Action tooTired(mob)
         }
+        ctx.skill.applyCosts(mob)
         if (!ctx.skill.rollCheck(actionService, mob)) {
             return@Action Response(
                 mob,
