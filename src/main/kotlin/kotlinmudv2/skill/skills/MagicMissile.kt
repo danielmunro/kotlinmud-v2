@@ -18,6 +18,7 @@ fun createMagicMissileSkill(): Skill {
         ),
         "your magic missile grazes %s",
         "you lose your concentration",
+        true,
         { _, mob ->
             val amount = (mob.attributes[Attribute.Int] ?: 0) - (mob.target?.attributes?.get(Attribute.Int) ?: 0)
             d20() > 5 - amount

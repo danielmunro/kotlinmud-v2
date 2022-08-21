@@ -27,7 +27,7 @@ class ContextService(
         return actions.find { action ->
             var i = 0
             action.syntax.map SyntaxFind@{ syntax ->
-                if (i >= parts.size) {
+                if (i >= parts.size && syntax != Syntax.OptionalTarget) {
                     return@SyntaxFind false
                 }
                 val index = i
@@ -101,6 +101,18 @@ class ContextService(
                             }
                         }
                         false
+                    }
+                    Syntax.OptionalTarget -> {
+                        if (parts.size <= index) {
+                            return@find true
+                        }
+                        mobService.getMobsForRoom(client.mob!!.roomId).forEach {
+                            if (matchesInput(it.name, parts[index])) {
+                                context[index] = it
+                                return@find true
+                            }
+                        }
+                        true
                     }
                 }
             }.filter { it }.size == action.syntax.size

@@ -18,6 +18,7 @@ fun createHealSkill(): Skill {
         ),
         "you feel better!",
         "you lose your concentration",
+        false,
         { _, mob ->
             d20() > 5 - ((mob.attributes[Attribute.Wis] ?: 0) / 5)
         },

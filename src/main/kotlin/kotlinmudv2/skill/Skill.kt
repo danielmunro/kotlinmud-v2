@@ -11,6 +11,7 @@ class Skill(
     val costs: List<Pair<Cost, Int>>,
     val success: String,
     val failure: String,
+    val isOffensive: Boolean,
     val rollCheck: (ActionService, Mob) -> Boolean,
     val execute: (ActionService, Mob, Int) -> Unit,
 ) {

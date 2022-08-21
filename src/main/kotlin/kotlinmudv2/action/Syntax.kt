@@ -11,4 +11,5 @@ enum class Syntax {
     Door,
     Direction,
     Skill,
+    OptionalTarget,
 }

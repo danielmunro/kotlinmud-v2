@@ -156,9 +156,9 @@ fun createContainer(port: Int): DI {
                 createSellErrorAction(),
                 createInventoryAction(),
                 createLevelAction(),
-                createCastAction(),
                 createSkillAction(Command.Bash),
                 createSkillAction(Command.Backstab),
+                createCastAction(),
             )
         }
 

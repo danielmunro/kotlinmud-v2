@@ -21,6 +21,7 @@ fun createBashSkill(): Skill {
         ),
         "you slam into %s and send them flying!",
         "you fall flat on your face!",
+        true,
         { _, mob ->
             val sizeDiff = (mob.target?.race?.size?.value ?: 0) - mob.race.size.value
             d20() <= 5 + sizeDiff
