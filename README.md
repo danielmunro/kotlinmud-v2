@@ -73,7 +73,7 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
   * open, error - done
   * close, error - done
 
-## Todo - M8
-* Classes
-* Skills
-* Spells
+## Todo - M8 - done
+* Classes - done
+* Skills - done
+* Spells - done
