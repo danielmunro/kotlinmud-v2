@@ -44,6 +44,7 @@ import kotlinmudv2.action.actions.createUpAction
 import kotlinmudv2.action.actions.createWearAction
 import kotlinmudv2.action.actions.createWearErrorAction
 import kotlinmudv2.action.actions.createWestAction
+import kotlinmudv2.action.skills.createCastAction
 import kotlinmudv2.action.skills.createSkillAction
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
@@ -155,6 +156,7 @@ fun createContainer(port: Int): DI {
                 createSellErrorAction(),
                 createInventoryAction(),
                 createLevelAction(),
+                createCastAction(),
                 createSkillAction(Command.Bash),
                 createSkillAction(Command.Backstab),
             )

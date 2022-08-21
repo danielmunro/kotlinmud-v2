@@ -13,7 +13,7 @@ fun createMagicMissileSkill(): Skill {
         listOf(Role.Mage),
         1,
         listOf(
-            Pair(Cost.Mana, 100),
+            Pair(Cost.Mana, 50),
             Pair(Cost.Delay, 1),
         ),
         "your magic missile grazes %s",
