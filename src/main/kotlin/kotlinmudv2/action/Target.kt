@@ -4,9 +4,6 @@ import kotlinmudv2.mob.Mob
 import kotlinmudv2.skill.Skill
 
 fun doTargeting(mob: Mob, skill: Skill, specifiedTarget: Mob?): Boolean {
-    if (mob.target != null && specifiedTarget != null && mob.target != specifiedTarget) {
-        return false
-    }
     val target = if (specifiedTarget != null) {
         specifiedTarget
     } else if (!skill.isOffensive) {
@@ -17,5 +14,5 @@ fun doTargeting(mob: Mob, skill: Skill, specifiedTarget: Mob?): Boolean {
     if (mob.target == null && target != mob && skill.isOffensive) {
         mob.target = target
     }
-    return true
+    return target != null && (!skill.isOffensive || mob.target == target)
 }
