@@ -97,19 +97,19 @@ class ContextService(
                                     skills.find { skill -> skill.name == it.key }!!,
                                     it.value,
                                 )
-                                return@find true
+                                return@SyntaxFind true
                             }
                         }
                         false
                     }
                     Syntax.OptionalTarget -> {
                         if (parts.size <= index) {
-                            return@find true
+                            return@SyntaxFind true
                         }
                         mobService.getMobsForRoom(client.mob!!.roomId).forEach {
                             if (matchesInput(it.name, parts[index])) {
                                 context[index] = it
-                                return@find true
+                                return@SyntaxFind true
                             }
                         }
                         true
