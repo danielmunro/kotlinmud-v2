@@ -20,4 +20,5 @@ enum class DamageType {
     Charm,
     Sound,
     Other,
+    None,
 }

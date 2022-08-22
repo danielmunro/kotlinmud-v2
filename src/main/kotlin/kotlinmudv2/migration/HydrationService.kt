@@ -1,5 +1,6 @@
 package kotlinmudv2.migration
 
+import kotlinmudv2.game.DamageType
 import kotlinmudv2.item.ItemEntity
 import kotlinmudv2.item.ItemFlag
 import kotlinmudv2.item.ItemType
@@ -46,6 +47,54 @@ class HydrationService(
                         return "Indeterminate"
                     }
                 }
+            }
+        }
+
+        fun mapAttackVerb(verb: String): DamageType {
+            return when (verb) {
+                "hit" -> DamageType.None
+                "slice",
+                "slash",
+                "whip",
+                "claw",
+                "grep",
+                "cleave",
+                "chop",
+                "smash", -> DamageType.Slash
+                "stab",
+                "bite",
+                "pierce",
+                "scratch",
+                "peck",
+                "sting",
+                "chomp",
+                "thrust", -> DamageType.Pierce
+                "blast",
+                "pound",
+                "crush",
+                "suction",
+                "beating",
+                "charge",
+                "slap",
+                "punch",
+                "thwack", -> DamageType.Bash
+                "digestion" -> DamageType.Acid
+                "wrath",
+                "magic" -> DamageType.Energy
+                "divine power" -> DamageType.Holy
+                "shocking bite",
+                "shock", -> DamageType.Lightning
+                "flaming bite",
+                "flame", -> DamageType.Fire
+                "freezing bite",
+                "chill", -> DamageType.Cold
+                "acidic bite",
+                "slime", -> DamageType.Acid
+                "life drain" -> DamageType.Negative
+                "splash" -> DamageType.Drowning
+                "mental blast" -> DamageType.Mental
+                else -> DamageType.Bash
+
             }
         }
     }
@@ -166,6 +215,7 @@ class HydrationService(
             value = flag3[2].toInt()
             this.weaponType = weaponType?.let { WeaponType.valueOf(it) }
             this.attackVerb = attackVerb
+            damageType = attackVerb?.let{ mapAttackVerb(attackVerb) }
             damageRolls = rolls
             damageDice = dice
             this.flags = flags
