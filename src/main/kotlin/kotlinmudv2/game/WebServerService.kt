@@ -110,7 +110,7 @@ class WebServerService(
                             description = model.description
                             brief = model.brief
                             itemType = model.itemType.toString()
-                            position = model.position?.toString()
+                            position = model.position
                         }
                     }
                     model.mobId?.let {

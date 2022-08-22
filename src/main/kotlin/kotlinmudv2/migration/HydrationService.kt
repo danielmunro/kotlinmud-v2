@@ -3,6 +3,7 @@ package kotlinmudv2.migration
 import kotlinmudv2.item.ItemEntity
 import kotlinmudv2.item.ItemFlag
 import kotlinmudv2.item.ItemType
+import kotlinmudv2.item.WeaponType
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobFlag
@@ -128,6 +129,17 @@ class HydrationService(
 
     private fun createItemEntityFromModel(model: Map<String, String>, isShop: Boolean = false): ItemEntity {
         val (type, extraFlags, wearFlags) = model["flags1"]!!.trim().split(" ")
+        var weaponType: String? = null
+        var attackVerb: String? = null
+        var rolls: Int? = null
+        var dice: Int? = null
+        if (type == "weapon") {
+            val (w1, w2, w3, w4, w5) = model["flags2"]!!.trim().split(" ")
+            weaponType = w1.capitalize()
+            attackVerb = w4.capitalize()
+            rolls = w2.toInt()
+            dice = w3.toInt()
+        }
         val flag3 = model["flags3"]!!.trim().split(" ")
         val flags = mutableListOf<ItemFlag>()
         extraFlags.split("").forEach {
@@ -152,6 +164,10 @@ class HydrationService(
             level = flag3[0].toInt()
             weight = flag3[1].toInt()
             value = flag3[2].toInt()
+            this.weaponType = weaponType?.let { WeaponType.valueOf(it) }
+            this.attackVerb = attackVerb
+            damageRolls = rolls
+            damageDice = dice
             this.flags = flags
         }
     }

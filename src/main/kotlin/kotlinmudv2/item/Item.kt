@@ -2,6 +2,7 @@ package kotlinmudv2.item
 
 import kotlinmudv2.game.AffectType
 import kotlinmudv2.game.Attribute
+import kotlinmudv2.game.DamageType
 
 class Item(
     val id: Int,
@@ -16,4 +17,9 @@ class Item(
     val attributes: MutableMap<Attribute, Int>,
     val affects: MutableMap<AffectType, Int>,
     val position: Position? = null,
+    val weaponType: WeaponType? = null,
+    val damageType: DamageType? = null,
+    val damageRolls: Int? = null,
+    val damageDice: Int? = null,
+    val attackVerb: String? = null,
 )

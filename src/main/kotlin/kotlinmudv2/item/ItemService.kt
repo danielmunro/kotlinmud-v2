@@ -17,6 +17,11 @@ class ItemService {
             item.attributes,
             item.affects,
             item.position,
+            item.weaponType,
+            item.damageType,
+            item.damageRolls,
+            item.damageDice,
+            item.attackVerb,
         )
     }
 
@@ -39,7 +44,12 @@ class ItemService {
             entity.flags,
             entity.attributes,
             entity.affects,
-            entity.position?.let { Position.valueOf(it) }
+            entity.position,
+            entity.weaponType,
+            entity.damageType,
+            entity.damageRolls,
+            entity.damageDice,
+            entity.attackVerb,
         )
     }
 
