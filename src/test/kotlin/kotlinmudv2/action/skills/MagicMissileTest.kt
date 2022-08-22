@@ -44,4 +44,22 @@ class MagicMissileTest {
         // then
         assertThat(response?.toActionCreator).isEqualTo("your magic missile grazes a test mob")
     }
+
+    @Test
+    fun testCanTargetAMobWithMagicMissileFullName() {
+        // setup
+        val test = createTestService()
+
+        // given
+        test.getPlayerMob().skills[SkillName.MagicMissile] = 1
+        val target = test.createMob()
+
+        // when
+        val response = test.repeatUntilSuccessful("cast 'magic missile' ${getIdentifyingWord(target.name)}") {
+            it.mana = 100
+        }
+
+        // then
+        assertThat(response?.toActionCreator).isEqualTo("your magic missile grazes a test mob")
+    }
 }

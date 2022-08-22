@@ -22,7 +22,32 @@ class ContextService(
     }
 
     fun findActionForInput(client: Client, input: String): ActionWithContext? {
-        val parts = input.split(" ")
+        val parts = mutableListOf<String>()
+        var isOpen = false
+        var buffer = ""
+        input.trim().forEach {
+            if (it == '\'') {
+                if (isOpen) {
+                    parts.add(buffer)
+                    isOpen = false
+                    buffer = ""
+                } else {
+                    isOpen = true
+                }
+            } else if (it == ' ') {
+                if (isOpen) {
+                    buffer += ' '
+                } else if (buffer != "") {
+                    parts.add(buffer)
+                    buffer = ""
+                }
+            } else {
+                buffer += it
+            }
+        }
+        if (buffer != "") {
+            parts.add(buffer)
+        }
         val context = mutableMapOf<Int, Any>()
         return actions.find { action ->
             var i = 0
