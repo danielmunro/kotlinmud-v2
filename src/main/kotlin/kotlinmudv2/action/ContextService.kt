@@ -36,7 +36,7 @@ class ContextService(
                 }
             } else if (it == ' ') {
                 if (isOpen) {
-                    buffer += ' '
+                    buffer += it
                 } else if (buffer != "") {
                     parts.add(buffer)
                     buffer = ""
