@@ -1,14 +1,19 @@
 package kotlinmudv2.mob
 
 import kotlinmudv2.dice.d20
+import kotlinmudv2.event.EventService
+import kotlinmudv2.event.createHitEvent
 import kotlinmudv2.game.Attribute
+import kotlinmudv2.game.DamageType
 import kotlinmudv2.socket.ClientService
 import kotlinmudv2.socket.RoomMessage
+import kotlinx.coroutines.runBlocking
 
 class FightService(
     private val mobService: MobService,
     private val clientService: ClientService,
     private val deathService: DeathService,
+    private val eventService: EventService,
 ) {
     fun execute() {
         mobService.getFightingMobs().forEach { attacker ->
@@ -39,19 +44,18 @@ class FightService(
                 }
 
                 val damage = attacker.calc(Attribute.Dam)
-                target.hp -= damage
-
-                clientService.sendToRoom(
-                    RoomMessage(
-                        attacker,
-                        "You hit ${target.name}, causing scratches",
-                        "${attacker.name} hit ${target.name}, causing scratches",
-                        target,
-                        "${attacker.name} hit you, causing scratches",
+                runBlocking {
+                    eventService.publish(
+                        createHitEvent(
+                            Hit(
+                                attacker,
+                                target,
+                                damage,
+                                DamageType.Bash,
+                            )
+                        )
                     )
-                )
-
-                deathService.damageReceived(attacker, target)
+                }
             }
         }
         clientService.getClients().filter {

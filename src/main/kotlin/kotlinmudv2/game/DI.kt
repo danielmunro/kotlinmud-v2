@@ -60,6 +60,7 @@ import kotlinmudv2.mob.races.createOrcRace
 import kotlinmudv2.observer.AffectDecayObserver
 import kotlinmudv2.observer.ClientConnectedObserver
 import kotlinmudv2.observer.FightObserver
+import kotlinmudv2.observer.HitObserver
 import kotlinmudv2.observer.Observer
 import kotlinmudv2.observer.PersistPlayersObserver
 import kotlinmudv2.observer.ProcessClientBufferObserver
@@ -86,7 +87,7 @@ fun createContainer(port: Int): DI {
         bindSingleton { ClientService() }
         bindSingleton { ItemService() }
         bindSingleton { DeathService(instance(), instance()) }
-        bindSingleton { FightService(instance(), instance(), instance()) }
+        bindSingleton { FightService(instance(), instance(), instance(), instance()) }
         bindSingleton { RoomService(instance()) }
         bindSingleton { MobService(instance()) }
         bindSingleton { AuthService(instance()) }
@@ -192,6 +193,7 @@ fun createContainer(port: Int): DI {
         bindProvider(tag = "regen") { RegenObserver(instance()) }
         bindProvider(tag = "affectDecay") { AffectDecayObserver(instance(), instance()) }
         bindProvider(tag = "respawn") { RespawnObserver(instance()) }
+        bindProvider(tag = "hit") { HitObserver(instance(), instance()) }
 
         // list of observers
         bindSingleton<Map<EventType, List<Observer>>>(tag = "observers") {
@@ -222,6 +224,12 @@ fun createContainer(port: Int): DI {
                     EventType.Pulse,
                     listOf(
                         instance(tag = "fight"),
+                    ),
+                ),
+                Pair(
+                    EventType.Hit,
+                    listOf(
+                        instance(tag = "hit"),
                     ),
                 ),
             )

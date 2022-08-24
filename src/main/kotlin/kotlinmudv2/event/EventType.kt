@@ -5,4 +5,5 @@ enum class EventType {
     ClientConnected,
     Tick,
     Pulse,
+    Hit,
 }

@@ -1,5 +1,6 @@
 package kotlinmudv2.event
 
+import kotlinmudv2.mob.Hit
 import kotlinmudv2.socket.Client
 
 fun createGameLoopEvent(): Event<Any?> {
@@ -16,4 +17,11 @@ fun createPulseEvent(): Event<Any?> {
 
 fun createClientConnectedEvent(client: Client): Event<Client> {
     return Event(EventType.ClientConnected, client)
+}
+
+fun createHitEvent(hit: Hit): Event<Hit> {
+    return Event(
+        EventType.Hit,
+        hit,
+    )
 }
