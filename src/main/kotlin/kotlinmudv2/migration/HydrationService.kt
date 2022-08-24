@@ -94,7 +94,6 @@ class HydrationService(
                 "splash" -> DamageType.Drowning
                 "mental blast" -> DamageType.Mental
                 else -> DamageType.Bash
-
             }
         }
     }
@@ -215,7 +214,7 @@ class HydrationService(
             value = flag3[2].toInt()
             this.weaponType = weaponType?.let { WeaponType.valueOf(it) }
             this.attackVerb = attackVerb
-            damageType = attackVerb?.let{ mapAttackVerb(attackVerb) }
+            damageType = attackVerb?.let { mapAttackVerb(attackVerb) }
             damageRolls = rolls
             damageDice = dice
             this.flags = flags

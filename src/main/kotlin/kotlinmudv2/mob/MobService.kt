@@ -82,9 +82,9 @@ class MobService(private val itemService: ItemService) {
                 this.attributes = attributes
                 this.affects = affects
                 this.roomId = roomId
-                hp = "1d1+1"
-                mana = "1d1+1"
-                moves = "1d1+1"
+                hp = "1d1+20"
+                mana = "1d1+100"
+                moves = "1d1+100"
                 disposition = Disposition.Standing.toString()
                 maxInRoom = 1
                 maxInGame = 1

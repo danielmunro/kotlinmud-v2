@@ -24,9 +24,10 @@ fun createBackStabSkill(): Skill {
             val dexDiff = (mob.target?.attributes?.get(Attribute.Dex) ?: 0) - (mob.attributes[Attribute.Dex] ?: 0)
             d20() > 5 + dexDiff
         }
-    ) { _, mob, level ->
+    ) { actionService, mob, level ->
         mob.target?.let { target ->
             target.hp -= Random.nextInt(level - 5, level + 5)
+            actionService.damageReceived(mob, target)
         }
     }
 }

@@ -77,3 +77,8 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * Classes - done
 * Skills - done
 * Spells - done
+
+## Uncategorized Todos
+* damage and healing as events
+* more skills
+* more item, mob, room properties migrated from mhs source

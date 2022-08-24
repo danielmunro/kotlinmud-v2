@@ -26,7 +26,7 @@ fun createBashSkill(): Skill {
             val sizeDiff = (mob.target?.race?.size?.value ?: 0) - mob.race.size.value
             d20() <= 5 + sizeDiff
         },
-    ) { _, mob, level ->
+    ) { actionService, mob, level ->
         mob.target?.also { target ->
             val amount = (level / 3).coerceAtLeast(1)
             val affect = target.affects.find { it.type == AffectType.Stun }
@@ -45,6 +45,7 @@ fun createBashSkill(): Skill {
                 affect.timeout = (affect.timeout + amount).coerceAtMost(4)
             }
             target.hp -= Random.nextInt(amount - 1, amount + 1).coerceAtLeast(1)
+            actionService.damageReceived(mob, target)
         }
     }
 }

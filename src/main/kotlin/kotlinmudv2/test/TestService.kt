@@ -2,7 +2,6 @@ package kotlinmudv2.test
 
 import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.Response
-import kotlinmudv2.fight.FightService
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.item.Item
 import kotlinmudv2.item.ItemEntity
@@ -10,6 +9,7 @@ import kotlinmudv2.item.ItemFlag
 import kotlinmudv2.item.ItemService
 import kotlinmudv2.item.ItemType
 import kotlinmudv2.mob.Disposition
+import kotlinmudv2.mob.FightService
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobEntity
 import kotlinmudv2.mob.MobService

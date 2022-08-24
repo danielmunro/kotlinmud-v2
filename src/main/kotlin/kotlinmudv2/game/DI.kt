@@ -48,8 +48,9 @@ import kotlinmudv2.action.skills.createCastAction
 import kotlinmudv2.action.skills.createSkillAction
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.EventType
-import kotlinmudv2.fight.FightService
 import kotlinmudv2.item.ItemService
+import kotlinmudv2.mob.DeathService
+import kotlinmudv2.mob.FightService
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.mob.races.createDwarfRace
 import kotlinmudv2.mob.races.createElfRace
@@ -84,7 +85,8 @@ fun createContainer(port: Int): DI {
         bindSingleton { EventService() }
         bindSingleton { ClientService() }
         bindSingleton { ItemService() }
-        bindSingleton { FightService(instance(), instance()) }
+        bindSingleton { DeathService(instance(), instance()) }
+        bindSingleton { FightService(instance(), instance(), instance()) }
         bindSingleton { RoomService(instance()) }
         bindSingleton { MobService(instance()) }
         bindSingleton { AuthService(instance()) }
@@ -92,6 +94,7 @@ fun createContainer(port: Int): DI {
         bindSingleton { ContextService(instance(), instance(), instance(), instance()) }
         bindSingleton {
             ActionService(
+                instance(),
                 instance(),
                 instance(),
                 instance(),
