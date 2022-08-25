@@ -49,15 +49,18 @@ class ProcessClientBufferObserver(
 
         client.shiftInput().also {
             handleRequest(client, it).also { response ->
-                clientService.sendToRoom(
-                    RoomMessage(
-                        client.mob!!,
-                        response.toActionCreator,
-                        response.toRoom ?: "",
-                        client.mob?.target,
-                        response.toTarget,
+                // @todo fix this hack
+                if (response.toActionCreator != "") {
+                    clientService.sendToRoom(
+                        RoomMessage(
+                            client.mob!!,
+                            response.toActionCreator,
+                            response.toRoom ?: "",
+                            client.mob?.target,
+                            response.toTarget,
+                        )
                     )
-                )
+                }
             }
         }
     }

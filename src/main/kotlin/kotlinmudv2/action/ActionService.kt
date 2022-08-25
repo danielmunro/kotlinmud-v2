@@ -1,8 +1,10 @@
 package kotlinmudv2.action
 
+import kotlinmudv2.event.EventService
+import kotlinmudv2.event.createHitEvent
 import kotlinmudv2.item.Item
 import kotlinmudv2.item.ItemService
-import kotlinmudv2.mob.DeathService
+import kotlinmudv2.mob.Hit
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.room.Direction
@@ -16,7 +18,7 @@ class ActionService(
     private val mobService: MobService,
     private val itemService: ItemService,
     private val clientService: ClientService,
-    private val deathService: DeathService,
+    private val eventService: EventService,
 ) {
     fun getClients(): List<Client> {
         return clientService.getClients()
@@ -45,7 +47,7 @@ class ActionService(
         return itemService.clone(item)
     }
 
-    fun damageReceived(attacker: Mob, defender: Mob) {
-        deathService.damageReceived(attacker, defender)
+    suspend fun doHit(hit: Hit) {
+        eventService.publish(createHitEvent(hit))
     }
 }

@@ -2,10 +2,13 @@ package kotlinmudv2.skill.skills
 
 import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Attribute
+import kotlinmudv2.mob.Hit
 import kotlinmudv2.mob.Role
 import kotlinmudv2.skill.Cost
 import kotlinmudv2.skill.Skill
 import kotlinmudv2.skill.SkillName
+import kotlinmudv2.socket.RoomMessage
+import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 
 fun createBackStabSkill(): Skill {
@@ -17,7 +20,7 @@ fun createBackStabSkill(): Skill {
             Pair(Cost.Moves, 100),
             Pair(Cost.Delay, 2),
         ),
-        "you stab %s in the back, making them gasp in pain!",
+        "",
         "your backstab misses %s harmlessly",
         true,
         { _, mob ->
@@ -26,8 +29,24 @@ fun createBackStabSkill(): Skill {
         }
     ) { actionService, mob, level ->
         mob.target?.let { target ->
-            target.hp -= Random.nextInt(level - 5, level + 5)
-            actionService.damageReceived(mob, target)
+            val amount = Random.nextInt(level - 5, level + 5)
+            runBlocking {
+                actionService.doHit(
+                    Hit(
+                        mob,
+                        target,
+                        amount,
+                        mob.damageType(),
+                        RoomMessage(
+                            mob,
+                            "you stab ${target.name} in the back, making them gasp in pain!",
+                            "${mob.name} stabs ${target.name} in the back, making them gasp in pain!",
+                            target,
+                            "${mob.name} stabs you in the back, making you gasp in pain!",
+                        )
+                    )
+                )
+            }
         }
     }
 }

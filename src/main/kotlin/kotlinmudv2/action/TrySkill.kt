@@ -30,6 +30,6 @@ fun trySkill(
     skill.execute(actionService, mob, level)
     return Response(
         mob,
-        skill.success.format(mob.target!!.name),
+        "",
     )
 }

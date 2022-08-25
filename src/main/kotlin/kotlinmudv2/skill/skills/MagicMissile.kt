@@ -26,7 +26,7 @@ fun createMagicMissileSkill(): Skill {
         { actionService, mob, level ->
             val amount = level * 5
             mob.target?.hp = (mob.target?.hp ?: 0) - amount
-            actionService.damageReceived(mob, mob.target!!)
+//            actionService.damageReceived(mob, mob.target!!)
         },
     )
 }

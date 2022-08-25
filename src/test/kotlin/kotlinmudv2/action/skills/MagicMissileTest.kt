@@ -2,6 +2,7 @@ package kotlinmudv2.action.skills
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.skill.SkillName
 import kotlinmudv2.test.createTestService
 import kotlinmudv2.test.getIdentifyingWord
@@ -24,7 +25,7 @@ class MagicMissileTest {
         }
 
         // then
-        assertThat(response?.toActionCreator).isEqualTo("your magic missile grazes a test mob")
+        assertThat(response?.actionStatus).isEqualTo(ActionStatus.Success)
     }
 
     @Test
@@ -42,7 +43,7 @@ class MagicMissileTest {
         }
 
         // then
-        assertThat(response?.toActionCreator).isEqualTo("your magic missile grazes a test mob")
+        assertThat(response?.actionStatus).isEqualTo(ActionStatus.Success)
     }
 
     @Test
@@ -60,6 +61,6 @@ class MagicMissileTest {
         }
 
         // then
-        assertThat(response?.toActionCreator).isEqualTo("your magic missile grazes a test mob")
+        assertThat(response?.actionStatus).isEqualTo(ActionStatus.Success)
     }
 }
