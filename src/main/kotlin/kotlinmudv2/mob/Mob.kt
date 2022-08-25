@@ -2,7 +2,9 @@ package kotlinmudv2.mob
 
 import kotlinmudv2.game.Affect
 import kotlinmudv2.game.Attribute
+import kotlinmudv2.game.DamageType
 import kotlinmudv2.item.Item
+import kotlinmudv2.item.Position
 import kotlinmudv2.skill.SkillName
 
 open class Mob(
@@ -31,6 +33,10 @@ open class Mob(
         return (attributes[attribute] ?: 0) +
             (race.attributes[attribute] ?: 0) +
             (equipped.fold(0) { _, item -> item.attributes[attribute] ?: 0 })
+    }
+
+    fun damageType(): DamageType {
+        return equipped.find { it.position == Position.Weapon }?.damageType ?: DamageType.Bash
     }
 
     fun getHealthIndication(): String {

@@ -4,7 +4,6 @@ import kotlinmudv2.dice.d20
 import kotlinmudv2.event.EventService
 import kotlinmudv2.event.createHitEvent
 import kotlinmudv2.game.Attribute
-import kotlinmudv2.game.DamageType
 import kotlinmudv2.socket.ClientService
 import kotlinmudv2.socket.RoomMessage
 import kotlinx.coroutines.runBlocking
@@ -42,7 +41,6 @@ class FightService(
                     )
                     return@also
                 }
-
                 val damage = attacker.calc(Attribute.Dam)
                 runBlocking {
                     eventService.publish(
@@ -51,7 +49,14 @@ class FightService(
                                 attacker,
                                 target,
                                 damage,
-                                DamageType.Bash,
+                                attacker.damageType(),
+                                RoomMessage(
+                                    attacker,
+                                    "You hit ${target.name}, causing scratches",
+                                    "${attacker.name} hit ${target.name}, causing scratches",
+                                    target,
+                                    "${attacker.name} hit you, causing scratches",
+                                )
                             )
                         )
                     )
