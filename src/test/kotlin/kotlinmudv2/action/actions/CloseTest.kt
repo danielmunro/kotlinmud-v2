@@ -30,11 +30,12 @@ class CloseTest {
     }
 
     @Test
-    fun testCanOpenDoor() {
+    fun testCanCloseDoor() {
         // setup
         val test = createTestService()
 
         // given
+        val mob = test.getPlayerMob()
         setupDoor(test)
 
         // when
@@ -42,10 +43,11 @@ class CloseTest {
 
         // then
         assertThat(response.toActionCreator).isEqualTo("you close the door")
+        assertThat(response.toRoom).isEqualTo("$mob closes the door")
     }
 
     @Test
-    fun testCanOpenDoorByDirection() {
+    fun testCanCloseDoorByDirection() {
         // setup
         val test = createTestService()
 
@@ -60,7 +62,7 @@ class CloseTest {
     }
 
     @Test
-    fun testCannotOpenLockedDoor() {
+    fun testCannotCloseLockedDoor() {
         // setup
         val test = createTestService()
 
@@ -75,7 +77,7 @@ class CloseTest {
     }
 
     @Test
-    fun testCannotOpenDoorThatDoesNotExist() {
+    fun testCannotCloseDoorThatDoesNotExist() {
         // setup
         val test = createTestService()
 
