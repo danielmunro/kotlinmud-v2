@@ -33,7 +33,8 @@ fun createBuyAction(): Action {
         shopkeeper.coins += toBuy.value
         Response(
             mob,
-            "you buy ${item.name} for ${item.value} coins"
+            "you buy $item for ${item.value} gold",
+            "$mob buys $item",
         )
     }
 }

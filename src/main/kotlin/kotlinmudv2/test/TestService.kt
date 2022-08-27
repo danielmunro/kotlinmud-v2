@@ -12,6 +12,7 @@ import kotlinmudv2.mob.Disposition
 import kotlinmudv2.mob.FightService
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.MobEntity
+import kotlinmudv2.mob.MobFlag
 import kotlinmudv2.mob.MobService
 import kotlinmudv2.mob.PlayerMob
 import kotlinmudv2.mob.Role
@@ -68,7 +69,7 @@ class TestService(private val container: DI) {
         return roomService.connectRooms(sourceId, destination, exit)
     }
 
-    fun createMob(): Mob {
+    fun createMob(flags: List<MobFlag> = listOf()): Mob {
         return mobService.createMobEntity(
             "a test mob",
             "this is a test",
@@ -81,9 +82,14 @@ class TestService(private val container: DI) {
                 Pair(Attribute.Moves, 100),
             ),
             mutableListOf(),
+            flags,
         ).also {
             potentialTarget = it
         }
+    }
+
+    fun createShopkeeper(): Mob {
+        return createMob(listOf(MobFlag.Shopkeeper))
     }
 
     fun moveMob(mob: Mob, roomId: Int) {
@@ -98,6 +104,18 @@ class TestService(private val container: DI) {
         potentialTarget?.let {
             it.target = client.mob
             it.disposition = Disposition.Fighting
+        }
+    }
+
+    fun createPotionForShopkeeper(): Item {
+        return itemService.createFromEntity(
+            createPotion().also {
+                transaction {
+                    it.room = RoomEntity.findById(startRoomId)?.id
+                }
+            }
+        ).also {
+            potentialTarget?.items?.add(it)
         }
     }
 
@@ -252,7 +270,7 @@ class TestService(private val container: DI) {
                 material = "potion"
                 level = 1
                 weight = 1
-                value = 0
+                value = 1
                 flags = mutableListOf()
             }
         }

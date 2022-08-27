@@ -63,4 +63,8 @@ open class Mob(
         val movesGain = maxMoves / 3
         moves = (moves + movesGain).coerceAtMost(maxMoves)
     }
+
+    override fun toString(): String {
+        return name
+    }
 }

@@ -22,4 +22,8 @@ class Item(
     val damageRolls: Int? = null,
     val damageDice: Int? = null,
     val attackVerb: String? = null,
-)
+) {
+    override fun toString(): String {
+        return name
+    }
+}

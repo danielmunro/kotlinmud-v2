@@ -71,6 +71,7 @@ class MobService(private val itemService: ItemService) {
         roomId: Int,
         attributes: MutableMap<Attribute, Int>,
         affects: MutableList<Affect>,
+        flags: List<MobFlag> = listOf(),
     ): Mob {
         val entity = transaction {
             MobEntity.new {
@@ -89,7 +90,7 @@ class MobService(private val itemService: ItemService) {
                 maxInRoom = 1
                 maxInGame = 1
                 level = 1
-                flags = mutableListOf()
+                this.flags = flags.toMutableList()
                 coins = 200
             }
         }
