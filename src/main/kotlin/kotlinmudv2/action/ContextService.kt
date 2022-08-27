@@ -19,35 +19,40 @@ class ContextService(
                 it.startsWith(needle)
             } != null
         }
+
+        fun makeParts(input: String): List<String> {
+            val parts = mutableListOf<String>()
+            var isOpen = false
+            var buffer = ""
+            input.trim().forEach {
+                if (it == '\'') {
+                    if (isOpen) {
+                        parts.add(buffer)
+                        isOpen = false
+                        buffer = ""
+                    } else {
+                        isOpen = true
+                    }
+                } else if (it == ' ') {
+                    if (isOpen) {
+                        buffer += it
+                    } else if (buffer != "") {
+                        parts.add(buffer)
+                        buffer = ""
+                    }
+                } else {
+                    buffer += it
+                }
+            }
+            if (buffer != "") {
+                parts.add(buffer)
+            }
+            return parts
+        }
     }
 
     fun findActionForInput(client: Client, input: String): ActionWithContext? {
-        val parts = mutableListOf<String>()
-        var isOpen = false
-        var buffer = ""
-        input.trim().forEach {
-            if (it == '\'') {
-                if (isOpen) {
-                    parts.add(buffer)
-                    isOpen = false
-                    buffer = ""
-                } else {
-                    isOpen = true
-                }
-            } else if (it == ' ') {
-                if (isOpen) {
-                    buffer += it
-                } else if (buffer != "") {
-                    parts.add(buffer)
-                    buffer = ""
-                }
-            } else {
-                buffer += it
-            }
-        }
-        if (buffer != "") {
-            parts.add(buffer)
-        }
+        val parts = makeParts(input)
         val context = mutableMapOf<Int, Any>()
         return actions.find { action ->
             var i = 0
