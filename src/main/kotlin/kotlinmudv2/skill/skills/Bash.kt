@@ -1,5 +1,7 @@
 package kotlinmudv2.skill.skills
 
+import kotlinmudv2.action.Response
+import kotlinmudv2.action.errorResponse
 import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Affect
 import kotlinmudv2.game.AffectType
@@ -9,7 +11,6 @@ import kotlinmudv2.mob.Role
 import kotlinmudv2.skill.Cost
 import kotlinmudv2.skill.Skill
 import kotlinmudv2.skill.SkillName
-import kotlinmudv2.socket.RoomMessage
 import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 
@@ -30,7 +31,7 @@ fun createBashSkill(): Skill {
             d20() <= 5 + sizeDiff
         },
     ) { actionService, mob, level ->
-        mob.target?.also { target ->
+        mob.target?.let { target ->
             val initial = (level / 3).coerceAtLeast(1)
             val affect = target.affects.find { it.type == AffectType.Stun }
             val impact = (level / 5).coerceAtLeast(1)
@@ -55,16 +56,13 @@ fun createBashSkill(): Skill {
                         target,
                         amount,
                         mob.damageType(),
-                        RoomMessage(
-                            mob,
-                            "you slam into ${target.name} and send them flying!",
-                            "${mob.name} slams into ${target.name} and sends them flying!",
-                            target,
-                            "${mob.name} slams into you and sends you flying!"
-                        )
                     )
                 )
             }
-        }
+            Response(
+                mob,
+                "you slam into ${target.name} and send them flying!",
+            )
+        } ?: errorResponse(mob, "you don't have a target")
     }
 }

@@ -2,7 +2,6 @@ package kotlinmudv2.action.skills
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.skill.SkillName
 import kotlinmudv2.test.createTestService
 import kotlin.test.Test
@@ -21,7 +20,7 @@ class BashTest {
             it.moves = 100
         }
 
-        assertThat(response?.actionStatus).isEqualTo(ActionStatus.Success)
+        assertThat(response?.toActionCreator).isEqualTo("you slam into a test mob and send them flying!")
     }
 
     @Test
@@ -37,6 +36,6 @@ class BashTest {
             it.moves = 100
         }
 
-        assertThat(response?.actionStatus).isEqualTo(ActionStatus.Failure)
+        assertThat(response?.toActionCreator).isEqualTo("you fall flat on your face!")
     }
 }

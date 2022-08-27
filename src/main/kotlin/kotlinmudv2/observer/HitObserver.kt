@@ -12,7 +12,7 @@ class HitObserver(
     override suspend fun <T> invokeAsync(event: Event<T>) {
         val hit = event.subject as Hit
         hit.defender.hp -= hit.damage
-        clientService.sendToRoom(hit.roomMessage)
+        hit.roomMessage?.also { clientService.sendToRoom(it) }
         deathService.damageReceived(hit.attacker, hit.defender)
     }
 }

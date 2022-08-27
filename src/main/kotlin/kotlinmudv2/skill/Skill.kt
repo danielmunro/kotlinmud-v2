@@ -1,6 +1,7 @@
 package kotlinmudv2.skill
 
 import kotlinmudv2.action.ActionService
+import kotlinmudv2.action.Response
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.Role
 
@@ -13,7 +14,7 @@ class Skill(
     val failure: String,
     val isOffensive: Boolean,
     val rollCheck: (ActionService, Mob) -> Boolean,
-    val execute: (ActionService, Mob, Int) -> Unit,
+    val execute: (ActionService, Mob, Int) -> Response,
 ) {
     fun canApplyCosts(mob: Mob): Boolean {
         return costs.all {

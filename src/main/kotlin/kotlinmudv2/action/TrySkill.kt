@@ -27,9 +27,5 @@ fun trySkill(
             skill.failure.format(mob.target!!.name),
         )
     }
-    skill.execute(actionService, mob, level)
-    return Response(
-        mob,
-        "",
-    )
+    return skill.execute(actionService, mob, level)
 }

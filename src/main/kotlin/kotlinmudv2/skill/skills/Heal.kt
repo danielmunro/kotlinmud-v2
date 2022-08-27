@@ -1,5 +1,6 @@
 package kotlinmudv2.skill.skills
 
+import kotlinmudv2.action.Response
 import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.mob.Role
@@ -30,6 +31,10 @@ fun createHealSkill(): Skill {
                     mob.hp = it
                 }
             }
+            Response(
+                mob,
+                "you heal foo"
+            )
         },
     )
 }

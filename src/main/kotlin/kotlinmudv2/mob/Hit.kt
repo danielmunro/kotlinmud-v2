@@ -8,5 +8,5 @@ data class Hit(
     val defender: Mob,
     var damage: Int,
     val damageType: DamageType,
-    val roomMessage: RoomMessage,
+    val roomMessage: RoomMessage? = null,
 )
