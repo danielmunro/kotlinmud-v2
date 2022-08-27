@@ -8,6 +8,7 @@ fun errorResponse(mob: Mob, message: String): Response {
         message,
         null,
         null,
+        null,
         ActionStatus.Error,
     )
 }
@@ -16,6 +17,7 @@ fun failResponse(mob: Mob, message: String): Response {
     return Response(
         mob,
         message,
+        null,
         null,
         null,
         ActionStatus.Failure,
