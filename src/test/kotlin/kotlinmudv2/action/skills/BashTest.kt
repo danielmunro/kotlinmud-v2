@@ -12,15 +12,18 @@ class BashTest {
         // setup
         val test = createTestService()
 
-        test.getPlayerMob().skills[SkillName.Bash] = 1
-        test.createMob()
+        val mob = test.getPlayerMob()
+        mob.skills[SkillName.Bash] = 1
+        val target = test.createMob()
         test.setupFight()
 
         val response = test.repeatUntilSuccessful("bash") {
             it.moves = 100
         }
 
-        assertThat(response?.toActionCreator).isEqualTo("you slam into a test mob and send them flying!")
+        assertThat(response?.toActionCreator).isEqualTo("you slam into $target and send them flying!")
+        assertThat(response?.toRoom).isEqualTo("$mob slams into $target and sends them flying!")
+        assertThat(response?.toTarget).isEqualTo("$mob slams into you and sends you flying!")
     }
 
     @Test
@@ -28,8 +31,9 @@ class BashTest {
         // setup
         val test = createTestService()
 
-        test.getPlayerMob().skills[SkillName.Bash] = 1
-        test.createMob()
+        val mob = test.getPlayerMob()
+        mob.skills[SkillName.Bash] = 1
+        val target = test.createMob()
         test.setupFight()
 
         val response = test.repeatUntilFailed("bash") {
@@ -37,5 +41,7 @@ class BashTest {
         }
 
         assertThat(response?.toActionCreator).isEqualTo("you fall flat on your face!")
+        assertThat(response?.toRoom).isEqualTo("$mob tries to bash $target and falls flat on their face!")
+        assertThat(response?.toTarget).isEqualTo("$mob tries to bash you and falls flat on their face!")
     }
 }

@@ -1,5 +1,6 @@
 package kotlinmudv2.test
 
+import io.github.serpro69.kfaker.Faker
 import kotlinmudv2.action.ActionStatus
 import kotlinmudv2.action.Response
 import kotlinmudv2.game.Attribute
@@ -34,6 +35,7 @@ class TestService(private val container: DI) {
     private val roomService = container.direct.instance<RoomService>()
     private val mobService = container.direct.instance<MobService>()
     private val itemService = container.direct.instance<ItemService>()
+    private val faker = Faker()
     var startRoom: Room
     var potentialTarget: Mob? = null
     init {
@@ -71,7 +73,7 @@ class TestService(private val container: DI) {
 
     fun createMob(flags: List<MobFlag> = listOf()): Mob {
         return mobService.createMobEntity(
-            "a test mob",
+            faker.funnyName.name(),
             "this is a test",
             "a test mob created by TestService",
             createHumanRace(),

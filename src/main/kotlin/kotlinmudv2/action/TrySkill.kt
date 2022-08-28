@@ -16,18 +16,19 @@ fun trySkill(
         return request.respondError("you are already targeting someone else!")
     }
     skill.applyCosts(request.mob)
+    val target = specifiedTarget ?: request.mob.target
     if (!skill.rollCheck(request)) {
-        if (specifiedTarget != null) {
-            request.respondFailureWithTarget(
-                skill.failureMessages[0].format(specifiedTarget),
-                skill.failureMessages[1].format(request.mob, specifiedTarget),
-                specifiedTarget,
+        if (target != null) {
+            return request.respondFailureWithTarget(
+                skill.failureMessages[0].format(target),
+                skill.failureMessages[1].format(request.mob, target),
+                target,
                 skill.failureMessages[2].format(request.mob),
             )
         }
         return request.respondFailure(
-            skill.failureMessages[0].format(specifiedTarget),
-            skill.failureMessages[1].format(request.mob, specifiedTarget),
+            skill.failureMessages[0].format(target),
+            skill.failureMessages[1].format(request.mob, target),
         )
     }
     return skill.execute(request, level)
