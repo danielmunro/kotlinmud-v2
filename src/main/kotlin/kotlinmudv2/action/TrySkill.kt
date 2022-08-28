@@ -13,12 +13,15 @@ fun trySkill(
         return request.respondError("you are too tired and cannot do that")
     }
     if (!doTargeting(request.mob, skill, specifiedTarget)) {
+        if (specifiedTarget == null) {
+            return request.respondError("who are you trying to target?")
+        }
         return request.respondError("you are already targeting someone else!")
     }
     skill.applyCosts(request.mob)
-    val target = specifiedTarget ?: request.mob.target
+    val target = specifiedTarget ?: request.mob.target ?: request.mob
     if (!skill.rollCheck(request)) {
-        if (target != null) {
+        if (target != request.mob) {
             return request.respondFailureWithTarget(
                 skill.failureMessages[0].format(target),
                 skill.failureMessages[1].format(request.mob, target),
@@ -31,5 +34,5 @@ fun trySkill(
             skill.failureMessages[1].format(request.mob, target),
         )
     }
-    return skill.execute(request, level)
+    return skill.execute(request, target, level)
 }

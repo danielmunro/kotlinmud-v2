@@ -2,6 +2,9 @@ package kotlinmudv2.skill.skills
 
 import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Attribute
+import kotlinmudv2.game.DamageType
+import kotlinmudv2.mob.Hit
+import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.Role
 import kotlinmudv2.skill.Cost
 import kotlinmudv2.skill.Skill
@@ -26,14 +29,21 @@ fun createMagicMissileSkill(): Skill {
             val amount = (request.mob.attributes[Attribute.Int] ?: 0) - (request.mob.target?.attributes?.get(Attribute.Int) ?: 0)
             d20() > 5 - amount
         },
-        { request, level ->
+        { request, anyTarget, level ->
+            val target = anyTarget as Mob
             val amount = level * 5
-//            request.mob.target?.hp = (request.mob.target?.hp ?: 0) - amount
-//            actionService.damageReceived(mob, mob.target!!)
+            request.doHit(
+                Hit(
+                    request.mob,
+                    target,
+                    amount,
+                    DamageType.Energy,
+                )
+            )
             request.respondToRoomWithTarget(
                 "you cast 'magic missile', giving %s a glancing blow",
                 "%s casts 'magic missile', giving %s a glancing blow",
-                request.mob.target!!,
+                target,
                 "%s casts 'magic missile', giving you a glancing blow",
             )
         },

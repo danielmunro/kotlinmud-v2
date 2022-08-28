@@ -2,6 +2,7 @@ package kotlinmudv2.skill.skills
 
 import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Attribute
+import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.Role
 import kotlinmudv2.skill.Cost
 import kotlinmudv2.skill.Skill
@@ -25,17 +26,20 @@ fun createHealSkill(): Skill {
         { request ->
             d20() > 5 - ((request.mob.attributes[Attribute.Wis] ?: 0) / 5)
         },
-        { request, level ->
+        { request, anyTarget, level ->
+            val target = anyTarget as Mob
             val amount = level * 15
-            request.mob.hp += amount
-            request.mob.calc(Attribute.Hp).also {
-                if (it > request.mob.hp) {
-                    request.mob.hp = it
+            target.hp += amount
+            target.calc(Attribute.Hp).also {
+                if (it > target.hp) {
+                    target.hp = it
                 }
             }
-            request.respondToRoom(
+            request.respondToRoomWithTarget(
                 "you cast 'heal', %s feels better.",
                 "%s casts 'heal', %s feels better.",
+                target,
+                "%s casts 'heal', you feel better!",
             )
         },
     )

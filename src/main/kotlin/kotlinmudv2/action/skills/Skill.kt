@@ -12,9 +12,12 @@ fun createSkillAction(command: Command): Action {
     return Action(
         command,
         listOf(Syntax.Skill, Syntax.OptionalTarget),
-        listOf(Disposition.Fighting),
+        listOf(
+            Disposition.Fighting,
+            Disposition.Standing,
+        ),
     ) { request ->
         val ctx = request.context[0] as SkillContext
-        trySkill(request, ctx.skill, ctx.level, request.context[1] as Mob? ?: request.mob.target)
+        trySkill(request, ctx.skill, ctx.level, request.context[1] as Mob?)
     }
 }

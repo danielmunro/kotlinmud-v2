@@ -12,7 +12,10 @@ fun createCastAction(): Action {
     return Action(
         Command.Cast,
         listOf(Syntax.Command, Syntax.Skill, Syntax.OptionalTarget),
-        listOf(Disposition.Fighting, Disposition.Standing),
+        listOf(
+            Disposition.Fighting,
+            Disposition.Standing,
+        ),
     ) { request ->
         val ctx = request.context[1] as SkillContext
         trySkill(request, ctx.skill, ctx.level, request.context[2] as Mob?)

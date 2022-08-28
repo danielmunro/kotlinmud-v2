@@ -13,7 +13,7 @@ class Skill(
     val failureMessages: List<String>,
     val isOffensive: Boolean,
     val rollCheck: (Request) -> Boolean,
-    val execute: (Request, Int) -> Response,
+    val execute: (Request, target: Any, Int) -> Response,
 ) {
     fun canApplyCosts(mob: Mob): Boolean {
         return costs.all {
