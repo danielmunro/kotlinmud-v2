@@ -1,5 +1,6 @@
 package kotlinmudv2.game
 
+import io.github.serpro69.kfaker.Faker
 import kotlinmudv2.action.ActionService
 import kotlinmudv2.action.Command
 import kotlinmudv2.action.ContextService
@@ -93,6 +94,7 @@ fun createContainer(port: Int): DI {
         bindSingleton { AuthService(instance()) }
         bindSingleton { WebServerService(instance(), instance(), instance()) }
         bindSingleton { ContextService(instance(), instance(), instance(), instance()) }
+        bindSingleton { Faker() }
         bindSingleton {
             ActionService(
                 instance(),

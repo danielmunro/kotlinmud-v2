@@ -35,7 +35,7 @@ class TestService(private val container: DI) {
     private val roomService = container.direct.instance<RoomService>()
     private val mobService = container.direct.instance<MobService>()
     private val itemService = container.direct.instance<ItemService>()
-    private val faker = Faker()
+    private val faker = container.direct.instance<Faker>()
     var startRoom: Room
     var potentialTarget: Mob? = null
     init {
