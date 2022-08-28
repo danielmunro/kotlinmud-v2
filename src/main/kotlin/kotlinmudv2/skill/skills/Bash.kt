@@ -1,7 +1,5 @@
 package kotlinmudv2.skill.skills
 
-import kotlinmudv2.action.Response
-import kotlinmudv2.action.errorResponse
 import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Affect
 import kotlinmudv2.game.AffectType
@@ -11,7 +9,6 @@ import kotlinmudv2.mob.Role
 import kotlinmudv2.skill.Cost
 import kotlinmudv2.skill.Skill
 import kotlinmudv2.skill.SkillName
-import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 
 fun createBashSkill(): Skill {
@@ -23,15 +20,14 @@ fun createBashSkill(): Skill {
             Pair(Cost.Moves, 20),
             Pair(Cost.Delay, 2),
         ),
-        "you slam into %s and send them flying!",
         "you fall flat on your face!",
         true,
-        { _, mob ->
-            val sizeDiff = (mob.target?.race?.size?.value ?: 0) - mob.race.size.value
+        { request ->
+            val sizeDiff = (request.mob.target?.race?.size?.value ?: 0) - request.mob.race.size.value
             d20() <= 5 + sizeDiff
         },
-    ) { actionService, mob, level ->
-        mob.target?.let { target ->
+    ) { request, level ->
+        request.mob.target?.let { target ->
             val initial = (level / 3).coerceAtLeast(1)
             val affect = target.affects.find { it.type == AffectType.Stun }
             val impact = (level / 5).coerceAtLeast(1)
@@ -49,20 +45,20 @@ fun createBashSkill(): Skill {
                 affect.timeout = (affect.timeout + initial).coerceAtMost(4)
             }
             val amount = Random.nextInt(initial - 1, initial + 1).coerceAtLeast(1)
-            runBlocking {
-                actionService.doHit(
-                    Hit(
-                        mob,
-                        target,
-                        amount,
-                        mob.damageType(),
-                    )
+            request.doHit(
+                Hit(
+                    request.mob,
+                    target,
+                    amount,
+                    request.mob.damageType(),
                 )
-            }
-            Response(
-                mob,
-                "you slam into ${target.name} and send them flying!",
             )
-        } ?: errorResponse(mob, "you don't have a target")
+            request.respondToRoomWithTarget(
+                "you slam into $target and send them flying!",
+                "${request.mob} slams into $target and sends them flying!",
+                target,
+                "${request.mob} slams into you and sends you flying!",
+            )
+        } ?: request.respondError("you don't have a target")
     }
 }

@@ -13,8 +13,8 @@ fun createSkillAction(command: Command): Action {
         command,
         listOf(Syntax.Skill, Syntax.OptionalTarget),
         listOf(Disposition.Fighting),
-    ) { actionService, mob, context, _ ->
-        val ctx = context[0] as SkillContext
-        trySkill(actionService, mob, ctx.skill, ctx.level, context[1] as Mob?)
+    ) { request ->
+        val ctx = request.context[0] as SkillContext
+        trySkill(request, ctx.skill, ctx.level, request.context[1] as Mob?)
     }
 }

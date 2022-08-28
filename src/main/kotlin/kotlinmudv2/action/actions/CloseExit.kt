@@ -14,7 +14,7 @@ fun createCloseExitAction(): Action {
             Disposition.Standing,
             Disposition.Fighting,
         ),
-    ) { actionService, mob, context, _ ->
-        close(actionService, context[1] as Exit, mob)
+    ) { request ->
+        close(request, request.context[1] as Exit)
     }
 }

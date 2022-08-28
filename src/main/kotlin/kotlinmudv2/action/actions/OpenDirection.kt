@@ -11,7 +11,7 @@ fun createOpenDirectionAction(): Action {
         Command.Open,
         listOf(Syntax.Command, Syntax.Direction),
         listOf(Disposition.Standing, Disposition.Fighting),
-    ) { actionService, mob, context, _ ->
-        open(actionService, context[1] as Exit, mob)
+    ) { request ->
+        open(request, request.context[1] as Exit)
     }
 }

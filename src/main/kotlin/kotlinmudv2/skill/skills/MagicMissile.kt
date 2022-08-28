@@ -1,6 +1,5 @@
 package kotlinmudv2.skill.skills
 
-import kotlinmudv2.action.Response
 import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.mob.Role
@@ -17,19 +16,17 @@ fun createMagicMissileSkill(): Skill {
             Pair(Cost.Mana, 50),
             Pair(Cost.Delay, 1),
         ),
-        "your magic missile grazes %s",
         "you lose your concentration",
         true,
-        { _, mob ->
-            val amount = (mob.attributes[Attribute.Int] ?: 0) - (mob.target?.attributes?.get(Attribute.Int) ?: 0)
+        { request ->
+            val amount = (request.mob.attributes[Attribute.Int] ?: 0) - (request.mob.target?.attributes?.get(Attribute.Int) ?: 0)
             d20() > 5 - amount
         },
-        { actionService, mob, level ->
+        { request, level ->
             val amount = level * 5
-            mob.target?.hp = (mob.target?.hp ?: 0) - amount
+            request.mob.target?.hp = (request.mob.target?.hp ?: 0) - amount
 //            actionService.damageReceived(mob, mob.target!!)
-            Response(
-                mob,
+            request.respond(
                 "you magic missile them!"
             )
         },

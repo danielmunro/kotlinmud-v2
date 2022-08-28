@@ -1,30 +1,21 @@
 package kotlinmudv2.action.actions
 
-import kotlinmudv2.action.ActionService
+import kotlinmudv2.action.Request
 import kotlinmudv2.action.Response
-import kotlinmudv2.action.errorResponse
-import kotlinmudv2.mob.Mob
 import kotlinmudv2.room.Exit
 import kotlinmudv2.room.ExitStatus
 
-fun close(actionService: ActionService, exit: Exit, mob: Mob): Response {
+fun close(request: Request, exit: Exit): Response {
     if (exit.status == ExitStatus.Locked) {
-        return errorResponse(
-            mob,
-            "the ${exit.keyword} is locked"
-        )
+        return request.respondError("the ${exit.keyword} is locked")
     }
     if (exit.status == ExitStatus.Closed) {
-        return errorResponse(
-            mob,
-            "the ${exit.keyword} is already closed"
-        )
+        return request.respondError("the ${exit.keyword} is already closed")
     }
     exit.status = ExitStatus.Closed
-    actionService.getRoom(exit.roomId)?.exits?.find { it.roomId == mob.roomId }?.status = ExitStatus.Closed
-    return Response(
-        mob,
+    request.getRoom(exit.roomId)?.exits?.find { it.roomId == request.mob.roomId }?.status = ExitStatus.Closed
+    return request.respondToRoom(
         "you close the ${exit.keyword}",
-        "$mob closes the ${exit.keyword}",
+        "${request.mob} closes the ${exit.keyword}",
     )
 }

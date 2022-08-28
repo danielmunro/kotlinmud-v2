@@ -2,7 +2,6 @@ package kotlinmudv2.action.actions
 
 import kotlinmudv2.action.Action
 import kotlinmudv2.action.Command
-import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.item.Item
 import kotlinmudv2.item.ItemFlag
@@ -14,27 +13,26 @@ fun createBuyAction(): Action {
         Command.Buy,
         listOf(Syntax.Command, Syntax.ItemInMobInventoryInRoom),
         alertDisposition(),
-    ) { actionService, mob, context, _ ->
-        val item = context[1] as Item
-        val shopkeeper = actionService.getMobsInRoom(mob.roomId).find {
+    ) { request ->
+        val item = request.context[1] as Item
+        val shopkeeper = request.getMobsInRoom().find {
             it.flags.contains(MobFlag.Shopkeeper)
-        } ?: return@Action Response(mob, "there are no shopkeepers here")
-        if (item.value > mob.coins) {
-            return@Action Response(mob, "you cannot afford that")
+        } ?: return@Action request.respondError("there are no shopkeepers here")
+        if (item.value > request.mob.coins) {
+            return@Action request.respondError("you cannot afford that")
         }
         val toBuy = if (item.flags.contains(ItemFlag.ShopInventory)) {
-            actionService.cloneItem(item)
+            request.cloneItem(item)
         } else {
             shopkeeper.items.remove(item)
             item
         }
-        mob.items.add(toBuy)
-        mob.coins -= toBuy.value
+        request.mob.items.add(toBuy)
+        request.mob.coins -= toBuy.value
         shopkeeper.coins += toBuy.value
-        Response(
-            mob,
+        request.respondToRoom(
             "you buy $item for ${item.value} gold",
-            "$mob buys $item",
+            "${request.mob} buys $item",
         )
     }
 }

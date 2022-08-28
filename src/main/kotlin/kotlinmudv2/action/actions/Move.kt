@@ -14,30 +14,30 @@ private fun createMoveAction(command: Command, direction: Direction): Action {
         command,
         listOf(Syntax.Command),
         listOf(Disposition.Standing),
-    ) { actionService, mob, context, _ ->
-        if (mob.target != null) {
+    ) { request ->
+        if (request.mob.target != null) {
             return@Action errorResponse(
-                mob,
+                request.mob,
                 "you are fighting and can't do that!",
             )
         }
-        if (mob.moves < 1) {
+        if (request.mob.moves < 1) {
             return@Action errorResponse(
-                mob,
+                request.mob,
                 "you are too tired to move.",
             )
         }
-        val exit = actionService.getRoom(mob.roomId)?.exits?.find { it.direction == direction }
+        val exit = request.getRoom()?.exits?.find { it.direction == direction }
         if (exit?.keyword != null && exit.status != ExitStatus.Open) {
             return@Action Response(
-                mob,
+                request.mob,
                 "the ${exit.keyword} is ${exit.status?.name?.lowercase()}",
             )
         }
-        mob.moves -= 1
-        actionService.moveMob(mob, direction)?.let {
-            createLookAction().execute(actionService, mob, context, "look")
-        } ?: errorResponse(mob, "Alas, that direction does not exist.")
+        request.mob.moves -= 1
+        request.moveMob(direction)?.let {
+            createLookAction().execute(request)
+        } ?: errorResponse(request.mob, "Alas, that direction does not exist.")
     }
 }
 

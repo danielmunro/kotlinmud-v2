@@ -7,6 +7,6 @@ class ActionWithContext(
     private val context: Map<Int, Any>
 ) {
     fun execute(actionService: ActionService, mob: Mob, input: String): Response {
-        return action.execute(actionService, mob, context, input)
+        return action.execute(Request(actionService, mob, context, input))
     }
 }

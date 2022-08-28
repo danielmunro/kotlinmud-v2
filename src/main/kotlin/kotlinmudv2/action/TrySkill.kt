@@ -5,27 +5,20 @@ import kotlinmudv2.mob.Mob
 import kotlinmudv2.skill.Skill
 
 fun trySkill(
-    actionService: ActionService,
-    mob: Mob,
+    request: Request,
     skill: Skill,
     level: Int,
     specifiedTarget: Mob?,
 ): Response {
-    if (!skill.canApplyCosts(mob)) {
-        return tooTired(mob)
+    if (!skill.canApplyCosts(request.mob)) {
+        return tooTired(request.mob)
     }
-    if (!doTargeting(mob, skill, specifiedTarget)) {
-        return errorResponse(
-            mob,
-            "you are already targeting someone else!",
-        )
+    if (!doTargeting(request.mob, skill, specifiedTarget)) {
+        return request.respondError("you are already targeting someone else!")
     }
-    skill.applyCosts(mob)
-    if (!skill.rollCheck(actionService, mob)) {
-        return failResponse(
-            mob,
-            skill.failure.format(mob.target!!.name),
-        )
+    skill.applyCosts(request.mob)
+    if (!skill.rollCheck(request)) {
+        return request.respondFailure(skill.failure.format(request.mob.target!!.name))
     }
-    return skill.execute(actionService, mob, level)
+    return skill.execute(request, level)
 }
