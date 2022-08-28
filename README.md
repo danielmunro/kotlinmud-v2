@@ -2,6 +2,8 @@
 
 A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=danielmunro_kotlinmudv2&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=danielmunro_kotlinmudv2)
+
 ## Todo - M1 - Done
 
 * Ticks - done
