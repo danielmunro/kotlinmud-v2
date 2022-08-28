@@ -80,4 +80,23 @@ class BashTest {
         // then
         assertThat(response.toActionCreator).isEqualTo("you are already targeting someone else!")
     }
+
+    @Test
+    fun testSkillRequiresCosts() {
+        // setup
+        val test = createTestService()
+
+        // given
+        val mob = test.getPlayerMob()
+        mob.skills[SkillName.Bash] = 1
+        mob.moves = 0
+        test.createMob()
+        test.setupFight()
+
+        // when
+        val response = test.handleRequest("bash")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("you are too tired and cannot do that")
+    }
 }
