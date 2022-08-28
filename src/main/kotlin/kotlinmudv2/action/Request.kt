@@ -74,13 +74,24 @@ class Request(
         )
     }
 
-    fun respondFailure(message: String): Response {
+    fun respondFailure(toActionCreator: String, toRoom: String): Response {
         return Response(
             mob,
-            message,
+            toActionCreator,
+            toRoom,
             null,
             null,
-            null,
+            ActionStatus.Failure,
+        )
+    }
+
+    fun respondFailureWithTarget(toActionCreator: String, toRoom: String, target: Mob, toTarget: String): Response {
+        return Response(
+            mob,
+            toActionCreator,
+            toRoom,
+            target,
+            toTarget,
             ActionStatus.Failure,
         )
     }

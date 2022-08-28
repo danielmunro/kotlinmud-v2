@@ -10,7 +10,7 @@ class Skill(
     val roles: List<Role>,
     val level: Int,
     val costs: List<Pair<Cost, Int>>,
-    val failure: String,
+    val failureMessages: List<String>,
     val isOffensive: Boolean,
     val rollCheck: (Request) -> Boolean,
     val execute: (Request, Int) -> Response,
@@ -29,7 +29,7 @@ class Skill(
     fun applyCosts(mob: Mob) {
         costs.forEach {
             when (it.first) {
-                Cost.Delay -> null
+                Cost.Delay -> {}
                 Cost.Hp -> mob.hp -= it.second
                 Cost.Mana -> mob.mana -= it.second
                 Cost.Moves -> mob.moves -= it.second

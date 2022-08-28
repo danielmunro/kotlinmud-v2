@@ -16,7 +16,11 @@ fun createMagicMissileSkill(): Skill {
             Pair(Cost.Mana, 50),
             Pair(Cost.Delay, 1),
         ),
-        "you lose your concentration",
+        listOf(
+            "you lose your concentration",
+            "%s loses their concentration",
+            "%s loses their concentration",
+        ),
         true,
         { request ->
             val amount = (request.mob.attributes[Attribute.Int] ?: 0) - (request.mob.target?.attributes?.get(Attribute.Int) ?: 0)
@@ -24,10 +28,13 @@ fun createMagicMissileSkill(): Skill {
         },
         { request, level ->
             val amount = level * 5
-            request.mob.target?.hp = (request.mob.target?.hp ?: 0) - amount
+//            request.mob.target?.hp = (request.mob.target?.hp ?: 0) - amount
 //            actionService.damageReceived(mob, mob.target!!)
-            request.respond(
-                "you magic missile them!"
+            request.respondToRoomWithTarget(
+                "you cast 'magic missile', giving %s a glancing blow",
+                "%s casts 'magic missile', giving %s a glancing blow",
+                request.mob.target!!,
+                "%s casts 'magic missile', giving you a glancing blow",
             )
         },
     )

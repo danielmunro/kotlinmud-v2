@@ -20,7 +20,11 @@ fun createBashSkill(): Skill {
             Pair(Cost.Moves, 20),
             Pair(Cost.Delay, 2),
         ),
-        "you fall flat on your face!",
+        listOf(
+            "you fall flat on your face!",
+            "%s tries to bash %s and falls flat on their face!",
+            "%s tries to bash you and falls flat on their face!",
+        ),
         true,
         { request ->
             val sizeDiff = (request.mob.target?.race?.size?.value ?: 0) - request.mob.race.size.value

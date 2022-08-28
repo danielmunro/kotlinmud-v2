@@ -18,7 +18,11 @@ fun createBackStabSkill(): Skill {
             Pair(Cost.Moves, 100),
             Pair(Cost.Delay, 2),
         ),
-        "your backstab misses %s harmlessly",
+        listOf(
+            "your backstab misses %s harmlessly",
+            "%s's backstab misses %s harmlessly",
+            "%s's backstab misses you harmlessly",
+        ),
         true,
         { request ->
             val dexDiff = (request.mob.target?.attributes?.get(Attribute.Dex) ?: 0) - (request.mob.attributes[Attribute.Dex] ?: 0)

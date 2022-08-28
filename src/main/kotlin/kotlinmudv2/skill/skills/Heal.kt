@@ -16,7 +16,11 @@ fun createHealSkill(): Skill {
             Pair(Cost.Mana, 100),
             Pair(Cost.Delay, 1),
         ),
-        "you lose your concentration",
+        listOf(
+            "you lose your concentration",
+            "%s loses their concentration",
+            "%s loses their concentration",
+        ),
         false,
         { request ->
             d20() > 5 - ((request.mob.attributes[Attribute.Wis] ?: 0) / 5)
@@ -29,8 +33,9 @@ fun createHealSkill(): Skill {
                     request.mob.hp = it
                 }
             }
-            request.respond(
-                "you heal foo"
+            request.respondToRoom(
+                "you cast 'heal', %s feels better.",
+                "%s casts 'heal', %s feels better.",
             )
         },
     )
