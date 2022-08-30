@@ -6,6 +6,7 @@ import kotlinmudv2.mob.Mob
 import kotlinmudv2.room.Direction
 import kotlinmudv2.room.Room
 import kotlinmudv2.socket.Client
+import kotlinmudv2.socket.RoomMessage
 import kotlinx.coroutines.runBlocking
 
 class Request(
@@ -36,6 +37,10 @@ class Request(
 
     fun doHit(hit: Hit) {
         runBlocking { actionService.doHit(hit) }
+    }
+
+    fun sendToRoom(roomMessage: RoomMessage) {
+        actionService.sendToRoom(roomMessage)
     }
 
     fun respondToRoom(toActionCreator: String, toRoom: String): Response {

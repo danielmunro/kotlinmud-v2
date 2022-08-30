@@ -7,6 +7,7 @@ import kotlinmudv2.mob.Role
 import kotlinmudv2.skill.Cost
 import kotlinmudv2.skill.Skill
 import kotlinmudv2.skill.SkillName
+import kotlinmudv2.socket.RoomMessage
 
 fun createHealSkill(): Skill {
     return Skill(
@@ -35,11 +36,18 @@ fun createHealSkill(): Skill {
                     target.hp = it
                 }
             }
+            request.sendToRoom(
+                RoomMessage(
+                    request.mob,
+                    "you cast 'heal'",
+                    "${request.mob} casts 'heal'",
+                )
+            )
             request.respondToRoomWithTarget(
-                "you cast 'heal', %s feels better.",
-                "%s casts 'heal', %s feels better.",
+                "$target feels better.",
+                "$target feels better.",
                 target,
-                "%s casts 'heal', you feel better!",
+                "you feel better!",
             )
         },
     )

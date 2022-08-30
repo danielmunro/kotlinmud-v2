@@ -12,6 +12,7 @@ import kotlinmudv2.room.Room
 import kotlinmudv2.room.RoomService
 import kotlinmudv2.socket.Client
 import kotlinmudv2.socket.ClientService
+import kotlinmudv2.socket.RoomMessage
 
 class ActionService(
     private val roomService: RoomService,
@@ -20,6 +21,10 @@ class ActionService(
     private val clientService: ClientService,
     private val eventService: EventService,
 ) {
+    fun sendToRoom(roomMessage: RoomMessage) {
+        clientService.sendToRoom(roomMessage)
+    }
+
     fun getClients(): List<Client> {
         return clientService.getClients()
     }

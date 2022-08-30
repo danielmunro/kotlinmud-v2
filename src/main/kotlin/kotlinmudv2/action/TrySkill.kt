@@ -19,7 +19,13 @@ fun trySkill(
         return request.respondError("you are already targeting someone else!")
     }
     skill.applyCosts(request.mob)
-    val target = specifiedTarget ?: request.mob.target ?: request.mob
+    val target = if (specifiedTarget != null) {
+        specifiedTarget
+    } else if (skill.isOffensive) {
+        request.mob.target
+    } else {
+        request.mob
+    }!!
     if (!skill.rollCheck(request)) {
         if (target != request.mob) {
             return request.respondFailureWithTarget(
