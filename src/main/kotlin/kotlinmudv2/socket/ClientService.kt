@@ -30,7 +30,9 @@ class ClientService {
         }
 
         // send to action creator
-        mobsInRoom[roomMessage.actionCreator]?.write(roomMessage.toActionCreator)
+        if (roomMessage.actionCreator != roomMessage.target) {
+            mobsInRoom[roomMessage.actionCreator]?.write(roomMessage.toActionCreator)
+        }
 
         // send to target
         roomMessage.target?.also { mobsInRoom[roomMessage.target]?.write(roomMessage.toTarget!!) }

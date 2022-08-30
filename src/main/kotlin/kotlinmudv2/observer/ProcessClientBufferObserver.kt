@@ -54,7 +54,7 @@ class ProcessClientBufferObserver(
                         client.mob!!,
                         response.toActionCreator,
                         response.toRoom ?: "",
-                        client.mob?.target,
+                        response.target,
                         response.toTarget,
                     )
                 )
