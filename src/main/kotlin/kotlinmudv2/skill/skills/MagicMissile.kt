@@ -9,6 +9,7 @@ import kotlinmudv2.mob.Role
 import kotlinmudv2.skill.Cost
 import kotlinmudv2.skill.Skill
 import kotlinmudv2.skill.SkillName
+import kotlinmudv2.socket.RoomMessage
 
 fun createMagicMissileSkill(): Skill {
     return Skill(
@@ -40,11 +41,20 @@ fun createMagicMissileSkill(): Skill {
                     DamageType.Energy,
                 )
             )
+            request.sendToRoom(
+                RoomMessage(
+                    request.mob,
+                    "you cast 'magic missile'",
+                    "${request.mob} casts 'magic missile'",
+                    target,
+                    "${request.mob} casts 'magic missile'",
+                )
+            )
             request.respondToRoomWithTarget(
-                "you cast 'magic missile', giving %s a glancing blow",
-                "%s casts 'magic missile', giving %s a glancing blow",
+                "a bolt of magic leaps from your hand, leaving $target a glancing blow",
+                "a bolt of magic leaps from ${request.mob}'s hand, leaving $target a glancing blow",
                 target,
-                "%s casts 'magic missile', giving you a glancing blow",
+                "a bolt of magic leaps from ${request.mob}'s hand, leaving you a glancing blow",
             )
         },
     )

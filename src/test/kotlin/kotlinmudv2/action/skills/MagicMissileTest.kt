@@ -15,8 +15,9 @@ class MagicMissileTest {
         val test = createTestService()
 
         // given
-        test.getPlayerMob().skills[SkillName.MagicMissile] = 1
-        test.createMob()
+        val mob = test.getPlayerMob()
+        mob.skills[SkillName.MagicMissile] = 1
+        val target = test.createMob()
         test.setupFight()
 
         // when
@@ -25,7 +26,9 @@ class MagicMissileTest {
         }
 
         // then
-        assertThat(response?.actionStatus).isEqualTo(ActionStatus.Success)
+        assertThat(response?.toActionCreator).isEqualTo("a bolt of magic leaps from your hand, leaving $target a glancing blow")
+        assertThat(response?.toRoom).isEqualTo("a bolt of magic leaps from $mob's hand, leaving $target a glancing blow")
+        assertThat(response?.toTarget).isEqualTo("a bolt of magic leaps from $mob's hand, leaving you a glancing blow")
     }
 
     @Test
