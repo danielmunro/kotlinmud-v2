@@ -3,6 +3,7 @@ package kotlinmudv2.action
 enum class Command(val value: String) {
     // information
     Look("look"),
+    Exits("exits"),
 
     // potions
     Quaff("quaff"),

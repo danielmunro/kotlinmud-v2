@@ -13,6 +13,7 @@ import kotlinmudv2.action.actions.createDownAction
 import kotlinmudv2.action.actions.createDropAction
 import kotlinmudv2.action.actions.createDropErrorAction
 import kotlinmudv2.action.actions.createEastAction
+import kotlinmudv2.action.actions.createExitsAction
 import kotlinmudv2.action.actions.createFleeAction
 import kotlinmudv2.action.actions.createGetAction
 import kotlinmudv2.action.actions.createGetErrorAction
@@ -131,6 +132,7 @@ fun createContainer(port: Int): DI {
                 createLookAtItemInRoomAction(),
                 createLookAtItemInInventoryAction(),
                 createLookAction(),
+                createExitsAction(),
                 createQuaffAction(),
                 createQuaffErrorAction(),
                 createSayAction(),

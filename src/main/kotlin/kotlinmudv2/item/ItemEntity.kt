@@ -33,11 +33,11 @@ class ItemEntity(id: EntityID<Int>) : IntEntity(id) {
     var room by ItemTable.room
     var attackVerb by ItemTable.attackVerb
     var damageType by ItemTable.damageType.transform(
-        { it.toString() },
+        { it?.toString() },
         { it?.let { DamageType.valueOf(it) } },
     )
     var weaponType by ItemTable.weaponType.transform(
-        { it.toString() },
+        { it?.toString() },
         { it?.let { WeaponType.valueOf(it) } },
     )
     var damageRolls by ItemTable.damageRolls
