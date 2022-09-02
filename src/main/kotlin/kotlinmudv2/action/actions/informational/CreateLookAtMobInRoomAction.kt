@@ -1,4 +1,4 @@
-package kotlinmudv2.action.actions
+package kotlinmudv2.action.actions.informational
 
 import kotlinmudv2.action.Action
 import kotlinmudv2.action.Command

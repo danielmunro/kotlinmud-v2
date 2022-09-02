@@ -4,6 +4,7 @@ import kotlinmudv2.action.Action
 import kotlinmudv2.action.Command
 import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
+import kotlinmudv2.action.actions.informational.createLookAction
 import kotlinmudv2.action.errorResponse
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.room.Direction
