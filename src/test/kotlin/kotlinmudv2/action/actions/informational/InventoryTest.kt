@@ -1,4 +1,4 @@
-package kotlinmudv2.action.actions
+package kotlinmudv2.action.actions.informational
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo

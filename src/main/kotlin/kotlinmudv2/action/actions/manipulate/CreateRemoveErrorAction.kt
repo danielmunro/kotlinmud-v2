@@ -1,16 +1,16 @@
-package kotlinmudv2.action.actions
+package kotlinmudv2.action.actions.manipulate
 
 import kotlinmudv2.action.Action
 import kotlinmudv2.action.Command
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.mob.alertDisposition
 
-fun createGetErrorAction(): Action {
+fun createRemoveErrorAction(): Action {
     return Action(
-        Command.Get,
+        Command.Remove,
         listOf(Syntax.Command, Syntax.FreeForm),
         alertDisposition(),
     ) { request ->
-        request.respondError("you don't see that anywhere.")
+        request.respondError("you are not wearing that.")
     }
 }

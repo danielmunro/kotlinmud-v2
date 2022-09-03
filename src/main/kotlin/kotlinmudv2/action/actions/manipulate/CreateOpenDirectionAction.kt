@@ -1,4 +1,4 @@
-package kotlinmudv2.action.actions
+package kotlinmudv2.action.actions.manipulate
 
 import kotlinmudv2.action.Action
 import kotlinmudv2.action.Command
@@ -6,15 +6,12 @@ import kotlinmudv2.action.Syntax
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.room.Exit
 
-fun createCloseDirectionAction(): Action {
+fun createOpenDirectionAction(): Action {
     return Action(
-        Command.Close,
+        Command.Open,
         listOf(Syntax.Command, Syntax.Direction),
-        listOf(
-            Disposition.Standing,
-            Disposition.Fighting,
-        ),
+        listOf(Disposition.Standing, Disposition.Fighting),
     ) { request ->
-        close(request, request.context[1] as Exit)
+        open(request, request.context[1] as Exit)
     }
 }

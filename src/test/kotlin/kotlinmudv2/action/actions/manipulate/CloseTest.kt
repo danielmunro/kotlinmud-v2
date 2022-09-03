@@ -1,4 +1,4 @@
-package kotlinmudv2.action.actions
+package kotlinmudv2.action.actions.manipulate
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
@@ -11,8 +11,8 @@ import kotlinmudv2.test.createTestService
 import org.jetbrains.exposed.sql.transactions.transaction
 import kotlin.test.Test
 
-class OpenTest {
-    private fun setupDoor(test: TestService, status: ExitStatus = ExitStatus.Closed) {
+class CloseTest {
+    private fun setupDoor(test: TestService, status: ExitStatus = ExitStatus.Open) {
         val destinationId: Int
         test.createRoom(
             transaction {
@@ -30,7 +30,24 @@ class OpenTest {
     }
 
     @Test
-    fun testCanOpenDoor() {
+    fun testCanCloseDoor() {
+        // setup
+        val test = createTestService()
+
+        // given
+        val mob = test.getPlayerMob()
+        setupDoor(test)
+
+        // when
+        val response = test.handleRequest("close door")
+
+        // then
+        assertThat(response.toActionCreator).isEqualTo("you close the door")
+        assertThat(response.toRoom).isEqualTo("$mob closes the door")
+    }
+
+    @Test
+    fun testCanCloseDoorByDirection() {
         // setup
         val test = createTestService()
 
@@ -38,29 +55,14 @@ class OpenTest {
         setupDoor(test)
 
         // when
-        val response = test.handleRequest("open door")
+        val response = test.handleRequest("close north")
 
         // then
-        assertThat(response.toActionCreator).isEqualTo("you open the door")
+        assertThat(response.toActionCreator).isEqualTo("you close the door")
     }
 
     @Test
-    fun testCanOpenDoorByDirection() {
-        // setup
-        val test = createTestService()
-
-        // given
-        setupDoor(test)
-
-        // when
-        val response = test.handleRequest("open north")
-
-        // then
-        assertThat(response.toActionCreator).isEqualTo("you open the door")
-    }
-
-    @Test
-    fun testCannotOpenLockedDoor() {
+    fun testCannotCloseLockedDoor() {
         // setup
         val test = createTestService()
 
@@ -68,21 +70,21 @@ class OpenTest {
         setupDoor(test, ExitStatus.Locked)
 
         // when
-        val response = test.handleRequest("open north")
+        val response = test.handleRequest("close north")
 
         // then
         assertThat(response.toActionCreator).isEqualTo("the door is locked")
     }
 
     @Test
-    fun testCannotOpenDoorThatDoesNotExist() {
+    fun testCannotCloseDoorThatDoesNotExist() {
         // setup
         val test = createTestService()
 
         // when
-        val response = test.handleRequest("open north")
+        val response = test.handleRequest("close north")
 
         // then
-        assertThat(response.toActionCreator).isEqualTo("you can't open anything like that.")
+        assertThat(response.toActionCreator).isEqualTo("you can't close anything like that.")
     }
 }
