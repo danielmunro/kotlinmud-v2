@@ -4,6 +4,9 @@ import io.github.serpro69.kfaker.Faker
 import kotlinmudv2.action.ActionService
 import kotlinmudv2.action.Command
 import kotlinmudv2.action.ContextService
+import kotlinmudv2.action.actions.combat.createFleeAction
+import kotlinmudv2.action.actions.combat.createKillAction
+import kotlinmudv2.action.actions.combat.createKillErrorAction
 import kotlinmudv2.action.actions.commerce.createBuyAction
 import kotlinmudv2.action.actions.commerce.createBuyErrorAction
 import kotlinmudv2.action.actions.commerce.createListAction
@@ -16,11 +19,8 @@ import kotlinmudv2.action.actions.createDownAction
 import kotlinmudv2.action.actions.createDropAction
 import kotlinmudv2.action.actions.createDropErrorAction
 import kotlinmudv2.action.actions.createEastAction
-import kotlinmudv2.action.actions.createFleeAction
 import kotlinmudv2.action.actions.createGetAction
 import kotlinmudv2.action.actions.createGetErrorAction
-import kotlinmudv2.action.actions.createKillAction
-import kotlinmudv2.action.actions.createKillErrorAction
 import kotlinmudv2.action.actions.createLevelAction
 import kotlinmudv2.action.actions.createNorthAction
 import kotlinmudv2.action.actions.createOpenDirectionAction
