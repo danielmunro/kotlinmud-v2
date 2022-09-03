@@ -1,22 +1,22 @@
-package kotlinmudv2.action.actions
+package kotlinmudv2.action.actions.social
 
 import kotlinmudv2.action.Action
 import kotlinmudv2.action.Command
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.mob.anyDisposition
 
-fun createGossipAction(): Action {
+fun createSayAction(): Action {
     return Action(
-        Command.Gossip,
+        Command.Say,
         listOf(Syntax.Command, Syntax.FreeForm),
         anyDisposition(),
     ) { request ->
-        val gossip = request.context[1] as String
+        val say = request.context[1] as String
         request.getClients().filter {
-            it.mob != request.mob
+            it.mob?.roomId == request.mob.roomId && it.mob != request.mob
         }.forEach {
-            it.write("${request.mob} gossips, \"$gossip\"")
+            it.write("${request.mob} says, \"$say\"")
         }
-        request.respond("you gossip, \"$gossip\"")
+        request.respond("you say, \"$say\"")
     }
 }
