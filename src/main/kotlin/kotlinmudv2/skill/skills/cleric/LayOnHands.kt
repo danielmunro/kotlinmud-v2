@@ -10,9 +10,9 @@ import kotlinmudv2.skill.SkillName
 import kotlinmudv2.skill.Spell
 import kotlinmudv2.socket.RoomMessage
 
-fun createHealSkill(): Skill {
+fun createLayOnHandsSkill(): Skill {
     return Spell(
-        SkillName.Heal,
+        SkillName.LayOnHands,
         listOf(Role.Cleric),
         1,
         listOf(
@@ -25,7 +25,8 @@ fun createHealSkill(): Skill {
         },
         { request, anyTarget, level ->
             val target = anyTarget as Mob
-            val amount = level * 15
+            val amount = Math.max(level * 30, request.mob.hp - 20)
+            request.mob.hp -= amount
             target.hp += amount
             target.calc(Attribute.Hp).also {
                 if (it > target.hp) {
@@ -35,15 +36,15 @@ fun createHealSkill(): Skill {
             request.sendToRoom(
                 RoomMessage(
                     request.mob,
-                    "you cast 'heal'",
-                    "${request.mob} casts 'heal'",
+                    "you cast 'lay on hands'",
+                    "${request.mob} casts 'lay on hands'",
                 )
             )
             request.respondToRoomWithTarget(
-                "$target feels better.",
-                "$target feels better.",
+                "you lay hands on $target, boosting their health.",
+                "${request.mob} lays hands on $target, boosting their health.",
                 target,
-                "you feel better!",
+                "${request.mob} lays hands on you, boosting your health.",
             )
         },
     )

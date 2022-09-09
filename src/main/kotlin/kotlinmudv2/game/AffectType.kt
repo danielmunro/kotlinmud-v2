@@ -5,4 +5,6 @@ enum class AffectType {
     Weaken,
     GiantStrength,
     Stun,
+    Hamstrung,
+    Blind,
 }

@@ -1,4 +1,4 @@
-package kotlinmudv2.skill.skills
+package kotlinmudv2.skill.skills.warrior
 
 import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Affect

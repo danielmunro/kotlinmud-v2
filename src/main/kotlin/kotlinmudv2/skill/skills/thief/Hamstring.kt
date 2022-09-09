@@ -1,6 +1,8 @@
 package kotlinmudv2.skill.skills.thief
 
 import kotlinmudv2.dice.d20
+import kotlinmudv2.game.Affect
+import kotlinmudv2.game.AffectType
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.mob.Hit
 import kotlinmudv2.mob.Mob
@@ -10,9 +12,9 @@ import kotlinmudv2.skill.Skill
 import kotlinmudv2.skill.SkillName
 import kotlin.random.Random
 
-fun createBackStabSkill(): Skill {
+fun createHamstringSkill(): Skill {
     return Skill(
-        SkillName.BackStab,
+        SkillName.Hamstring,
         listOf(Role.Thief),
         1,
         listOf(
@@ -20,9 +22,9 @@ fun createBackStabSkill(): Skill {
             Pair(Cost.Delay, 2),
         ),
         listOf(
-            "your backstab misses %s harmlessly",
-            "%s's backstab misses %s harmlessly",
-            "%s's backstab misses you harmlessly",
+            "your hamstring misses %s harmlessly",
+            "%s's hamstring misses %s harmlessly",
+            "%s's hamstring misses you harmlessly",
         ),
         true,
         { request ->
@@ -31,7 +33,7 @@ fun createBackStabSkill(): Skill {
         }
     ) { request, anyTarget, level ->
         val target = anyTarget as Mob
-        val amount = Random.nextInt(level - 5, level + 5).coerceAtLeast(1)
+        val amount = Random.nextInt(level - 5, level).coerceAtLeast(1)
         request.doHit(
             Hit(
                 request.mob,
@@ -40,11 +42,17 @@ fun createBackStabSkill(): Skill {
                 request.mob.damageType(),
             )
         )
+        request.mob.affects.add(
+            Affect(
+                AffectType.Hamstrung,
+                1,
+            )
+        )
         request.respondToRoomWithTarget(
-            "you stab $target in the back, making them gasp in pain!",
-            "${request.mob} stabs $target in the back, making them gasp in pain!",
+            "you hamstring $target, making them limp.",
+            "${request.mob} hamstrings $target, making them limp.",
             target,
-            "${request.mob} stabs you in the back!"
+            "${request.mob} hamstrings you, making you limp.",
         )
     }
 }

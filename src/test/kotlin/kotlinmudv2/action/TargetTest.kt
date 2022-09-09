@@ -5,8 +5,8 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
-import kotlinmudv2.skill.skills.createBashSkill
-import kotlinmudv2.skill.skills.createHealSkill
+import kotlinmudv2.skill.skills.cleric.createHealSkill
+import kotlinmudv2.skill.skills.warrior.createBashSkill
 import kotlinmudv2.test.createTestService
 import kotlin.test.Test
 

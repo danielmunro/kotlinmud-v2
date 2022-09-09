@@ -70,10 +70,14 @@ import kotlinmudv2.observer.ReadClientsObserver
 import kotlinmudv2.observer.RegenObserver
 import kotlinmudv2.observer.RespawnObserver
 import kotlinmudv2.room.RoomService
-import kotlinmudv2.skill.skills.createBackStabSkill
-import kotlinmudv2.skill.skills.createBashSkill
-import kotlinmudv2.skill.skills.createHealSkill
-import kotlinmudv2.skill.skills.createMagicMissileSkill
+import kotlinmudv2.skill.skills.cleric.createHealSkill
+import kotlinmudv2.skill.skills.cleric.createLayOnHandsSkill
+import kotlinmudv2.skill.skills.mage.createFireballSkill
+import kotlinmudv2.skill.skills.mage.createMagicMissileSkill
+import kotlinmudv2.skill.skills.thief.createBackStabSkill
+import kotlinmudv2.skill.skills.thief.createHamstringSkill
+import kotlinmudv2.skill.skills.warrior.createBashSkill
+import kotlinmudv2.skill.skills.warrior.createDirtKickSkill
 import kotlinmudv2.socket.AuthService
 import kotlinmudv2.socket.ClientService
 import kotlinmudv2.socket.SocketService
@@ -173,10 +177,21 @@ fun createContainer(port: Int): DI {
         // skills
         bindSingleton {
             listOf(
+                // warrior
                 createBashSkill(),
+                createDirtKickSkill(),
+
+                // thief
                 createBackStabSkill(),
+                createHamstringSkill(),
+
+                // cleric
                 createHealSkill(),
+                createLayOnHandsSkill(),
+
+                // mage
                 createMagicMissileSkill(),
+                createFireballSkill(),
             )
         }
 
