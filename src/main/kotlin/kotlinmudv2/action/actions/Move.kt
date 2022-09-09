@@ -6,6 +6,8 @@ import kotlinmudv2.action.Response
 import kotlinmudv2.action.Syntax
 import kotlinmudv2.action.actions.informational.createLookAction
 import kotlinmudv2.action.errorResponse
+import kotlinmudv2.game.AffectType
+import kotlinmudv2.game.Attribute
 import kotlinmudv2.mob.Disposition
 import kotlinmudv2.room.Direction
 import kotlinmudv2.room.ExitStatus
@@ -22,7 +24,11 @@ private fun createMoveAction(command: Command, direction: Direction): Action {
                 "you are fighting and can't do that!",
             )
         }
-        if (request.mob.moves < 1) {
+        val amount = if (request.mob.affects.find { it.type == AffectType.Hamstrung } != null)
+            (request.mob.attributes[Attribute.Moves] ?: 0) / 20
+        else
+            1
+        if (request.mob.moves < amount) {
             return@Action errorResponse(
                 request.mob,
                 "you are too tired to move.",
@@ -35,7 +41,7 @@ private fun createMoveAction(command: Command, direction: Direction): Action {
                 "the ${exit.keyword} is ${exit.status?.name?.lowercase()}",
             )
         }
-        request.mob.moves -= 1
+        request.mob.moves -= amount
         request.moveMob(direction)?.let {
             createLookAction().execute(request)
         } ?: errorResponse(request.mob, "Alas, that direction does not exist.")

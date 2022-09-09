@@ -2,6 +2,9 @@ package kotlinmudv2.action.actions
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import kotlinmudv2.game.Affect
+import kotlinmudv2.game.AffectType
+import kotlinmudv2.game.Attribute
 import kotlinmudv2.room.Direction
 import kotlinmudv2.room.Exit
 import kotlinmudv2.room.ExitStatus
@@ -11,6 +14,35 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import kotlin.test.Test
 
 class MoveTest {
+    @Test
+    fun testHamstringAffectsMovementCost() {
+        // setup
+        val test = createTestService()
+        val destinationId: Int
+        test.createRoom(
+            transaction {
+                RoomEntity.new {
+                    name = "test destination"
+                    description = "a description"
+                    exits = mutableListOf()
+                }
+            }.also {
+                destinationId = it.id.value
+            },
+            test.startRoom.id,
+            Exit(Direction.North, destinationId),
+        )
+
+        // given
+        test.getPlayerMob().affects.add(Affect(AffectType.Hamstrung, 1))
+
+        // when
+        test.handleRequest("north")
+
+        // then
+        assertThat(test.getPlayerMob().moves).isEqualTo((test.getPlayerMob().attributes[Attribute.Moves] ?: 0) - 5)
+    }
+
     @Test
     fun testCannotMoveIfOutOfMoves() {
         // setup
