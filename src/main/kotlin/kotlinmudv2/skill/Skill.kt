@@ -5,7 +5,7 @@ import kotlinmudv2.action.Response
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.Role
 
-class Skill(
+open class Skill(
     val name: SkillName,
     val roles: List<Role>,
     val level: Int,

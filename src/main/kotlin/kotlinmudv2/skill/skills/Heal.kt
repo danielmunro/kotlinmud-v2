@@ -7,21 +7,17 @@ import kotlinmudv2.mob.Role
 import kotlinmudv2.skill.Cost
 import kotlinmudv2.skill.Skill
 import kotlinmudv2.skill.SkillName
+import kotlinmudv2.skill.Spell
 import kotlinmudv2.socket.RoomMessage
 
 fun createHealSkill(): Skill {
-    return Skill(
+    return Spell(
         SkillName.Heal,
         listOf(Role.Cleric),
         1,
         listOf(
             Pair(Cost.Mana, 100),
             Pair(Cost.Delay, 1),
-        ),
-        listOf(
-            "you lose your concentration",
-            "%s loses their concentration",
-            "%s loses their concentration",
         ),
         false,
         { request ->
