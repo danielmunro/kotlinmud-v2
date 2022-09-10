@@ -2,6 +2,7 @@ package kotlinmudv2.mob
 
 import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Affect
+import kotlinmudv2.game.AffectType
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.game.DamageType
 import kotlinmudv2.item.Item
@@ -29,6 +30,10 @@ open class Mob(
     val skills: MutableMap<SkillName, Int>,
 ) {
     @Transient var target: Mob? = null
+
+    fun affectedBy(affectType: AffectType): Boolean {
+        return affects.find { it.type == affectType } != null
+    }
 
     fun rollForAttribute(attribute: Attribute): Boolean {
         return d20() > 6 - (calc(attribute) / 5)

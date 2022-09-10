@@ -2,7 +2,7 @@ package kotlinmudv2.action.skills.thief
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import assertk.assertions.isNotNull
+import assertk.assertions.isTrue
 import kotlinmudv2.game.AffectType
 import kotlinmudv2.skill.SkillName
 import kotlinmudv2.test.createTestService
@@ -29,6 +29,6 @@ class HamstringTest {
         assertThat(response?.toActionCreator).isEqualTo("you hamstring $target, making them limp.")
         assertThat(response?.toTarget).isEqualTo("$mob hamstrings you, making you limp.")
         assertThat(response?.toRoom).isEqualTo("$mob hamstrings $target, making them limp.")
-        assertThat(target.affects.find { it.type == AffectType.Hamstrung }).isNotNull()
+        assertThat(target.affectedBy(AffectType.Hamstrung)).isTrue()
     }
 }
