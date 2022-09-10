@@ -72,6 +72,7 @@ import kotlinmudv2.observer.RespawnObserver
 import kotlinmudv2.room.RoomService
 import kotlinmudv2.skill.skills.cleric.createHealSkill
 import kotlinmudv2.skill.skills.cleric.createLayOnHandsSkill
+import kotlinmudv2.skill.skills.cleric.createSanctuarySkill
 import kotlinmudv2.skill.skills.mage.createFireballSkill
 import kotlinmudv2.skill.skills.mage.createMagicMissileSkill
 import kotlinmudv2.skill.skills.thief.createBackStabSkill
@@ -188,6 +189,7 @@ fun createContainer(port: Int): DI {
                 // cleric
                 createHealSkill(),
                 createLayOnHandsSkill(),
+                createSanctuarySkill(),
 
                 // mage
                 createMagicMissileSkill(),

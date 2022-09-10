@@ -12,6 +12,7 @@ enum class SkillName(val value: String) {
     // cleric
     Heal("heal"),
     LayOnHands("lay on hands"),
+    Sanctuary("sanctuary"),
 
     // mage
     MagicMissile("magic missile"),

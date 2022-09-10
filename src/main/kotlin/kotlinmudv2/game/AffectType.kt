@@ -7,4 +7,5 @@ enum class AffectType {
     Stun,
     Hamstrung,
     Blind,
+    Sanctuary,
 }
