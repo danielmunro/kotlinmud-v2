@@ -25,7 +25,7 @@ private fun createMoveAction(command: Command, direction: Direction): Action {
             )
         }
         val amount = if (request.mob.affects.find { it.type == AffectType.Hamstrung } != null)
-            (request.mob.attributes[Attribute.Moves] ?: 0) / 20
+            request.mob.calc(Attribute.Moves) / 20
         else
             1
         if (request.mob.moves < amount) {

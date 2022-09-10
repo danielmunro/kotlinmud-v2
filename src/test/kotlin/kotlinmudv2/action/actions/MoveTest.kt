@@ -40,7 +40,7 @@ class MoveTest {
         test.handleRequest("north")
 
         // then
-        assertThat(test.getPlayerMob().moves).isEqualTo((test.getPlayerMob().attributes[Attribute.Moves] ?: 0) - 5)
+        assertThat(test.getPlayerMob().moves).isEqualTo(test.getPlayerMob().calc(Attribute.Moves) - 5)
     }
 
     @Test
