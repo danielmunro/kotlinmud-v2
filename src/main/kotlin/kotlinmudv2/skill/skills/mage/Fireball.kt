@@ -1,6 +1,5 @@
 package kotlinmudv2.skill.skills.mage
 
-import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.game.DamageType
 import kotlinmudv2.mob.Hit
@@ -22,10 +21,7 @@ fun createFireballSkill(): Skill {
             Pair(Cost.Delay, 1),
         ),
         true,
-        { request ->
-            val amount = (request.mob.attributes[Attribute.Int] ?: 0) - (request.mob.target?.attributes?.get(Attribute.Int) ?: 0)
-            d20() > 5 - amount
-        },
+        { request -> request.mob.rollForAttribute(Attribute.Int) },
         { request, anyTarget, level ->
             val target = anyTarget as Mob
             val amount = level * 9

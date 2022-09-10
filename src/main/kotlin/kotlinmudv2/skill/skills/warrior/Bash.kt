@@ -1,6 +1,5 @@
 package kotlinmudv2.skill.skills.warrior
 
-import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Affect
 import kotlinmudv2.game.AffectType
 import kotlinmudv2.game.Attribute
@@ -27,29 +26,12 @@ fun createBashSkill(): Skill {
             "%s tries to bash you and falls flat on their face!",
         ),
         true,
-        { request ->
-            val sizeDiff = (request.mob.target?.race?.size?.value ?: 0) - request.mob.race.size.value
-            d20() <= 5 + sizeDiff
-        },
+        { request -> request.mob.rollForAttribute(Attribute.Str) },
     ) { request, anyTarget, level ->
         val target = anyTarget as Mob
         val initial = (level / 3).coerceAtLeast(1)
-        val affect = target.affects.find { it.type == AffectType.Stun }
-        val impact = (level / 5).coerceAtLeast(1)
-        if (affect == null) {
-            target.affects.add(
-                Affect(
-                    AffectType.Stun,
-                    initial,
-                    mutableMapOf(
-                        Pair(Attribute.Int, -impact),
-                    ),
-                )
-            )
-        } else {
-            affect.timeout = (affect.timeout + initial).coerceAtMost(4)
-        }
         val amount = Random.nextInt(initial - 1, initial + 1).coerceAtLeast(1)
+        target.affects.add(Affect(AffectType.Stun, 1))
         request.doHit(
             Hit(
                 request.mob,

@@ -1,6 +1,5 @@
 package kotlinmudv2.skill.skills.cleric
 
-import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.mob.Mob
 import kotlinmudv2.mob.Role
@@ -20,9 +19,7 @@ fun createHealSkill(): Skill {
             Pair(Cost.Delay, 1),
         ),
         false,
-        { request ->
-            d20() > 5 - ((request.mob.attributes[Attribute.Wis] ?: 0) / 5)
-        },
+        { request -> request.mob.rollForAttribute(Attribute.Wis) },
         { request, anyTarget, level ->
             val target = anyTarget as Mob
             val amount = level * 15

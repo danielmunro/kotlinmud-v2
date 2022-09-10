@@ -1,6 +1,5 @@
 package kotlinmudv2.skill.skills.thief
 
-import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Affect
 import kotlinmudv2.game.AffectType
 import kotlinmudv2.game.Attribute
@@ -27,10 +26,7 @@ fun createHamstringSkill(): Skill {
             "%s's hamstring misses you harmlessly",
         ),
         true,
-        { request ->
-            val dexDiff = (request.mob.target?.attributes?.get(Attribute.Dex) ?: 0) - (request.mob.attributes[Attribute.Dex] ?: 0)
-            d20() > 5 + dexDiff
-        }
+        { request -> request.mob.rollForAttribute(Attribute.Dex) }
     ) { request, anyTarget, level ->
         val target = anyTarget as Mob
         val amount = Random.nextInt(level - 5, level).coerceAtLeast(1)

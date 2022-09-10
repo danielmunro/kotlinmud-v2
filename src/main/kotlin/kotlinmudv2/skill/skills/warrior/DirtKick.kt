@@ -1,6 +1,5 @@
 package kotlinmudv2.skill.skills.warrior
 
-import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Affect
 import kotlinmudv2.game.AffectType
 import kotlinmudv2.game.Attribute
@@ -25,11 +24,7 @@ fun createDirtKickSkill(): Skill {
             "%s tries to bash you and falls flat on their face!",
         ),
         true,
-        { request ->
-            d20() > 12 -
-                ((request.mob.attributes[Attribute.Dex] ?: 0) / 5) -
-                ((request.mob.skills[SkillName.DirtKick] ?: 0) / 5)
-        },
+        { request -> request.mob.rollForAttribute(Attribute.Str) },
     ) { request, anyTarget, level ->
         val target = anyTarget as Mob
         target.affects.add(

@@ -1,5 +1,6 @@
 package kotlinmudv2.mob
 
+import kotlinmudv2.dice.d20
 import kotlinmudv2.game.Affect
 import kotlinmudv2.game.Attribute
 import kotlinmudv2.game.DamageType
@@ -28,6 +29,10 @@ open class Mob(
     val skills: MutableMap<SkillName, Int>,
 ) {
     @Transient var target: Mob? = null
+
+    fun rollForAttribute(attribute: Attribute): Boolean {
+        return d20() > 6 - ((attributes[attribute] ?: 0) / 5)
+    }
 
     fun calc(attribute: Attribute): Int {
         return (attributes[attribute] ?: 0) +
