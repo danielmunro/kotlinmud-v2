@@ -1,4 +1,4 @@
-package kotlinmudv2.action.skills
+package kotlinmudv2.action.skills.cleric
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo

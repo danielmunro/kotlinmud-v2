@@ -42,7 +42,7 @@ fun createHamstringSkill(): Skill {
                 request.mob.damageType(),
             )
         )
-        request.mob.affects.add(
+        target.affects.add(
             Affect(
                 AffectType.Hamstrung,
                 1,
