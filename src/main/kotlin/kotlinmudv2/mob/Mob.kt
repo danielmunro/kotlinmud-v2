@@ -31,7 +31,7 @@ open class Mob(
     @Transient var target: Mob? = null
 
     fun rollForAttribute(attribute: Attribute): Boolean {
-        return d20() > 6 - ((attributes[attribute] ?: 0) / 5)
+        return d20() > 6 - (calc(attribute) / 5)
     }
 
     fun calc(attribute: Attribute): Int {
