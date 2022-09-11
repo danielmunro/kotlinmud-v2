@@ -2,10 +2,11 @@ package kotlinmudv2.game
 
 enum class AffectType {
     Bless,
-    Weaken,
+    Enfeeble,
     GiantStrength,
     Stun,
     Hamstrung,
     Blind,
     Sanctuary,
+    Sneak,
 }

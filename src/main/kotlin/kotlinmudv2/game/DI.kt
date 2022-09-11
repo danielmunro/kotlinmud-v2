@@ -73,12 +73,15 @@ import kotlinmudv2.room.RoomService
 import kotlinmudv2.skill.skills.cleric.createHealSkill
 import kotlinmudv2.skill.skills.cleric.createLayOnHandsSkill
 import kotlinmudv2.skill.skills.cleric.createSanctuarySkill
+import kotlinmudv2.skill.skills.mage.createEnfeebleSkill
 import kotlinmudv2.skill.skills.mage.createFireballSkill
 import kotlinmudv2.skill.skills.mage.createMagicMissileSkill
 import kotlinmudv2.skill.skills.thief.createBackStabSkill
 import kotlinmudv2.skill.skills.thief.createHamstringSkill
+import kotlinmudv2.skill.skills.thief.createSneakSkill
 import kotlinmudv2.skill.skills.warrior.createBashSkill
 import kotlinmudv2.skill.skills.warrior.createDirtKickSkill
+import kotlinmudv2.skill.skills.warrior.createDisarmSkill
 import kotlinmudv2.socket.AuthService
 import kotlinmudv2.socket.ClientService
 import kotlinmudv2.socket.SocketService
@@ -181,10 +184,12 @@ fun createContainer(port: Int): DI {
                 // warrior
                 createBashSkill(),
                 createDirtKickSkill(),
+                createDisarmSkill(),
 
                 // thief
                 createBackStabSkill(),
                 createHamstringSkill(),
+                createSneakSkill(),
 
                 // cleric
                 createHealSkill(),
@@ -194,6 +199,7 @@ fun createContainer(port: Int): DI {
                 // mage
                 createMagicMissileSkill(),
                 createFireballSkill(),
+                createEnfeebleSkill(),
             )
         }
 

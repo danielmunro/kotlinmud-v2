@@ -4,10 +4,12 @@ enum class SkillName(val value: String) {
     // warrior
     Bash("bash"),
     DirtKick("dirt kick"),
+    Disarm("disarm"),
 
     // thief
     BackStab("backstab"),
     Hamstring("hamstring"),
+    Sneak("sneak"),
 
     // cleric
     Heal("heal"),
@@ -17,4 +19,5 @@ enum class SkillName(val value: String) {
     // mage
     MagicMissile("magic missile"),
     Fireball("fireball"),
+    Enfeeble("enfeeble"),
 }
