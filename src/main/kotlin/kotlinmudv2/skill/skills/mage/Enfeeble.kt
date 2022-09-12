@@ -25,7 +25,7 @@ fun createEnfeebleSkill(): Skill {
     ) { request, anyTarget, level ->
         val target = anyTarget as Mob
         val amount = (level / 5).coerceAtLeast(1).coerceAtMost(3)
-        target.affects.add(
+        target.noStackAddAffect(
             Affect(
                 AffectType.Enfeeble,
                 1,

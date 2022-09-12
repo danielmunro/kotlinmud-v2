@@ -27,7 +27,7 @@ fun createDirtKickSkill(): Skill {
         { request -> request.mob.rollForAttribute(Attribute.Str) },
     ) { request, anyTarget, level ->
         val target = anyTarget as Mob
-        target.affects.add(
+        target.noStackAddAffect(
             Affect(
                 AffectType.Blind,
                 (level / 4).coerceAtLeast(1)

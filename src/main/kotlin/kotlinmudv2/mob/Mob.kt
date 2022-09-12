@@ -31,6 +31,16 @@ open class Mob(
 ) {
     @Transient var target: Mob? = null
 
+    fun noStackAddAffect(affect: Affect) {
+        affects.find { it.type == affect.type }?.let {
+            if (affect.timeout > it.timeout) {
+                it.timeout = affect.timeout
+            }
+        } ?: let {
+            affects.add(affect)
+        }
+    }
+
     fun affectedBy(affectType: AffectType): Boolean {
         return affects.find { it.type == affectType } != null
     }

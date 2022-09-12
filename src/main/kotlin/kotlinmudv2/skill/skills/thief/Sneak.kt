@@ -28,7 +28,7 @@ fun createSneakSkill(): Skill {
     ) { request, anyTarget, level ->
         val target = anyTarget as Mob
         val amount = (level * 1.25).toInt().coerceAtLeast(5).coerceAtMost(25)
-        target.affects.add(
+        target.noStackAddAffect(
             Affect(
                 AffectType.Sneak,
                 amount,

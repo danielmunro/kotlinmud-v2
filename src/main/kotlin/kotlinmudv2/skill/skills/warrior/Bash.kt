@@ -31,7 +31,15 @@ fun createBashSkill(): Skill {
         val target = anyTarget as Mob
         val initial = (level / 3).coerceAtLeast(1)
         val amount = Random.nextInt(initial - 1, initial + 1).coerceAtLeast(1)
-        target.affects.add(Affect(AffectType.Stun, 1))
+        target.noStackAddAffect(
+            Affect(
+                AffectType.Stun,
+                1,
+                mapOf(
+                    Pair(Attribute.Int, -1),
+                ),
+            ),
+        )
         request.doHit(
             Hit(
                 request.mob,

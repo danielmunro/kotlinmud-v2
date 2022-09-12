@@ -25,7 +25,7 @@ fun createSanctuarySkill(): Skill {
     ) { request, anyTarget, level ->
         val target = anyTarget as Mob
         val timeout = (level / 3).coerceAtLeast(1).coerceAtMost(8)
-        target.affects.add(Affect(AffectType.Sanctuary, timeout))
+        target.noStackAddAffect(Affect(AffectType.Sanctuary, timeout))
         request.sendToRoom(
             RoomMessage(
                 request.mob,
