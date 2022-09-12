@@ -85,6 +85,6 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * more skills
 * more item, mob, room properties migrated from mhs source
 * skills:
-  * no list for jobs
+  * no list for roles - done
   * affect for not stacking
   * equipped weapon syntax
