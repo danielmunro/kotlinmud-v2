@@ -84,3 +84,7 @@ A rewrite of [Kotlinmud](https://github.com/danielmunro/kotlinmud).
 * damage and healing as events
 * more skills
 * more item, mob, room properties migrated from mhs source
+* skills:
+  * no list for jobs
+  * affect for not stacking
+  * equipped weapon syntax

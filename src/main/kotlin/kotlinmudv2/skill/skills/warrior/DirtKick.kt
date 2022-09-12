@@ -12,7 +12,7 @@ import kotlinmudv2.skill.SkillName
 fun createDirtKickSkill(): Skill {
     return Skill(
         SkillName.DirtKick,
-        listOf(Role.Warrior),
+        Role.Warrior,
         1,
         listOf(
             Pair(Cost.Moves, 20),

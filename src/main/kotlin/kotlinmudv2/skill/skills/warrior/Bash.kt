@@ -14,7 +14,7 @@ import kotlin.random.Random
 fun createBashSkill(): Skill {
     return Skill(
         SkillName.Bash,
-        listOf(Role.Warrior),
+        Role.Warrior,
         1,
         listOf(
             Pair(Cost.Moves, 20),

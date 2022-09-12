@@ -12,7 +12,7 @@ import kotlinmudv2.skill.SkillName
 fun createSneakSkill(): Skill {
     return Skill(
         SkillName.Sneak,
-        listOf(Role.Thief),
+        Role.Thief,
         1,
         listOf(
             Pair(Cost.Moves, 20),

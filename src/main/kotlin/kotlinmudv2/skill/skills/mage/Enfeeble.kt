@@ -14,7 +14,7 @@ import kotlinmudv2.socket.RoomMessage
 fun createEnfeebleSkill(): Skill {
     return Spell(
         SkillName.Fireball,
-        listOf(Role.Mage),
+        Role.Mage,
         1,
         listOf(
             Pair(Cost.Mana, 100),
@@ -22,31 +22,30 @@ fun createEnfeebleSkill(): Skill {
         ),
         true,
         { request -> request.mob.rollForAttribute(Attribute.Int) },
-        { request, anyTarget, level ->
-            val target = anyTarget as Mob
-            val amount = (level / 5).coerceAtLeast(1).coerceAtMost(3)
-            target.affects.add(
-                Affect(
-                    AffectType.Enfeeble,
-                    1,
-                    mapOf(Pair(Attribute.Str, -amount)),
-                )
+    ) { request, anyTarget, level ->
+        val target = anyTarget as Mob
+        val amount = (level / 5).coerceAtLeast(1).coerceAtMost(3)
+        target.affects.add(
+            Affect(
+                AffectType.Enfeeble,
+                1,
+                mapOf(Pair(Attribute.Str, -amount)),
             )
-            request.sendToRoom(
-                RoomMessage(
-                    request.mob,
-                    "you cast 'enfeeble'",
-                    "${request.mob} casts 'enfeeble'",
-                    target,
-                    "${request.mob} casts 'enfeeble'",
-                )
-            )
-            request.respondToRoomWithTarget(
-                "$target is suddenly enfeebled with great weakness",
-                "$target is suddenly enfeebled with great weakness",
+        )
+        request.sendToRoom(
+            RoomMessage(
+                request.mob,
+                "you cast 'enfeeble'",
+                "${request.mob} casts 'enfeeble'",
                 target,
-                "you are suddenly enfeebled with great weakness",
+                "${request.mob} casts 'enfeeble'",
             )
-        },
-    )
+        )
+        request.respondToRoomWithTarget(
+            "$target is suddenly enfeebled with great weakness",
+            "$target is suddenly enfeebled with great weakness",
+            target,
+            "you are suddenly enfeebled with great weakness",
+        )
+    }
 }

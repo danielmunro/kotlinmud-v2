@@ -6,7 +6,7 @@ import kotlinmudv2.mob.Role
 
 class Spell(
     name: SkillName,
-    roles: List<Role>,
+    role: Role,
     level: Int,
     costs: List<Pair<Cost, Int>>,
     isOffensive: Boolean,
@@ -14,7 +14,7 @@ class Spell(
     execute: (Request, Any, Int) -> Response,
 ) : Skill(
     name,
-    roles,
+    role,
     level,
     costs,
     listOf(

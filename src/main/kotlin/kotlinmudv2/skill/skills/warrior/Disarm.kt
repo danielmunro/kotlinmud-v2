@@ -11,7 +11,7 @@ import kotlinmudv2.skill.SkillName
 fun createDisarmSkill(): Skill {
     return Skill(
         SkillName.Disarm,
-        listOf(Role.Warrior),
+        Role.Warrior,
         1,
         listOf(
             Pair(Cost.Moves, 20),

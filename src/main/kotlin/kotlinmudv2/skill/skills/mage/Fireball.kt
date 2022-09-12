@@ -14,7 +14,7 @@ import kotlinmudv2.socket.RoomMessage
 fun createFireballSkill(): Skill {
     return Spell(
         SkillName.Fireball,
-        listOf(Role.Mage),
+        Role.Mage,
         1,
         listOf(
             Pair(Cost.Mana, 50),
@@ -22,32 +22,31 @@ fun createFireballSkill(): Skill {
         ),
         true,
         { request -> request.mob.rollForAttribute(Attribute.Int) },
-        { request, anyTarget, level ->
-            val target = anyTarget as Mob
-            val amount = level * 9
-            request.doHit(
-                Hit(
-                    request.mob,
-                    target,
-                    amount,
-                    DamageType.Fire,
-                )
-            )
-            request.sendToRoom(
-                RoomMessage(
-                    request.mob,
-                    "you cast 'fireball'",
-                    "${request.mob} casts 'fireball'",
-                    target,
-                    "${request.mob} casts 'fireball'",
-                )
-            )
-            request.respondToRoomWithTarget(
-                "a ball of fire shoots from your hands, giving $target a glancing blow",
-                "a ball of fire shoots from ${request.mob}'s hands, giving $target a glancing blow",
+    ) { request, anyTarget, level ->
+        val target = anyTarget as Mob
+        val amount = level * 9
+        request.doHit(
+            Hit(
+                request.mob,
                 target,
-                "a ball of fire shoots from ${request.mob}'s hands, giving you a glancing blow",
+                amount,
+                DamageType.Fire,
             )
-        },
-    )
+        )
+        request.sendToRoom(
+            RoomMessage(
+                request.mob,
+                "you cast 'fireball'",
+                "${request.mob} casts 'fireball'",
+                target,
+                "${request.mob} casts 'fireball'",
+            )
+        )
+        request.respondToRoomWithTarget(
+            "a ball of fire shoots from your hands, giving $target a glancing blow",
+            "a ball of fire shoots from ${request.mob}'s hands, giving $target a glancing blow",
+            target,
+            "a ball of fire shoots from ${request.mob}'s hands, giving you a glancing blow",
+        )
+    }
 }

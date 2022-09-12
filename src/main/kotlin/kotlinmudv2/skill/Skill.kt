@@ -7,7 +7,7 @@ import kotlinmudv2.mob.Role
 
 open class Skill(
     val name: SkillName,
-    val roles: List<Role>,
+    val role: Role,
     val level: Int,
     val costs: List<Pair<Cost, Int>>,
     val failureMessages: List<String>,

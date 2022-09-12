@@ -12,7 +12,7 @@ import kotlinmudv2.socket.RoomMessage
 fun createHealSkill(): Skill {
     return Spell(
         SkillName.Heal,
-        listOf(Role.Cleric),
+        Role.Cleric,
         1,
         listOf(
             Pair(Cost.Mana, 100),
@@ -20,28 +20,27 @@ fun createHealSkill(): Skill {
         ),
         false,
         { request -> request.mob.rollForAttribute(Attribute.Wis) },
-        { request, anyTarget, level ->
-            val target = anyTarget as Mob
-            val amount = level * 15
-            target.hp += amount
-            target.calc(Attribute.Hp).also {
-                if (it > target.hp) {
-                    target.hp = it
-                }
+    ) { request, anyTarget, level ->
+        val target = anyTarget as Mob
+        val amount = level * 15
+        target.hp += amount
+        target.calc(Attribute.Hp).also {
+            if (it > target.hp) {
+                target.hp = it
             }
-            request.sendToRoom(
-                RoomMessage(
-                    request.mob,
-                    "you cast 'heal'",
-                    "${request.mob} casts 'heal'",
-                )
+        }
+        request.sendToRoom(
+            RoomMessage(
+                request.mob,
+                "you cast 'heal'",
+                "${request.mob} casts 'heal'",
             )
-            request.respondToRoomWithTarget(
-                "$target feels better.",
-                "$target feels better.",
-                target,
-                "you feel better!",
-            )
-        },
-    )
+        )
+        request.respondToRoomWithTarget(
+            "$target feels better.",
+            "$target feels better.",
+            target,
+            "you feel better!",
+        )
+    }
 }

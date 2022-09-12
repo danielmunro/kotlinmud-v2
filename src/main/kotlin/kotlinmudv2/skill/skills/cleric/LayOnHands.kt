@@ -12,7 +12,7 @@ import kotlinmudv2.socket.RoomMessage
 fun createLayOnHandsSkill(): Skill {
     return Spell(
         SkillName.LayOnHands,
-        listOf(Role.Cleric),
+        Role.Cleric,
         1,
         listOf(
             Pair(Cost.Mana, 100),
@@ -20,29 +20,28 @@ fun createLayOnHandsSkill(): Skill {
         ),
         false,
         { request -> request.mob.rollForAttribute(Attribute.Wis) },
-        { request, anyTarget, level ->
-            val target = anyTarget as Mob
-            val amount = Math.max(level * 30, request.mob.hp - 20)
-            request.mob.hp -= amount
-            target.hp += amount
-            target.calc(Attribute.Hp).also {
-                if (it > target.hp) {
-                    target.hp = it
-                }
+    ) { request, anyTarget, level ->
+        val target = anyTarget as Mob
+        val amount = Math.max(level * 30, request.mob.hp - 20)
+        request.mob.hp -= amount
+        target.hp += amount
+        target.calc(Attribute.Hp).also {
+            if (it > target.hp) {
+                target.hp = it
             }
-            request.sendToRoom(
-                RoomMessage(
-                    request.mob,
-                    "you cast 'lay on hands'",
-                    "${request.mob} casts 'lay on hands'",
-                )
+        }
+        request.sendToRoom(
+            RoomMessage(
+                request.mob,
+                "you cast 'lay on hands'",
+                "${request.mob} casts 'lay on hands'",
             )
-            request.respondToRoomWithTarget(
-                "you lay hands on $target, boosting their health.",
-                "${request.mob} lays hands on $target, boosting their health.",
-                target,
-                "${request.mob} lays hands on you, boosting your health.",
-            )
-        },
-    )
+        )
+        request.respondToRoomWithTarget(
+            "you lay hands on $target, boosting their health.",
+            "${request.mob} lays hands on $target, boosting their health.",
+            target,
+            "${request.mob} lays hands on you, boosting your health.",
+        )
+    }
 }

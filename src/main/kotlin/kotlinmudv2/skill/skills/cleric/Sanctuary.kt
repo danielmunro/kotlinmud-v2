@@ -14,7 +14,7 @@ import kotlinmudv2.socket.RoomMessage
 fun createSanctuarySkill(): Skill {
     return Spell(
         SkillName.Sanctuary,
-        listOf(Role.Cleric),
+        Role.Cleric,
         10,
         listOf(
             Pair(Cost.Mana, 120),
@@ -22,23 +22,22 @@ fun createSanctuarySkill(): Skill {
         ),
         false,
         { request -> request.mob.rollForAttribute(Attribute.Wis) },
-        { request, anyTarget, level ->
-            val target = anyTarget as Mob
-            val timeout = (level / 3).coerceAtLeast(1).coerceAtMost(8)
-            target.affects.add(Affect(AffectType.Sanctuary, timeout))
-            request.sendToRoom(
-                RoomMessage(
-                    request.mob,
-                    "you cast 'sanctuary'",
-                    "${request.mob} casts 'sanctuary'",
-                )
+    ) { request, anyTarget, level ->
+        val target = anyTarget as Mob
+        val timeout = (level / 3).coerceAtLeast(1).coerceAtMost(8)
+        target.affects.add(Affect(AffectType.Sanctuary, timeout))
+        request.sendToRoom(
+            RoomMessage(
+                request.mob,
+                "you cast 'sanctuary'",
+                "${request.mob} casts 'sanctuary'",
             )
-            request.respondToRoomWithTarget(
-                "$target is surrounded by a bright aura.",
-                "$target is surrounded by a bright aura.",
-                target,
-                "you are surrounded by a bright aura.",
-            )
-        },
-    )
+        )
+        request.respondToRoomWithTarget(
+            "$target is surrounded by a bright aura.",
+            "$target is surrounded by a bright aura.",
+            target,
+            "you are surrounded by a bright aura.",
+        )
+    }
 }

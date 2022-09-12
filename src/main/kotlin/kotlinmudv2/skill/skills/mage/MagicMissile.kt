@@ -14,7 +14,7 @@ import kotlinmudv2.socket.RoomMessage
 fun createMagicMissileSkill(): Skill {
     return Spell(
         SkillName.MagicMissile,
-        listOf(Role.Mage),
+        Role.Mage,
         1,
         listOf(
             Pair(Cost.Mana, 50),
@@ -22,32 +22,31 @@ fun createMagicMissileSkill(): Skill {
         ),
         true,
         { request -> request.mob.rollForAttribute(Attribute.Int) },
-        { request, anyTarget, level ->
-            val target = anyTarget as Mob
-            val amount = level * 5
-            request.doHit(
-                Hit(
-                    request.mob,
-                    target,
-                    amount,
-                    DamageType.Energy,
-                )
-            )
-            request.sendToRoom(
-                RoomMessage(
-                    request.mob,
-                    "you cast 'magic missile'",
-                    "${request.mob} casts 'magic missile'",
-                    target,
-                    "${request.mob} casts 'magic missile'",
-                )
-            )
-            request.respondToRoomWithTarget(
-                "a bolt of magic leaps from your hand, leaving $target a glancing blow",
-                "a bolt of magic leaps from ${request.mob}'s hand, leaving $target a glancing blow",
+    ) { request, anyTarget, level ->
+        val target = anyTarget as Mob
+        val amount = level * 5
+        request.doHit(
+            Hit(
+                request.mob,
                 target,
-                "a bolt of magic leaps from ${request.mob}'s hand, leaving you a glancing blow",
+                amount,
+                DamageType.Energy,
             )
-        },
-    )
+        )
+        request.sendToRoom(
+            RoomMessage(
+                request.mob,
+                "you cast 'magic missile'",
+                "${request.mob} casts 'magic missile'",
+                target,
+                "${request.mob} casts 'magic missile'",
+            )
+        )
+        request.respondToRoomWithTarget(
+            "a bolt of magic leaps from your hand, leaving $target a glancing blow",
+            "a bolt of magic leaps from ${request.mob}'s hand, leaving $target a glancing blow",
+            target,
+            "a bolt of magic leaps from ${request.mob}'s hand, leaving you a glancing blow",
+        )
+    }
 }

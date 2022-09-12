@@ -14,7 +14,7 @@ import kotlin.random.Random
 fun createHamstringSkill(): Skill {
     return Skill(
         SkillName.Hamstring,
-        listOf(Role.Thief),
+        Role.Thief,
         1,
         listOf(
             Pair(Cost.Moves, 100),

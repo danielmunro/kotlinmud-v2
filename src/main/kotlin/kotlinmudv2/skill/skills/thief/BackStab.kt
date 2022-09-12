@@ -12,7 +12,7 @@ import kotlin.random.Random
 fun createBackStabSkill(): Skill {
     return Skill(
         SkillName.BackStab,
-        listOf(Role.Thief),
+        Role.Thief,
         1,
         listOf(
             Pair(Cost.Moves, 100),
